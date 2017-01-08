@@ -17,16 +17,31 @@ my personal website
 
 # 开发环境和工具
 1.SpringMvc
+
 2.Mybatis及其生成工具
+
 3.redis
+
 4.elasticsearch
+
 5.zookeeper
+
 6.activemq
+
 7.bootstrap,canvas
+
 8.face++
+
 9.httpClient
+
 10.kinderEdictor
+
 11.mysql 5.5+
+
 12.spring-data-es
+
 13.i18n
-14.myeclipse,eclipse,egit,svn1.8,os x 10.12,windows 10,xshell.xftp
+
+14.websocket
+
+15.myeclipse,eclipse,egit,svn1.8,os x 10.12,windows 10,xshell.xftp
