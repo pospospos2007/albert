@@ -10,6 +10,23 @@ my personal website
 
 4.部署启动elasticsearch 2.3.3  windows或者linux
 
-5.运行albert.sql文件  ，在spring-common-xml 修改sql配置
+5.运行albert.sql文件 (mysql 5.5+) ，在spring-common-xml 修改sql配置
 
 6.jdk1.7即可，注意lib下的包要引入，项目部署到tomcat8容器启动
+
+
+# 开发环境和工具
+1.SpringMvc
+2.Mybatis及其生成工具
+3.redis
+4.elasticsearch
+5.zookeeper
+6.activemq
+7.bootstrap,canvas
+8.face++
+9.httpClient
+10.kinderEdictor
+11.mysql 5.5+
+12.spring-data-es
+13.i18n
+14.myeclipse,eclipse,egit,svn1.8,os x 10.12,windows 10,xshell.xftp
