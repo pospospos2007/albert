@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="format-detection" content="telphone=no,email=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-title" content="标题">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="MobileOptimized" content="240"/>	
+<link rel="apple-touch-icon" href="images/logo_zd.jpg"/> 
+<title>消息中心_智典财富</title>
+<meta name="keywords" content="html5, css3, 关键字"/> 
+<meta name="description" content="不超过150个字符"/>   
+<meta name="author" content="魔法小栈"/>
+<link href="style/style.css" rel="stylesheet" type="text/css" media="all"/>
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+
+</head>
+
+<body>
+
+ <div class="login search_t">
+	 <h2><a href="user.htm" title="账户中心" class="fl"><img src="images/poi_lt.jpg"/></a>消息中心</h2>
+	</div>
+	
+	<div class="message_m">
+	<ul>
+	 <li onclick="selAll()">全选</li><li onclick="selAll('n')" class="on">反选</li>
+	 <li onclick="selAll('r')">已读</li><li onclick="selAll('nr')">未读</li><li style="margin-right:0" id="delete">删除</li>
+	</ul><div class="clear"></div>
+	</div>
+<form method="post" action="" name="form1">	
+	<div class="index_c">
+		<p class="fl"><input type="checkbox" value='' name="mid"/><input type="hidden" name="read"/></p>
+		<div class="message_r new">
+			<ul>
+				<li>其他</li>
+				<li style="width:45%">2015-02-02 02:02:02</li>
+				<li>中转账户</li><div class="clear"></div>
+
+			</ul>
+			<p>用户：您的账户于2015-02-02 02:02:02用户：您的账户于2015-02-02 02:02:02用户：您的账户于2015-02-02 02:02:02用户：您的账户于2015-02-02 02:02:02用户：您的账户于2015-02-02 02:02:02</p>
+		</div><div class="clear"></div>
+	</div>
+	
+	<div class="index_c">
+		<p class="fl"><input type="checkbox" value='' name="mid"/><input type="hidden" value='new' name="read"/></p>
+		<div class="message_r">
+		<ul>
+			<li>投资成功</li>
+			<li style="width:45%">2015-02-02 02:02:02</li>
+			<li>中转账户</li>
+
+		</ul><div class="clear"></div>
+		<p style="margin-left:2%">用户：您的账户于2015-02-02 02:02:02</p>
+		</div><div class="clear"></div>
+	</div>
+	
+	<div class="index_c">
+		<p class="fl"><input type="checkbox" value='' name="mid"/><input type="hidden" value='new' name="read"/></p>
+		<div class="message_r">
+		<ul>
+			<li>其他</li>
+			<li style="width:45%">2015-02-02 02:02:02</li>
+			<li>中转账户</li>
+
+		</ul><div class="clear"></div>
+		<p style="margin-left:2%">用户：您的账户于2015-02-02 02:02:02</p>
+		</div><div class="clear"></div>
+	</div>
+	</form>
+	
+	<div class="theme-popover">
+     <div class="theme-poptit">
+        提示
+     </div><p> 确定要删除这些站内信？</p>
+	 <div class="bond_ass_btn">
+		<ul><li style="margin-right:26%" onclick="del()">确定</li><li style="background:#ebebeb" id="cancel">取消</li></ul>
+	 </div>
+	
+</div><div class="theme-popover-mask"></div>
+	
+	<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$('#delete').click(function(){
+			$('.theme-popover-mask').fadeIn(100);
+			$('.theme-popover').slideDown(200);
+		});
+		$('.theme-poptit .close').click(function(){
+			$('.theme-popover-mask').fadeOut(100);
+			$('.theme-popover').slideUp(200);
+		})
+		
+		$('#cancel').click(function(){
+			$('.theme-popover-mask').fadeOut(100);
+			$('.theme-popover').slideUp(200);
+		})
+		
+		$('.message_m ul li').click(function(){
+			$('.message_m ul li').eq($('.message_m ul li').index($(this))).addClass('on').siblings().removeClass('on');
+		});
+
+	})
+
+	function selAll(type)
+	{	var n = document.form1.mid.length;
+		if (type == 'n'){
+			for(var i = 0;i < n;i++)
+			{
+				if(document.form1.mid[i].checked)
+				{
+					document.form1.mid[i].checked = false;
+				}
+			}
+		}
+		else if (type == 'r'){
+			for(var i = 0;i < n;i++)
+			{
+				if(document.form1.read[i].value == '')
+				{
+					document.form1.mid[i].checked = true;
+				}
+				else document.form1.mid[i].checked = false;
+			}
+		}
+		else if (type == 'nr'){
+			for(var i = 0;i < n;i++)
+			{
+				if(document.form1.read[i].value == 'new')
+				{
+					document.form1.mid[i].checked = true;
+				}
+				else document.form1.mid[i].checked = false;
+			}
+		}
+		else {
+			for(var i = 0;i < n;i++)
+			{
+				if(!document.form1.mid[i].checked)
+				{
+					document.form1.mid[i].checked = true;
+				}
+			}
+		}
+	}
+	function del(){
+		var n = document.form1.mid.length;var j = 0;
+
+		for(var i = 0;i < n;i++)
+		{
+			if(document.form1.mid[i].checked)
+			{
+				j++;
+			}
+		}
+
+		if ( j > 0)
+		{	
+			$('.theme-popover-mask').hide();
+			$('.theme-popover').hide();
+			//if (confirm('确定要删除这'+j+'条吗？')){
+				for(var i = 0;i < n;i++)
+				{
+					if(document.form1.mid[i].checked)
+					{
+						$("form").children().eq(i).css('display','none');
+					}
+				}
+				alert("成功删除"+j+"条记录 →_→");
+			//}
+		}
+		else alert('请选择要删除的项！');
+	}
+	
+	</script>
+	
+                
+</body></html>

@@ -1,0 +1,64 @@
+﻿<!-- 弹出 确认层 -->
+
+<style type="text/css">
+.theme-p-mask {z-index:2;position:fixed;top:0;left:0;width:100%;height:100%;background:#000;opacity:0.7;filter:alpha(opacity=50);display:none}
+.theme-p {z-index:3;position:fixed;top:20%;left:50%;width:80%;margin-left:-40%;border-radius:5px;background-color:#fff;display:none;box-shadow: 0 0 5px #666;color:#ff2766;text-align:center}
+.theme-p .theme-close{position:absolute;top:-8px;right:-8px;cursor:pointer}
+.theme-p .theme-btn{margin:12px;height:36px;border-radius:15px;background:#f74172;line-height:36px;color:white;font-size:16px;cursor:pointer}
+.theme-p p{color:gray;margin:15px 0;font-size:16px}
+.theme-p a{text-decoration:none}
+.theme-ptit{border-bottom:1px solid #ddd;margin:0 15px;padding:6px 0;font-size:18px}
+.theme-p .affirm-btn{width:80%;margin:0 auto}
+.theme-p .affirm-btn ul li{float:left;height:36px;border-radius:15px;background:#f74172;line-height:36px;color:white;font-size:16px;cursor:pointer;width:37%;margin-bottom:10px;list-style:none}
+.theme-p p a{width:39%;height:28px;line-height:28px;font-size:16px;color:white;border-radius:5px;background:#f74172;text-align:center;margin-top:5px;cursor:pointer}
+.error-c{width:284px; overflow:hidden; font-family:'Microsoft YaHei','Microsoft JhengHei','STHeiti','MingLiu'; font-size:16px; line-height:26px; color:#f6ac1d;margin:0 auto}
+.error-c a{color:#ffffff; text-decoration:none;}
+.error-c a:hover{color:#f6ac1d; text-decoration:none;}
+.error-c span{font-weight:bold;}
+.error-por{width:316px; height:149px; position:absolute; left:234px; top:310px; z-index:2;}
+</style>
+
+<div id="submit" style="margin:50px auto;height:36px;border-radius:15px;background:#f74172;line-height:36px;color:white;font-size:16px;cursor:pointer;text-align:center">充值</div>
+
+<div class="theme-p">
+	<div class="error-c"><h1>图片</h1>
+        	<p>
+
+				
+                <span id="time"></span>秒后完成交易<br />
+				Back to history page in <span id="time1">6</span> seconds
+            </p>
+        </div>
+</div><div class="theme-p-mask"></div>
+
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script>
+
+
+	function delayURL(url) {
+		var delay = document.getElementById("time").innerHTML;
+		var delay = document.getElementById("time1").innerHTML;
+
+		if(delay > 1) {
+			delay--;
+			document.getElementById("time").innerHTML = delay;
+			document.getElementById("time1").innerHTML = delay;
+		} else {
+			location.reload();
+		}
+		setTimeout("delayURL('" + url + "')", 1000);
+	}
+	
+	
+	
+
+jQuery(document).ready(function() {
+	$('#submit').click(function(){
+		$('.theme-p-mask').fadeIn(100);
+		$('.theme-p').slideDown(200);
+		delayURL(window.top.location.href);
+	});
+
+
+})
+</script>

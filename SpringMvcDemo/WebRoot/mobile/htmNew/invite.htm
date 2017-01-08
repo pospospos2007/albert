@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="format-detection" content="telphone=no,email=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-title" content="标题">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="MobileOptimized" content="240"/>	
+<link rel="apple-touch-icon" href="images/logo_zd.jpg"/> 
+<title>邀请好友_智典财富</title>
+<meta name="keywords" content="html5, css3, 关键字"/> 
+<meta name="description" content="不超过150个字符"/>   
+<meta name="author" content="魔法小栈"/>
+<link href="style/style.css" rel="stylesheet" type="text/css" media="all"/>
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+</head>
+
+<body>
+
+	<div class="login search_t">
+	 <h2><a href="user.htm" title="账户中心" class="fl"><img src="images/poi_lt.jpg"/></a>邀请好友</h2>
+
+	</div>
+	<div class="tc">
+	<img src="images/invite.jpg" style="width:46%;margin:25px auto"/>
+	<p>复制邀请链接发送给好友，每成功邀请一位好友，<br/>您可获得奖励积分，上不封顶。</p>
+ </div>
+ <div class="login_f_btn">复制链接</div>
+ 
+<div class="theme-popover">
+     <div class="theme-poptit">
+          <a href="javascript:;" title="关闭" class="close">×</a>
+          提示
+     </div>
+		<p style="width:90%;margin:0 auto"><span>100元起投！年华收益12%-15%，全额本息担保，注册即送积分，快来吧！<br/>http://www.zhidiancaifu.cn/goRegister?invitedCode=[object Object]</span></p>
+		<div class="index_login" onclick="copyUrl(location.href)">复制邀请链接</div>
+</div><div class="theme-popover-mask"></div>
+<script>
+	jQuery(document).ready(function($) {
+		$('.login_f_btn').click(function(){
+			$('.theme-popover-mask').fadeIn(100);
+			$('.theme-popover').slideDown(200);
+		});
+		$('.theme-poptit .close').click(function(){
+			$('.theme-popover-mask').fadeOut(100);
+			$('.theme-popover').slideUp(200);
+		})
+
+	});
+
+	function copyUrl(url){
+		var myHerf=top.location.href;
+		var title=document.title;
+		if(window.clipboardData){
+			var tempCurLink = url ? url : title + "n" + myHerf;
+			var ok=window.clipboardData.setData("Text",tempCurLink);
+			if(ok) alert("按Ctrl + V ,发给您的好友们一起来投资理财吧！");
+		}else{alert("对不起，目前此功能只支持IE，请直接复制地址栏的地址！");}
+	}
+</script>
+                
+</body></html>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<mappers>
+		<mapper class="com.zdcf.mapper.UserMapper"/>
+		<mapper class="com.zdcf.mapper.AirticleMapper"/>
+		<mapper class="com.zdcf.mapper.MessageMapper"/>
+		<mapper class="com.zdcf.mapper.FileMapper"/>
+		<mapper class="com.zdcf.mapper.ChatRecordsMapper"/>
+		<mapper class="com.zdcf.mapper.MovieMapper"/>
+	</mappers>
+	
+
+</configuration>  

@@ -1,0 +1,257 @@
+@CHARSET "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: #E0FFFF;
+	/* background:url(../../images/chatroom/bg.jpg);background-size:cover; */
+	font-family: 微软雅黑;
+	font-size: 14px;
+	color: #333;
+}
+
+h2 {
+	font-family: 华文行楷;
+	font-size: 30px;
+	color: blue;
+	padding-top: 6px;
+}
+
+p {
+	margin: 3px;
+	color: #6c6c6c;
+}
+
+a {
+	text-decoration: none;
+	margin: 4px;
+}
+
+span .block {
+	display: block;
+}
+
+.clear {
+	clear: both;
+}
+
+.container {
+	align: center;
+	margin: 5px auto;
+	width: 700px;
+	background: #B3C6DC;
+	border: 1px dashed #5F9EA0
+}
+
+.header {
+	height: 110px;
+	text-align: center;
+	background: url(../../images/chatroom/top.jpg);
+	background-position: 100% 60%;
+}
+
+.login {
+	position: relative;
+	top: 60px;
+}
+
+.login p {
+	float:left;
+	padding-top:10px;
+}
+
+.txt {
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	line-height: 25px;
+	text-indent: 5px;favicon.ico
+	font-family: 微软雅黑;
+	font-size: 13px;
+}
+
+input[type="button"] {
+	background-color: #3c95c8;
+	cursor: pointer;
+	border: none;
+	border-radius: 3px;
+	font-weight: bold;
+	font-size: 14px;
+	color: #fff;
+	padding: 5px 12px;
+	border-radius: 5px;
+	margin-top: 2px;
+}
+
+.center {
+	margin: 0 auto;
+	height: 350px;
+}
+
+.contactlist {
+	float: left;
+	width: 130px;
+	height: 100%;
+	overflow-y: auto;
+	border-right:1px solid #ccc;
+	background-color: #f2f2f2;
+}
+
+ul {
+	list-style: none;
+	height: auto;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+ul li {
+	margin-top: 5px;
+	padding: 2px;
+}
+
+ul li a:active {
+	text-decoration: underline;
+}
+
+#me {
+	margin-left: 4px;
+}
+
+#content {
+	width: 569px;
+	height: 100%;
+	float: left;
+	font-size: 13px;
+	overflow-y: auto;
+	background: url(../../images/chatroom/back.jpg);
+	background-size:cover;
+}
+
+#content p {
+	max-width: 500px;
+	word-wrap: break-word;
+}
+
+.msg {
+	margin-left: 8px;
+	padding: 7px;
+	width: auto;
+	margin-top: 5px;
+	border-radius: 6px;
+	position: relative;
+}
+
+.msg-left {
+	background: #E5E5EA;
+	float: left;
+	margin-left: 8px;
+}
+
+.msg-left p {
+	color: #333;
+}
+
+.msg-right {
+	background: #178EFE;
+	float: right;
+	margin-right: 8px;
+	color: white;
+}
+
+.msg-right p {
+	color: #FFF;
+}
+
+.msg-left::before {
+	content: "";
+	background: url(../../images/chatroom/chat-left.png) left top no-repeat;
+	display: block;
+	width: 13px;
+	height: 13px;
+	box-sizing: border-box;
+	position: absolute;
+	bottom: 0;
+	left: -5px;
+}
+
+.msg-right::after {
+	content: "";
+	background: url(../../images/chatroom/chat-right.png) left top no-repeat;
+	display: block;
+	width: 13px;
+	height: 13px;
+	box-sizing: border-box;
+	position: absolute;
+	bottom: 0;
+	right: -5px;
+}
+
+
+.bottom {
+	clear: both;
+	padding-top:3px;
+}
+
+.menubar{
+	position: relative;
+	padding:0px;
+	line-height:30px;
+	height:30px;
+}
+
+.emoji {
+	display: none;
+	z-index: 1000;
+	background: #f6fded;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	position: absolute;
+	bottom: 30px;
+	left:-10px;
+	margin-left: 3px;
+}
+
+.emotoin {
+	border: none;
+	margin: 0;
+	padding: 1px;
+}
+
+.emotion img {
+	border: 1px solid #fff;
+	resize: none;
+}
+
+.emotion:hover img {
+	border: 1px solid #333;
+}
+
+.select {
+	cursor: pointer;
+	color: #3c3c3c;
+	font-family: 微软雅黑;
+	padding: 2px 5px;
+	font-size: 13px;
+}
+
+.selemoji {
+	float: left;
+	color: #333;
+	position: relative;
+}
+
+#msg {
+	width: 680px;
+	height: 90px;
+	margin-left:3px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	border-radius:5px;
+	background: #f6fded;
+	padding: 3px;
+	resize: none;
+	font-size: 14px;
+	word-wrap: break-word;
+}

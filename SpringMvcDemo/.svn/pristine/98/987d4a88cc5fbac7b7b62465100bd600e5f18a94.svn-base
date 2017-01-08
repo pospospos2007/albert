@@ -1,0 +1,47 @@
+package com.zdcf.mapper;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Select;
+
+import com.zdcf.dto.FileDTO;
+import com.zdcf.model.ChatRecord;
+import com.zdcf.model.Files;
+
+
+/**
+ * 聊天记录数据操作
+ */
+public interface ChatRecordsMapper {
+	
+	/**
+	 * 查询指定用户的聊天记录
+	 * @param sender 消息发送者
+	 * @param receiver 消息接收者
+	 * @return 聊天记录列表
+	 * @throws SQLException
+	 */
+	@Select("select id as id,sender as sender,receiver as receiver,time as time,message as message from chat_record where sender=#{0}  order by time desc limit 0,50 ")
+    public List<Map<String, Object>> queryChatRecords(String user);
+	
+	
+	/**
+	 * 保存聊天记录
+	 * @param record 聊天记录
+	 * @return true:成功 false:失败
+	 * @throws SQLException
+	 */
+	@Insert("insert into chat_record(sender,receiver,message,time) values (#{sender},#{receiver},#{message},now())")
+    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id") 
+	public int insertChatRecord(ChatRecord record);
+	
+}

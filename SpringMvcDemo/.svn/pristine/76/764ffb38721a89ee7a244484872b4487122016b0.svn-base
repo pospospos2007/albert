@@ -1,0 +1,10 @@
+mysql地址：
+mysqldatabase.cvzhd2qh5whc.ap-northeast-2.rds.amazonaws.com:3306
+root
+12345678
+
+开发环境：
+http://123.56.164.113:8888/
+
+生产环境：
+http://52.79.128.245:8080/

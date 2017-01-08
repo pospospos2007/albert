@@ -1,0 +1,16 @@
+zhmm.required Please enter your phone number/ email address
+log.check.nameorpwd.not.null=Username or password cannot be empty\uFF01
+log.check.code.not.right=Incorrect, please re-enter the code\uFF01
+verify.email.please.input.email=Please enter your email address
+verify.email.please.input.verify.code=Please enter the verification code
+log.check.nameorpwd.not.right=Incorrect username or password, please re-enter\!
+log.check.name.lock=The account has been locked, please contact the administrator\uFF01
+log.check.error5.lock=The account has been locked, please contact the administrator\uFF01
+log.check.pwd.not.right=Wrong password
+log.check.sys.wrong=System error
+smsg.mobile.not.right=Please enter the correct phone number
+smsg.mobile.is.not.right=Incorrect phone number
+reg.bg.error=System error, please contact the administrator
+reg.ilp=\u975E\u6CD5\u53C2\u6570
+smsg.mobile.is.reg=This phone number has been registered, please use another number
+smsg.msg.60s=Please try again later (request after 60s)

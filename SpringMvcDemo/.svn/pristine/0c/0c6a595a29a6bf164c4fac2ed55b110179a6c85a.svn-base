@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="format-detection" content="telphone=no,email=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-title" content="标题">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="MobileOptimized" content="240"/>	
+<link rel="apple-touch-icon" href="images/logo_zd.jpg"/> 
+<title>更多登录_智典财富</title>
+<meta name="keywords" content="html5, css3, 关键字"/> 
+<meta name="description" content="不超过150个字符"/>   
+<meta name="author" content="魔法小栈"/>
+<link href="style/style.css" rel="stylesheet" type="text/css" media="all"/>
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+
+</head>
+
+<body>
+
+ <div class="login">
+  <h2><a href="user_n.htm" title="返回" class="fl"><img src="images/poi_lt.jpg"/></a>更多</h2>
+ </div>
+ 
+ <div class="login_f login_m">
+	 <dl>
+	  <dd><img src="images/login_m_m.jpg"/>手机号码</dd></dl>
+	 
+	 <div class="clear"></div>
+ </div>
+ 
+ <div class="login_f login_m">
+	 <dl>
+
+	  <a href="contact.htm"><dd class="bor"><span class="fr"><img src="images/poi_gt.jpg"/></span><img src="images/login_m_t.jpg"/>联系我们</dd></a>
+	  <a href="agree_reg.htm"><dd><span class="fr"><img src="images/poi_gt.jpg"/></span><img src="images/login_m_a.jpg"/>服务协议</dd></a>
+	 </dl>
+	 
+	 <div class="clear"></div>
+	 
+	 
+ </div><a href="log.htm"><div class="login_f_btn">登录</div></a>
+	 
+</body></html>

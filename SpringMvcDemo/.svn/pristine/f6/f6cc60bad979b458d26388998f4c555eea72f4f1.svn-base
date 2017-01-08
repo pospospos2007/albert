@@ -1,0 +1,64 @@
+index.htm				---主页
+log.htm					---登录
+log_tip.htm				---登录提醒
+log_more.htm				---更多登录
+
+cash.htm				---提现（提示绑定银行卡）
+cash_bind.htm				---已绑定银行卡
+
+recharge.htm				---充值
+recharge_suc.htm			---充值成功
+
+reg.htm					---注册
+reg_succeed.htm				---注册成功
+reset.htm				---密码找回（重置）
+
+search.htm				---搜索主页
+search_res.htm				---搜索结果页
+
+message.htm				---消息中心
+
+bond_assigning.htm			---转让中债权
+bond_assign.htm				---回款计划（分类）
+bond_assigned.htm			---已转出债权
+bond_convert.htm			---可转让债权
+bond_subscribed.htm			---可认购债权
+
+about.htm				---关于我们
+
+account.htm				---资金托管开户
+agree_loan.htm				---借款协议
+agree_reg.htm				---服务协议
+
+contact.htm				---联系我们
+
+invest.htm				---回款 投资记录列表
+invest_r.htm				---筹建 投资记录列表
+invest_f.htm				---完成 投资记录列表
+list_invest_f.htm			---完成投资
+list_invest_r.htm			---筹建投资
+list_invest.htm				---回款投资
+d_invest.htm				---投资详情
+d_invest_f.htm				---投资详情（满标）
+invest_affirm.htm			---投资确认
+
+invite.htm				---邀请好友
+
+message.htm				---消息中心
+
+money_flow.htm				---资金流水分类
+money_flow_res.htm			---资金流水搜索页
+
+pay_plan.htm				---收款计划
+
+return_plan.htm				---回款计划
+d_return_plan.htm			---回款计划详情
+
+set.htm					---设置中心
+modify_pwd.htm				---修改登录密码
+
+user.htm				---用户中心
+user_n.htm				---用户中心（未登录）
+
+
+

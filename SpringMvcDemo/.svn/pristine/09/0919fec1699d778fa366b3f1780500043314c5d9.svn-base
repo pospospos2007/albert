@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="format-detection" content="telphone=no,email=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-title" content="标题">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="MobileOptimized" content="240"/>	
+<link rel="apple-touch-icon" href="images/logo.zd.jpg"> 
+<title>回款计划_智典财富</title>
+<meta name="keywords" content="html5, css3, 关键字"/> 
+<meta name="description" content="不超过150个字符"/>   
+<meta name="author" content="魔法小栈"/>
+<link href="style/style.css" rel="stylesheet" type="text/css" media="all"/>
+<script type="text/javascript" src="js/common.js"></script>
+
+</head>
+
+<body style="background:#ffffff">
+
+ <div class="login search_t">
+	 <h2><a href="user.htm" title="账户中心" class="fl"><img src="images/poi_lt.jpg"/></a>回款计划</h2>
+ </div>   
+	
+ <div class="pay_plan return_plan"><dl style="width:8%"><dt></dt><dd></dd><dd></dd><dd></dd><dd></dd></dl>
+  <dl><dt>标题</dt>
+  <dd>环保公司流动资金借款</dd><dd>2015-05-25</dd><dd>2015-05-25</dd><dd>2015-05-25</dd>
+  </dl>
+  
+  <dl><dt>下次还款时间</dt>
+  <dd><a href="d_return_plan.htm"><img src="images/poi_gt.gif"/></a>2015-05-25</dd>
+  <dd><a href="d_return_plan.htm"><img src="images/poi_gt.gif"/></a>2015-05-25</dd>
+  <dd><a href="d_return_plan.htm"><img src="images/poi_gt.gif"/></a>2015-05-25</dd>
+  <dd><a href="d_return_plan.htm"><img src="images/poi_gt.gif"/></a>2015-05-25</dd>
+  </dl>
+  
+
+ </div>
+ 
+    
+</body></html>

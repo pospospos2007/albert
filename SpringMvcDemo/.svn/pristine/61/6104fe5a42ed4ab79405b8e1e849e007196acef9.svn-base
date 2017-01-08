@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+encoding//WebRoot/WEB-INF/jsp/chatroom/login.jsp=UTF-8
+encoding//WebRoot/WEB-INF/jsp/game/kofWing.jsp=UTF-8
+encoding//WebRoot/WEB-INF/jsp/lab/draw.jsp=UTF-8
+encoding//src/com/zdcf/config/config.properties=UTF-8
+encoding//src/com/zdcf/test/AesTest.java=UTF-8
+encoding//src/com/zdcf/tool/Aes.java=UTF-8
+encoding//src/com/zdcf/tool/Md5.java=UTF-8
+encoding//src/log4j.properties=UTF-8
+encoding/<project>=UTF-8
