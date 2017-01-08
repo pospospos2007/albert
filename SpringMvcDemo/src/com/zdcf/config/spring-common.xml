@@ -52,9 +52,9 @@
 	<!-- 1.数据源配置 -->
 <!-- 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close"> -->
 <!-- 		<property name="driverClass" value="com.mysql.jdbc.Driver" /> -->
-<!-- 		<property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/mysql?useUnicode=yes&amp;characterEncoding=utf-8" /> -->
-<!-- 		<property name="user" value="hyuser" /> -->
-<!-- 		<property name="password" value="fengwenxue987654321" /> -->
+<!-- 		<property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/albert?useUnicode=yes&amp;characterEncoding=utf-8" /> -->
+<!-- 		<property name="user" value="root" /> -->
+<!-- 		<property name="password" value="123456" /> -->
 <!-- 		<property name="minPoolSize" value="10" /> -->
 <!-- 		<property name="maxPoolSize" value="15" /> -->
 <!-- 		<property name="maxIdleTime" value="5" /> -->
@@ -66,9 +66,6 @@
 	
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-<!-- 		<property name="url" value="jdbc:mysql://127.0.0.1:3306/mysql?useUnicode=yes&amp;characterEncoding=utf-8" /> -->
-<!-- 		<property name="username" value="hyuser" /> -->
-<!-- 		<property name="password" value="fengwenxue987654321" /> -->
 		
 		<property name="url" value="jdbc:mysql://127.0.0.1:3306/albert?useUnicode=yes&amp;characterEncoding=utf-8" />
 		<property name="username" value="root" />
