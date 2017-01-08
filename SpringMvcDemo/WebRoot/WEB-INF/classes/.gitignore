@@ -1,5 +1,5 @@
-/com
-/doc
-/i18n
+/com/
+/doc/
+/i18n/
 /log4j.properties
 /words.txt

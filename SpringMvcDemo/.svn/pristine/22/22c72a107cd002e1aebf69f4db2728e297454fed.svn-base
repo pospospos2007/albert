@@ -1,2 +1,0 @@
-hosts=localhost:9300
-cluster.name=albert-es
