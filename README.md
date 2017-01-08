@@ -9,7 +9,7 @@ my personal website
 
 3.部署启动apache-activemq-5.9.0  windows或者linux
 
-4.部署启动elasticsearch 2.3.3  windows或者linux
+4.部署启动elasticsearch 2.3.3  windows或者linux，注意yml文件的cluster-name设置为albert-es
 
 5.运行albert.sql文件 (mysql 5.5+) ，在spring-common-xml 修改sql配置
 
