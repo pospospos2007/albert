@@ -4,7 +4,7 @@
 
 3.安装部署启动activeMQ  windows或者linux
 
-4.安装部署启动elasticsearch 2.3.3  windows或者linux
+4.安装部署启动elasticsearch 2.3.3  windows或者linux (注意修改es的yml文件，cluster-name设置为albert-es并且去掉#号，放开这一行注释)
 
 5.运行albert.sql文件  ，在spring-common-xml 修改sql配置
 
