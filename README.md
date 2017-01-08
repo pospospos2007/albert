@@ -1,5 +1,5 @@
 # <a href="http://123.56.164.113:9999/">albert</a>
-my personal websaite 
+my personal website 
 
 
 1.部署启动 redis3.0.1  windows或者linux版本
