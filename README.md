@@ -28,7 +28,7 @@ my personal website
 
 6.activemq
 
-7.bootstrap,canvas
+7.bootstrap,canvas,jQuery
 
 8.face++
 
