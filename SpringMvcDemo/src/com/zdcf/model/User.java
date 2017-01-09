@@ -27,6 +27,7 @@ public class User implements Serializable{
 	
 	private Date registerTime;
 	
+	private String autoLoginCode;//加密自动登录码
 	
 	public Date getRegisterTime() {
 		return registerTime;
@@ -66,6 +67,14 @@ public class User implements Serializable{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getAutoLoginCode() {
+		return autoLoginCode;
+	}
+
+	public void setAutoLoginCode(String autoLoginCode) {
+		this.autoLoginCode = autoLoginCode;
 	}
 
 	@Override

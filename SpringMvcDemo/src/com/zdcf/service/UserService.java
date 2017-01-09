@@ -13,5 +13,11 @@ public interface UserService {
 	public User getUserByIp(String ip);
 	
 	public int addUserByIp(String ip);
+
+	public Integer getUidByName(String username);
+
+	public String getPwdByName(String username);
+
+	public String getNameById(Integer id);
 	
 }

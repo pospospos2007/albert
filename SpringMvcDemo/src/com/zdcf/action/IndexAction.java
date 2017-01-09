@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.LocaleEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,6 +26,7 @@ import com.zdcf.base.BaseAction;
 import com.zdcf.base.Constants;
 import com.zdcf.service.AirticleService;
 import com.zdcf.service.MessageService;
+import com.zdcf.service.UserService;
 
 @Controller
 @RequestMapping("/")
@@ -39,6 +41,9 @@ public class IndexAction extends BaseAction{
 	
 	@Resource
 	private MessageService messageService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping("/index")
 	public String index(HttpServletRequest request,HttpServletResponse response,ModelMap model){
@@ -58,6 +63,24 @@ public class IndexAction extends BaseAction{
 //		}
 	}
 	
+	@RequestMapping("/loginvalidate")
+	public String loginvalidate(@RequestParam(value="username", required=false) String username,@RequestParam(value="password", required=false) String pwd,HttpSession httpSession){
+		String picode=(String) httpSession.getAttribute("rand");
+//		if(!picode.equalsIgnoreCase(pic))
+//			return "index/failcode";
+		if(null==username||null==pwd)
+			return "index/login";
+		String realpwd=userService.getPwdByName(username);
+		if(realpwd!=null&&pwd.equals(realpwd))
+		{
+			Integer uid=userService.getUidByName(username);
+			httpSession.setAttribute("username", username);
+			httpSession.setAttribute("uid", uid);
+			return "chatroom/chatroom";
+		}else
+			return "index/fail";
+	}
+	
 	@RequestMapping("/login")
 	public String login(){
 		return "index/login";
@@ -67,6 +90,8 @@ public class IndexAction extends BaseAction{
 	public String logout(HttpSession httpSession){
 		httpSession.removeAttribute("username");
 		httpSession.removeAttribute("uid");
+		
+		//TODO 删除在登陆后放入的浏览器的cookie
 		return "index/login";
 	}
 	

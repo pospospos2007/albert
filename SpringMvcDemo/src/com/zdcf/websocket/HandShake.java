@@ -23,7 +23,7 @@ public class HandShake implements HandshakeInterceptor {
 			ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
 			HttpSession session = servletRequest.getServletRequest().getSession(false);
 			// 标记用户
-			Long uid = (Long) session.getAttribute("uid");
+			Integer uid = (Integer) session.getAttribute("uid");
 			if(uid!=null){
 				attributes.put("uid", uid);
 			}else{
