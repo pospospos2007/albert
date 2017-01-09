@@ -91,7 +91,7 @@ public class IndexAction extends BaseAction{
 		httpSession.removeAttribute("username");
 		httpSession.removeAttribute("uid");
 		
-		//TODO 删除在登陆后放入的浏览器cookie
+		//TODO 删除在登陆后放入的浏览器的cookie
 		return "index/login";
 	}
 	
