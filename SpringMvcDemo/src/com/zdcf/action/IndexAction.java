@@ -64,11 +64,11 @@ public class IndexAction extends BaseAction{
 	}
 	
 	@RequestMapping("/loginvalidate")
-	public String loginvalidate(@RequestParam("username") String username,@RequestParam("password") String pwd,HttpSession httpSession){
+	public String loginvalidate(@RequestParam(value="username", required=false) String username,@RequestParam(value="password", required=false) String pwd,HttpSession httpSession){
 		String picode=(String) httpSession.getAttribute("rand");
 //		if(!picode.equalsIgnoreCase(pic))
 //			return "index/failcode";
-		if(username==null)
+		if(null==username||null==pwd)
 			return "index/login";
 		String realpwd=userService.getPwdByName(username);
 		if(realpwd!=null&&pwd.equals(realpwd))
@@ -90,6 +90,8 @@ public class IndexAction extends BaseAction{
 	public String logout(HttpSession httpSession){
 		httpSession.removeAttribute("username");
 		httpSession.removeAttribute("uid");
+		
+		//TODO 删除在登陆后放入的浏览器cookie
 		return "index/login";
 	}
 	
