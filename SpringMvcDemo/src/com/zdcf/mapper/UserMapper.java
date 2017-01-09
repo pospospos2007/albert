@@ -24,6 +24,15 @@ public interface UserMapper {
 
     @Select("select * from t_user where ip=#{ip}")
     public User getUserByIp(String ip);
+    
+    @Select("select password from t_user where username=#{username}")
+    public String getPwdByName(String username);
+    
+    @Select("select id from t_user where username=#{username}")
+    public Integer getUidByName(String username);
+    
+    @Select("select username from t_user where id=#{id}")
+    public String getNameById(int id);
 	
     @Insert("insert into t_user(username,password,ip,register_time) values (#{ip},#{ip},#{ip},now())")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id") 

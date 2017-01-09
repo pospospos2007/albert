@@ -1,13 +1,13 @@
 package com.zdcf.po;
 
 public class User {
-	Long uid;
+	Integer uid;
 
-	public Long getUid() {
+	public Integer getUid() {
 		return uid;
 	}
 
-	public void setUid(Long uid) {
+	public void setUid(Integer uid) {
 		this.uid = uid;
 	}
 	

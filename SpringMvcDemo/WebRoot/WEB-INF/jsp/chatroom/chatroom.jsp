@@ -1,9 +1,13 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
     <title>聊天室</title>
-    <script src="./js/jquery-1.12.3.min.js"></script>
+    <script src="<%=path%>/js/jquery-1.12.3.min.js"></script>
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <style>
@@ -67,13 +71,13 @@ body{
         // 指定websocket路径
         var websocket;
         if ('WebSocket' in window) {
-			websocket = new WebSocket("ws://localhost:8080/Spring-websocket/ws?uid="+${sessionScope.uid});
+			websocket = new WebSocket("ws://localhost:8080/SpringMvcDemo/ws?uid="+${sessionScope.uid});
 		} else if ('MozWebSocket' in window) {
-			websocket = new MozWebSocket("ws://localhost:8080/Spring-websocket/ws"+${sessionScope.uid});
+			websocket = new MozWebSocket("ws://localhost:8080/SpringMvcDemo/ws"+${sessionScope.uid});
 		} else {
-			websocket = new SockJS("http://localhost:8080/Spring-websocket/ws/sockjs"+${sessionScope.uid});
+			websocket = new SockJS("http://localhost:8080/SpringMvcDemo/ws/sockjs"+${sessionScope.uid});
 		}
-        //var websocket = new WebSocket('ws://localhost:8080/Spring-websocket/ws');
+        //var websocket = new WebSocket('ws://localhost:8080/SpringMvcDemo/ws');
         websocket.onmessage = function(event) {
        	 var data=JSON.parse(event.data);
        	 	if(data.from>0||data.from==-1){//用户或者群消息
@@ -85,13 +89,13 @@ body{
             	if(data.text!="${sessionScope.username}")
             	{	
             		$("#users").append('<a href="#" onclick="talk(this)" class="list-group-item">'+data.text+'</a>');
-//             		alert(data.text+"上线了");
+            		alert(data.text+"上线了");
             	}
             }else if(data.from==-2){//下线消息
             	if(data.text!="${sessionScope.username}")
             	{	
             		$("#users > a").remove(":contains('"+data.text+"')");
-//             		alert(data.text+"下线了");
+            		alert(data.text+"下线了");
             	}
             }
         };

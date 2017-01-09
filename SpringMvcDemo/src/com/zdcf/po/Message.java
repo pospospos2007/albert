@@ -4,29 +4,29 @@ import java.util.Date;
 public class Message {
 
 	//发送者
-	public Long from;
+	public Integer from;
 	//发送者名称
 	public String fromName;
 	//接收者
-	public Long to;
+	public Integer to;
 	//发送的文本
 	public String text;
 	//发送日期
 	public Date date;
 
-	public Long getFrom() {
+	public Integer getFrom() {
 		return from;
 	}
 
-	public void setFrom(Long from) {
+	public void setFrom(Integer from) {
 		this.from = from;
 	}
 
-	public Long getTo() {
+	public Integer getTo() {
 		return to;
 	}
 
-	public void setTo(Long to) {
+	public void setTo(Integer to) {
 		this.to = to;
 	}
 

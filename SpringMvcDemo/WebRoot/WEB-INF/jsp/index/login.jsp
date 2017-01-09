@@ -25,8 +25,8 @@
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
         <label for="inputEmail" class="sr-only">userid</label>
-        <input type="text" name="pic" id="pic" class="form-control" placeholder="验证码" required>              
-                        验证码：<img src="authImg" width="120" height="40">  
+<!--         <input type="text" name="pic" id="pic" class="form-control" placeholder="验证码">               -->
+<!--                         验证码：<img src="authImg" width="120" height="40">   -->
         <button class="btn btn-lg btn-primary btn-block" type="submit">login</button>
       </form>
         	

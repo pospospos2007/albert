@@ -49,7 +49,7 @@
 	</bean> 
 	
 	
-	<!-- 1.数据源配置 -->
+	<!-- 1.数据源配置  使用c3p0-->
 <!-- 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close"> -->
 <!-- 		<property name="driverClass" value="com.mysql.jdbc.Driver" /> -->
 <!-- 		<property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/albert?useUnicode=yes&amp;characterEncoding=utf-8" /> -->
@@ -64,6 +64,7 @@
 <!-- 		<property name="idleConnectionTestPeriod" value="1" /> -->
 <!-- 	</bean> -->
 	
+	<!-- 	使用druid连接池 -->
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		
@@ -100,7 +101,7 @@
 	</bean>
 	
 	
-	<!-- 2. mybatis的SqlSession的工厂: SqlSessionFactoryBean dataSource:引用数据源  -->
+	<!-- 2. mybatis的SqlSession的工厂: SqlSessionFactoryBean dataSource:引用数据源   使用xml形式-->
 <!-- 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> -->
 <!-- 		<property name="dataSource" ref="dataSource"></property> -->
 <!-- 		<property name="configLocation" value="classpath:com/zdcf/config/mybatis-config.xml" />  -->
@@ -132,8 +133,6 @@
 	
 	<!-- 6.启用文件上传功能 -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
-	
-	
 	
 	<bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper">
 	</bean>

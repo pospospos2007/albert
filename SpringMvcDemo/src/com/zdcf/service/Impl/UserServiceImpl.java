@@ -61,11 +61,19 @@ public class UserServiceImpl implements  UserService {
 			e.printStackTrace();
 		}
 		 
-		 
-		 
-		 
 		 return result;
 	}
-
+	
+	public String getPwdByName(String userName){
+		return userMapper.getPwdByName(userName);
+	}
+	
+	public Integer getUidByName(String userName){
+		return userMapper.getUidByName(userName);
+	}
+	
+	public String getNameById(Integer id){
+		return userMapper.getNameById(id);
+	}
 
 }
