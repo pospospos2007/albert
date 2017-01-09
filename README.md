@@ -51,4 +51,4 @@ my personal website
 
 17.druid连接池
 
-18.某个系统运维工具（自己找吧，在web.xml里面注释掉了,很强大）
+18.某个系统运维工具（在web.xml里面注释掉了,很强大）
