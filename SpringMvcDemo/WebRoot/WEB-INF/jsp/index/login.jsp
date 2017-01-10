@@ -1,4 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -18,7 +22,7 @@
   <body>
     <div class="container vertical-center">
 	<div class="col-md-6 col-md-offset-3">
-      <form  action="loginvalidate" method="post">
+      <form  action="<%=path%>/loginvalidate" method="post">
         <h2 >登录聊天室</h2>
         <label for="inputEmail" class="sr-only">userid</label>
         <input type="text" name="username" id="inputEmail" class="form-control" placeholder="userid" required autofocus>

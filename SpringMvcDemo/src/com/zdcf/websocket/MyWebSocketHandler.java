@@ -17,8 +17,10 @@ import org.springframework.web.socket.WebSocketSession;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.zdcf.model.User;
 import com.zdcf.po.Message;
 import com.zdcf.service.UserService;
+import com.zdcf.tool.UserSessionUtil;
 
 /**
  * Socket处理器

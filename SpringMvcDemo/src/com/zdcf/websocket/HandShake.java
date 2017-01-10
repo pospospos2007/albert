@@ -11,6 +11,9 @@ import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 
+import com.zdcf.model.User;
+import com.zdcf.tool.UserSessionUtil;
+
 
 /**
  * Socket建立连接（握手）和断开
@@ -18,12 +21,11 @@ import org.springframework.web.socket.server.HandshakeInterceptor;
 public class HandShake implements HandshakeInterceptor {
 
 	public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
-		System.out.println("Websocket:用户[ID:" + ((ServletServerHttpRequest) request).getServletRequest().getSession(false).getAttribute("uid") + "]已经建立连接");
+		User user =UserSessionUtil.currentUser();
+		System.out.println("Websocket:用户[ID:" + user.getId() + "]已经建立连接");
 		if (request instanceof ServletServerHttpRequest) {
-			ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
-			HttpSession session = servletRequest.getServletRequest().getSession(false);
 			// 标记用户
-			Integer uid = (Integer) session.getAttribute("uid");
+			Integer uid = user.getId();
 			if(uid!=null){
 				attributes.put("uid", uid);
 			}else{

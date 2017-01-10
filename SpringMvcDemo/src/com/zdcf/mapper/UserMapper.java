@@ -31,6 +31,9 @@ public interface UserMapper {
     @Select("select id from t_user where username=#{username}")
     public Integer getUidByName(String username);
     
+    @Select("select id as id,username as username,password as password from t_user where username=#{username}")
+    public User getUserByName(String username);
+    
     @Select("select username from t_user where id=#{id}")
     public String getNameById(int id);
 	

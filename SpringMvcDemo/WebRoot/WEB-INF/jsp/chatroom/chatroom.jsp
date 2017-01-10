@@ -26,8 +26,8 @@ body{
 				  </div>
 				  <div class="panel-body">
 				    <div class="list-group">
-					 <a href="#" class="list-group-item">你好，${sessionScope.username}</a>
-					 <a href="logout" class="list-group-item">退出</a>
+					 <a href="#" class="list-group-item">你好，${USER_SESSION_KEY.username}</a>
+					 <a href="<%=path%>/logout" class="list-group-item">退出</a>
 					</div>
 				  </div>
 				</div>
@@ -71,11 +71,11 @@ body{
         // 指定websocket路径
         var websocket;
         if ('WebSocket' in window) {
-			websocket = new WebSocket("ws://localhost:8080/SpringMvcDemo/ws?uid="+${sessionScope.uid});
-		} else if ('MozWebSocket' in window) {
-			websocket = new MozWebSocket("ws://localhost:8080/SpringMvcDemo/ws"+${sessionScope.uid});
-		} else {
-			websocket = new SockJS("http://localhost:8080/SpringMvcDemo/ws/sockjs"+${sessionScope.uid});
+			websocket = new WebSocket("ws://localhost:8080/SpringMvcDemo/ws?uid="+${USER_SESSION_KEY.id});
+		}else if('MozWebSocket' in window) {
+			websocket = new MozWebSocket("ws://localhost:8080/SpringMvcDemo/ws"+${USER_SESSION_KEY.id});
+		}else{
+			websocket = new SockJS("http://localhost:8080/SpringMvcDemo/ws/sockjs"+${USER_SESSION_KEY.id});
 		}
         //var websocket = new WebSocket('ws://localhost:8080/SpringMvcDemo/ws');
         websocket.onmessage = function(event) {
@@ -86,16 +86,16 @@ body{
             // 滚动条滚动到最低部
             scrollToBottom();
             }else if(data.from==0){//上线消息
-            	if(data.text!="${sessionScope.username}")
+            	if(data.text!="${USER_SESSION_KEY.username}")
             	{	
             		$("#users").append('<a href="#" onclick="talk(this)" class="list-group-item">'+data.text+'</a>');
-            		alert(data.text+"上线了");
+//             		alert(data.text+"上线了");
             	}
             }else if(data.from==-2){//下线消息
-            	if(data.text!="${sessionScope.username}")
+            	if(data.text!="${USER_SESSION_KEY.username}")
             	{	
             		$("#users > a").remove(":contains('"+data.text+"')");
-            		alert(data.text+"下线了");
+//             		alert(data.text+"下线了");
             	}
             }
         };
@@ -116,9 +116,9 @@ body{
 					return;
 				}else{
 					var data={};
-					data["from"]="${sessionScope.uid}";
-					data["fromName"]="${sessionScope.username}";
-					data["to"]=d.uid;
+					data["from"]="${USER_SESSION_KEY.id}";
+					data["fromName"]="${USER_SESSION_KEY.username}";
+					data["to"]=d.id;
 					data["text"]=v;
 					websocket.send(JSON.stringify(data));
 					$("#log-container").append("<div class='bg-success'><label class='text-info'>我&nbsp;"+new Date()+"</label><div class='text-info'>"+v+"</div></div><br>");
@@ -128,7 +128,6 @@ body{
         	});
         	
         });
-        
     });
    
    function talk(a){

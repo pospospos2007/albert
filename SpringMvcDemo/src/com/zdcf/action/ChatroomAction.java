@@ -20,13 +20,14 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 import com.google.gson.GsonBuilder;
+import com.zdcf.model.User;
 import com.zdcf.po.Message;
-import com.zdcf.po.User;
 import com.zdcf.service.UserService;
+import com.zdcf.tool.UserSessionUtil;
 import com.zdcf.websocket.MyWebSocketHandler;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/chatroom")
 public class ChatroomAction {
 
 	private static Logger logger = Logger.getLogger(ChatroomAction.class);
@@ -36,6 +37,12 @@ public class ChatroomAction {
 	
 	@Autowired
 	UserService userService;
+	
+	@RequestMapping("/toChatroom")
+	public String chatroom(){
+		return "/chatroom/chatroom";
+	}
+			
 	
 	@RequestMapping("/onlineusers")
 	@ResponseBody
@@ -47,7 +54,7 @@ public class ChatroomAction {
 		while(it.hasNext()){
 			Integer entry = it.next();
 			String name=userService.getNameById(entry);
-			String user=(String)session.getAttribute("username");
+			String user=UserSessionUtil.currentUser().getUsername();
 			if(!user.equals(name))
 				nameset.add(name);
 		}
@@ -70,10 +77,8 @@ public class ChatroomAction {
 	@RequestMapping("getuid")
 	@ResponseBody
 	public User getuid(@RequestParam("username")String username){
-		Integer a=userService.getUidByName(username);
-		User u=new User();
-		u.setUid(a);
-		return u;
+		User user=userService.getUserByName(username);
+		return user;
 	}
 	
 }
