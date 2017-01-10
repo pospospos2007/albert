@@ -1,22 +1,21 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-  <head>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ include file="/include/head.jsp"%>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
     <title>聊天室</title>
-    <script src="<%=path%>/js/jquery-1.12.3.min.js"></script>
-<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="<%=path%>/kindeditor/kindeditor-min.js"></script>
+	<script type="text/javascript" src="<%=path%>/kindeditor/commoneditor.js"></script>
+	<script type="text/javascript" src="<%=path%>/kindeditor/lang/zh_CN.js"></script>
+	<script type="text/javascript" src="<%=path%>/kindeditor/kindeditor.js"></script>
+	
 <style>
-body{
+.chatBody{
 	margin-top:5px;
 }
+
 </style>
-</head>
-  <body>
+  <div class="chatBody">
     <div class="container">
     	<div class="row">
     		<div class="col-md-3">
@@ -26,8 +25,8 @@ body{
 				  </div>
 				  <div class="panel-body">
 				    <div class="list-group">
-					 <a href="#" class="list-group-item">你好，${sessionScope.username}</a>
-					 <a href="logout" class="list-group-item">退出</a>
+					 <a href="#" class="list-group-item">你好，${USER_SESSION_KEY.username}</a>
+					 <a href="<%=path%>/logout" class="list-group-item">退出</a>
 					</div>
 				  </div>
 				</div>
@@ -40,15 +39,17 @@ body{
 					</div>
 				  </div>
 				</div>
-				<div class="panel panel-primary">
-				  <div class="panel-heading">
-				    <h3 class="panel-title">群发系统广播</h3>
-				  </div>
-				  <div class="panel-body">
-				    <input type="text" class="form-control"  id="msg" /><br>
-				    <button id="broadcast" type="button" class="btn btn-primary">发送</button>
-				  </div>
-				</div>
+<!-- 				<div class="panel panel-primary"> -->
+<!-- 				  <div class="panel-heading"> -->
+<!-- 				    <h3 class="panel-title">群发系统广播</h3> -->
+<!-- 				  </div> -->
+<!-- 				  <div class="panel-body"> -->
+<!-- 				    <input type="text" class="form-control"  id="msg" /><br> -->
+<!--  					<button id="broadcast" type="button" class="btn btn-primary">发送</button> -->
+<!-- 						<input type="text" class="form-control"   /><br> -->
+<!-- 				    	<button type="button" class="btn btn-primary">发送</button> -->
+<!-- 				  </div> -->
+<!-- 				</div> -->
     		</div>
   			<div class="col-md-9">
   				<div class="panel panel-primary">
@@ -59,8 +60,11 @@ body{
 				    <div class="well" id="log-container" style="height:400px;overflow-y:scroll">
 				    
 				    </div>
-				    	<input type="text" id="myinfo" class="form-control col-md-12" /> <br>
-				    	<button id="send" type="button" class="btn btn-primary">发送</button>
+<!-- 				    	<input type="text" id="myinfo" class="form-control col-md-12" /> <br> -->
+<!-- 				    	<button id="send" type="button" class="btn btn-primary">发送</button> -->
+<!-- 							<input type="text" id="msg" class="form-control col-md-12" /> <br> -->
+							<textarea id="msg"  editFlag='init'  style="width:700px;height:300px;"></textarea><br>
+							<button id="broadcast" type="button" class="btn btn-primary">发送</button>
 				    </div>
 				</div>
   			</div>
@@ -71,11 +75,11 @@ body{
         // 指定websocket路径
         var websocket;
         if ('WebSocket' in window) {
-			websocket = new WebSocket("ws://localhost:8080/SpringMvcDemo/ws?uid="+${sessionScope.uid});
-		} else if ('MozWebSocket' in window) {
-			websocket = new MozWebSocket("ws://localhost:8080/SpringMvcDemo/ws"+${sessionScope.uid});
-		} else {
-			websocket = new SockJS("http://localhost:8080/SpringMvcDemo/ws/sockjs"+${sessionScope.uid});
+			websocket = new WebSocket("ws://localhost:8080/SpringMvcDemo/ws?uid="+${USER_SESSION_KEY.id});
+		}else if('MozWebSocket' in window) {
+			websocket = new MozWebSocket("ws://localhost:8080/SpringMvcDemo/ws"+${USER_SESSION_KEY.id});
+		}else{
+			websocket = new SockJS("http://localhost:8080/SpringMvcDemo/ws/sockjs"+${USER_SESSION_KEY.id});
 		}
         //var websocket = new WebSocket('ws://localhost:8080/SpringMvcDemo/ws');
         websocket.onmessage = function(event) {
@@ -86,22 +90,23 @@ body{
             // 滚动条滚动到最低部
             scrollToBottom();
             }else if(data.from==0){//上线消息
-            	if(data.text!="${sessionScope.username}")
+            	if(data.text!="${USER_SESSION_KEY.username}")
             	{	
             		$("#users").append('<a href="#" onclick="talk(this)" class="list-group-item">'+data.text+'</a>');
-            		alert(data.text+"上线了");
+//             		alert(data.text+"上线了");
             	}
             }else if(data.from==-2){//下线消息
-            	if(data.text!="${sessionScope.username}")
+            	if(data.text!="${USER_SESSION_KEY.username}")
             	{	
             		$("#users > a").remove(":contains('"+data.text+"')");
-            		alert(data.text+"下线了");
+//             		alert(data.text+"下线了");
             	}
             }
         };
         $.post("onlineusers",function(data){
     		for(var i=0;i<data.length;i++)
-    			$("#users").append('<a href="#" onclick="talk(this)" class="list-group-item">'+data[i]+'</a>');
+//     			$("#users").append('<a href="#" onclick="talk(this)" class="list-group-item">'+data[i]+'</a>');
+    			$("#users").append('<a href="#" target="_blank"  class="list-group-item">'+data[i]+'</a>');
     	});
         
         $("#broadcast").click(function(){
@@ -109,16 +114,16 @@ body{
         });
         
         $("#send").click(function(){
-        	$.post("getuid",{"username":$("body").data("to")},function(d){
+        	$.post("getuid",{"username":$(".chatBody").data("to")},function(d){
         		var v=$("#myinfo").val();
         		
 				if(v==""){
 					return;
 				}else{
 					var data={};
-					data["from"]="${sessionScope.uid}";
-					data["fromName"]="${sessionScope.username}";
-					data["to"]=d.uid;
+					data["from"]="${USER_SESSION_KEY.id}";
+					data["fromName"]="${USER_SESSION_KEY.username}";
+					data["to"]=d.id;
 					data["text"]=v;
 					websocket.send(JSON.stringify(data));
 					$("#log-container").append("<div class='bg-success'><label class='text-info'>我&nbsp;"+new Date()+"</label><div class='text-info'>"+v+"</div></div><br>");
@@ -128,18 +133,17 @@ body{
         	});
         	
         });
-        
     });
    
    function talk(a){
    	$("#talktitle").text("与"+a.innerHTML+"的聊天");
-   	$("body").data("to",a.innerHTML);
+   	$(".chatBody").data("to",a.innerHTML);
+   	//TODO  修改div
    }
    function scrollToBottom(){
 		var div = document.getElementById('log-container');
 		div.scrollTop = div.scrollHeight;
 	}
 </script>    
-    
-  </body>
-</html>
+  </div>
+<%@ include file="/include/footer.jsp"%>

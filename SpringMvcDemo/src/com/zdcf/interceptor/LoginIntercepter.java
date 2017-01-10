@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.zdcf.model.User;
+
 public class LoginIntercepter extends HandlerInterceptorAdapter{
 	/**  
      * 在业务处理器处理请求之前被调用  
@@ -23,8 +25,8 @@ public class LoginIntercepter extends HandlerInterceptorAdapter{
     @Override    
     public boolean preHandle(HttpServletRequest request,    
             HttpServletResponse response, Object handler) throws Exception {    
-        String username =  (String)request.getSession().getAttribute("username");   
-        if(username == null){  
+        User user =  (User)request.getSession().getAttribute("USER_SESSION_KEY");   
+        if(user == null){  
             request.getRequestDispatcher("/WEB-INF/jsp/index/login.jsp").forward(request, response);  
             return false;  
         }else  

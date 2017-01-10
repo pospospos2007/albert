@@ -19,5 +19,7 @@ public interface UserService {
 	public String getPwdByName(String username);
 
 	public String getNameById(Integer id);
+
+	public User getUserByName(String username);
 	
 }

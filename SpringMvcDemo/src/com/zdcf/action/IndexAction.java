@@ -24,9 +24,11 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.zdcf.base.BaseAction;
 import com.zdcf.base.Constants;
+import com.zdcf.model.User;
 import com.zdcf.service.AirticleService;
 import com.zdcf.service.MessageService;
 import com.zdcf.service.UserService;
+import com.zdcf.tool.UserSessionUtil;
 
 @Controller
 @RequestMapping("/")
@@ -68,15 +70,23 @@ public class IndexAction extends BaseAction{
 		String picode=(String) httpSession.getAttribute("rand");
 //		if(!picode.equalsIgnoreCase(pic))
 //			return "index/failcode";
-		if(null==username||null==pwd)
-			return "index/login";
-		String realpwd=userService.getPwdByName(username);
+		if(null==username||null==pwd){
+			User u =UserSessionUtil.currentUser();
+			if(null==u){
+				return "index/login";
+			}else{
+				username=u.getUsername();
+				pwd=u.getPassword();
+			}
+		}
+			
+		User user=userService.getUserByName(username);
+		String realpwd =user.getPassword();
 		if(realpwd!=null&&pwd.equals(realpwd))
 		{
-			Integer uid=userService.getUidByName(username);
-			httpSession.setAttribute("username", username);
-			httpSession.setAttribute("uid", uid);
-			return "chatroom/chatroom";
+			UserSessionUtil.setUser(user);
+			
+			return "redirect:chatroom/toChatroom";
 		}else
 			return "index/fail";
 	}
@@ -88,9 +98,7 @@ public class IndexAction extends BaseAction{
 	
 	@RequestMapping("/logout")
 	public String logout(HttpSession httpSession){
-		httpSession.removeAttribute("username");
-		httpSession.removeAttribute("uid");
-		
+		httpSession.removeAttribute(Constants.USER_SESSION_KEY);
 		//TODO 删除在登陆后放入的浏览器的cookie
 		return "index/login";
 	}
@@ -139,6 +147,16 @@ public class IndexAction extends BaseAction{
 	public String calendar(){
 		return "index/calendar";
 	}	
+	
+	@RequestMapping("/toRegister")
+	public String toRegister(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+		return "index/register";
+	}
+	
+	@RequestMapping("/register")
+	public String register(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+		return "";
+	}
 	
 	
 }

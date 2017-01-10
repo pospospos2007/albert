@@ -32,4 +32,11 @@ public interface Constants {
 				save, del, update
 			}
 		}
+		
+		interface LOCALE_LANGUAGE{
+			String  zh_CN = "zh_CN"; //中文
+			String  en_US = "en_US"; //英文
+			String  zh_HK = "zh_HK"; //繁体
+		}
+		
 }
