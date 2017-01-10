@@ -148,5 +148,15 @@ public class IndexAction extends BaseAction{
 		return "index/calendar";
 	}	
 	
+	@RequestMapping("/toRegister")
+	public String toRegister(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+		return "index/register";
+	}
+	
+	@RequestMapping("/register")
+	public String register(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+		return "";
+	}
+	
 	
 }

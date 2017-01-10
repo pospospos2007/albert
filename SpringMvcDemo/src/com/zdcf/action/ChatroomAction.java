@@ -65,10 +65,11 @@ public class ChatroomAction {
 	@ResponseBody
 	@RequestMapping(value = "broadcast", method = RequestMethod.POST)
 	public void broadcast(@RequestParam("text") String text) throws IOException {
+		User user =UserSessionUtil.currentUser();
 		Message msg = new Message();
 		msg.setDate(new Date());
 		msg.setFrom(-1);//-1表示系统广播
-		msg.setFromName("系统广播");
+		msg.setFromName(user.getUsername());
 		msg.setTo(0);
 		msg.setText(text);
 		handler.broadcast(new TextMessage(new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create().toJson(msg)));

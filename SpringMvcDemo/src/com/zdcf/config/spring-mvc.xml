@@ -30,6 +30,8 @@
 	        <!-- 匹配的是url路径， 如果不配置或/**,将拦截所有的Controller -->  
 	        <mvc:mapping path="/**" />  
 	        <mvc:exclude-mapping path="/login" />  
+	        <mvc:exclude-mapping path="toRegister" />  
+	        <mvc:exclude-mapping path="/register" />  
 	        <mvc:exclude-mapping path="/loginvalidate"/>
 	        <mvc:exclude-mapping path="/message/*"/>
 	        <mvc:exclude-mapping path="/lab/*"/>
