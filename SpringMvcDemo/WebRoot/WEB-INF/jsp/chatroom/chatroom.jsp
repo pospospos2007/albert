@@ -71,6 +71,13 @@
     	</div>
     </div> 
 <script>
+
+	function getRootPath(){   
+		var pathName = window.location.pathname.substring(1);   
+		var webName = pathName == '' ? '' : pathName.substring(0, pathName.indexOf('/'));   
+		return window.location.protocol + '//' + window.location.host + '/'+ webName + '/';   
+	}
+
     $(document).ready(function() {
         // 指定websocket路径
         var websocket;
@@ -103,18 +110,20 @@
             	}
             }
         };
-        $.post("onlineusers",function(data){
+        $.post(getRootPath()+"chatroom/onlineusers",function(data){
     		for(var i=0;i<data.length;i++)
 //     			$("#users").append('<a href="#" onclick="talk(this)" class="list-group-item">'+data[i]+'</a>');
     			$("#users").append('<a href="#" target="_blank"  class="list-group-item">'+data[i]+'</a>');
     	});
         
         $("#broadcast").click(function(){
-        	$.post("broadcast",{"text":$("#msg").val()});
+        	KindEditor.instances[0].html('');
+//         	clearEditor('textarea');
+        	$.post(getRootPath()+"chatroom/broadcast",{"text":$("#msg").val()});
         });
         
         $("#send").click(function(){
-        	$.post("getuid",{"username":$(".chatBody").data("to")},function(d){
+        	$.post(getRootPath()+"chatroom/getuid",{"username":$(".chatBody").data("to")},function(d){
         		var v=$("#myinfo").val();
         		
 				if(v==""){

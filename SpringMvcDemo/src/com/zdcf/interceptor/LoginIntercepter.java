@@ -24,13 +24,8 @@ public class LoginIntercepter extends HandlerInterceptorAdapter{
      */    
     @Override    
     public boolean preHandle(HttpServletRequest request,    
-            HttpServletResponse response, Object handler) throws Exception {    
-        User user =  (User)request.getSession().getAttribute("USER_SESSION_KEY");   
-        if(user == null){  
-            request.getRequestDispatcher("/WEB-INF/jsp/index/login.jsp").forward(request, response);  
-            return false;  
-        }else  
-            return true;     
+            HttpServletResponse response, Object handler) throws Exception {
+    	return true;
     }    
     
     /** 

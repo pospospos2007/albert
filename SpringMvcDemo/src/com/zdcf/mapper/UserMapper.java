@@ -41,4 +41,8 @@ public interface UserMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id") 
 	public int addUserByIp(String ip);
     
+    @Insert("insert into t_user(username,password,ip,register_time,email,avatar,auto_login_code) values (#{username},#{password},#{ip},now(),#{email},#{avatar},#{autoLoginCode})")
+    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id") 
+	public int addUser(User user);
+    
 }

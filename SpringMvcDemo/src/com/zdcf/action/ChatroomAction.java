@@ -40,6 +40,10 @@ public class ChatroomAction {
 	
 	@RequestMapping("/toChatroom")
 	public String chatroom(){
+		User user =UserSessionUtil.currentUser();
+		if(null==user){
+			return "index/login";
+		}
 		return "/chatroom/chatroom";
 	}
 			
