@@ -80,6 +80,10 @@ public class UserServiceImpl implements  UserService {
 		return userMapper.getNameById(id);
 	}
 	
+	public User getUserById(Integer id){
+		return userMapper.getUserById(id);
+	}
+	
 	public int register(User user){
 		return userMapper.addUser(user);
 	}

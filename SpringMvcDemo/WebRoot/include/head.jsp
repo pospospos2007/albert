@@ -82,7 +82,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <button type="button"  class="btn btn-success pull-right" onclick="toRegister()">注册</button>
           </c:if>
           <c:if test="${!empty USER_SESSION_KEY}">
-          	<a href="#" class="pull-right" ><span>${USER_SESSION_KEY.username}<span></a>
+          	<img src="http://huiwupay.com:9999/images/favicon.ico" width="50px" height="50px" class="pull-right img-circle"></img>
+          	<a href="<%=path%>/userInfo" class="pull-right" ><span>${USER_SESSION_KEY.username}<span></a>
           </c:if>
         </div><!--/.nav-collapse -->
       </div>

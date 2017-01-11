@@ -216,5 +216,14 @@ public class IndexAction extends BaseAction{
 		return map;
 	}
 	
+	@RequestMapping("/userInfo")
+	public String userInfo(@RequestParam(value="id", required=false)Integer id,ModelMap model){
+		if(null!=id){
+			User user =userService.getUserById(id);
+			model.addAttribute("user", user);
+		}
+		return "index/userInfo";
+	}
+	
 	
 }

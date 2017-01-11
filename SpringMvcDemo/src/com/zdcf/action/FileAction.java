@@ -545,7 +545,12 @@ public class FileAction implements ServletContextAware{
 			}
 		}
 		return request.getRemoteAddr();
-	   } 
-	
+   } 
+	@RequestMapping(value = "/uploadAvatar",method = RequestMethod.POST, produces="application/json;charset=utf-8") 
+	public String uploadHeadPortrait(MultipartFile avatar_file,String avatar_src,String avatar_data, HttpServletRequest request){
+		avatar_file =avatar_file;
+		
+		return null;
+	}
 	
 }
