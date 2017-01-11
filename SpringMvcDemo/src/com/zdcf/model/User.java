@@ -27,6 +27,10 @@ public class User implements Serializable{
 	
 	private Date registerTime;
 	
+	private String email;
+	
+	private String avatar;
+	
 	private String autoLoginCode;//加密自动登录码
 	
 	public Date getRegisterTime() {
@@ -82,9 +86,21 @@ public class User implements Serializable{
 		return "User [id=" + id + ", username=" + username + ", password="
 				+ password + "]";
 	}
-	
-	
-	
-	
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+	
 }

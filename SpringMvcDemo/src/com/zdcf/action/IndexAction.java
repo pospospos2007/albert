@@ -28,6 +28,7 @@ import com.zdcf.model.User;
 import com.zdcf.service.AirticleService;
 import com.zdcf.service.MessageService;
 import com.zdcf.service.UserService;
+import com.zdcf.tool.Tools;
 import com.zdcf.tool.UserSessionUtil;
 
 @Controller
@@ -66,29 +67,44 @@ public class IndexAction extends BaseAction{
 	}
 	
 	@RequestMapping("/loginvalidate")
-	public String loginvalidate(@RequestParam(value="username", required=false) String username,@RequestParam(value="password", required=false) String pwd,HttpSession httpSession){
-		String picode=(String) httpSession.getAttribute("rand");
-//		if(!picode.equalsIgnoreCase(pic))
-//			return "index/failcode";
+	public @ResponseBody Map<String, Object> loginvalidate(@RequestParam(value="username", required=false) String username,@RequestParam(value="password", required=false) String pwd,HttpSession httpSession){
+		
+		Map<String, Object> map = this.initMapStatus();
+		
 		if(null==username||null==pwd){
-			User u =UserSessionUtil.currentUser();
-			if(null==u){
-				return "index/login";
-			}else{
-				username=u.getUsername();
-				pwd=u.getPassword();
-			}
+			map.put("status", Boolean.FALSE);
+			return map;
 		}
 			
 		User user=userService.getUserByName(username);
-		String realpwd =user.getPassword();
-		if(realpwd!=null&&pwd.equals(realpwd))
+		if(user!=null&&user.getPassword()!=null&&pwd.equals(user.getPassword()))
 		{
 			UserSessionUtil.setUser(user);
 			
-			return "redirect:chatroom/toChatroom";
+			map.put("status", Boolean.TRUE);
 		}else
-			return "index/fail";
+			map.put("status", Boolean.FALSE);
+		
+		return map;
+	}
+	
+	@RequestMapping("/checkUsername")
+	public @ResponseBody Map<String, Object> checkUsername(@RequestParam(value="username") String username){
+		
+		Map<String, Object> map = this.initMapStatus();
+		
+		if(null==username){
+			map.put("status", Boolean.FALSE);
+			return map;
+		}
+		User user=userService.getUserByName(username);
+		if(user!=null)
+		{
+			map.put("status", Boolean.FALSE);
+		}else
+			map.put("status", Boolean.TRUE);
+		
+		return map;
 	}
 	
 	@RequestMapping("/login")
@@ -154,8 +170,59 @@ public class IndexAction extends BaseAction{
 	}
 	
 	@RequestMapping("/register")
-	public String register(HttpServletRequest request,HttpServletResponse response,ModelMap model){
-		return "";
+	public String register(String username,String password,@RequestParam(
+			value="email", required=false) String email,ModelMap model,HttpServletRequest request){
+		
+		User u=userService.getUserByName(username);
+		if(u!=null){
+			return "index/login";
+		}
+		String ip = Tools.getNoHTMLString(getIpAddr(request));
+		User user =new User();
+		user.setEmail(email);
+		user.setUsername(username);
+		user.setPassword(password);
+		user.setIp(ip);
+		userService.register(user);
+		logger.info("ip:"+ip+" 注册了"+username);
+		UserSessionUtil.setUser(user);
+		return "redirect:/chatroom/toChatroom";
+	}
+	
+	public String getIpAddr(HttpServletRequest request) { 
+		String ip = request.getHeader("X-Real-IP");
+		if (null != ip && !"".equals(ip.trim())
+				&& !"unknown".equalsIgnoreCase(ip)) {
+			return ip;
+		}
+		ip = request.getHeader("X-Forwarded-For");
+		if (null != ip && !"".equals(ip.trim())
+				&& !"unknown".equalsIgnoreCase(ip)) {
+			// 多次反向代理后会有多个IP值，第一个为真实IP。
+			int index = ip.indexOf(',');
+			if (index != -1) {
+				return ip.substring(0, index);
+			} else {
+				return ip;
+			}
+		}
+		return request.getRemoteAddr();
+   } 
+	
+	public Map<String, Object> initMapStatus() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("status", Boolean.TRUE);
+		map.put("msg", "");
+		return map;
+	}
+	
+	@RequestMapping("/userInfo")
+	public String userInfo(@RequestParam(value="id", required=false)Integer id,ModelMap model){
+		if(null!=id){
+			User user =userService.getUserById(id);
+			model.addAttribute("user", user);
+		}
+		return "index/userInfo";
 	}
 	
 	

@@ -37,6 +37,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   ga('create', 'UA-79653638-1', 'auto');
   ga('send', 'pageview');
 
+  function toLogin(){
+	  window.location.href ="<%=path%>/login";
+  }
+  function toRegister(){
+	  window.location.href ="<%=path%>/register";
+  }
+  
 </script>
 <link rel="shortcut icon" href="<%=path%>/images/favicon.ico">
 
@@ -70,6 +77,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             
 <%--              <li onclick="active(this)"><a href="<%=path%>/chatroom/toChatroom">聊天室</a></li> --%>
           </ul>
+          <c:if test="${empty USER_SESSION_KEY}">
+          <button type="button"  class="btn btn-default pull-right" onclick="toLogin()">登录</button>
+          <button type="button"  class="btn btn-success pull-right" onclick="toRegister()">注册</button>
+          </c:if>
+          <c:if test="${!empty USER_SESSION_KEY}">
+          	<img src="http://huiwupay.com:9999/images/favicon.ico" width="50px" height="50px" class="pull-right img-circle"></img>
+          	<a href="<%=path%>/userInfo" class="pull-right" ><span>${USER_SESSION_KEY.username}<span></a>
+          </c:if>
         </div><!--/.nav-collapse -->
       </div>
     </nav>

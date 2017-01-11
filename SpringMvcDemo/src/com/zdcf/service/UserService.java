@@ -21,5 +21,9 @@ public interface UserService {
 	public String getNameById(Integer id);
 
 	public User getUserByName(String username);
+
+	public int register(User user);
+
+	public User getUserById(Integer id);
 	
 }

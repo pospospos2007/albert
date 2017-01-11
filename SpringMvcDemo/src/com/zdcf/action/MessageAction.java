@@ -38,8 +38,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.zdcf.action.LaboratoryAction.MyThread;
 import com.zdcf.base.BaseAction;
+import com.zdcf.base.Constants;
 import com.zdcf.dto.MessageDTO;
 import com.zdcf.dto.ThemeDTO;
 import com.zdcf.dto.ZhihuDTO;
@@ -47,7 +47,6 @@ import com.zdcf.model.FileExchange;
 import com.zdcf.model.Message;
 import com.zdcf.model.Theme;
 import com.zdcf.model.User;
-import com.zdcf.search.IChnlThemeSearchService;
 import com.zdcf.search.IChnlZhihuSearchService;
 import com.zdcf.search.entity.ChnlZhihuSearch;
 //import com.zdcf.search.IChnlZhihuSearchService;
@@ -57,7 +56,6 @@ import com.zdcf.service.FileService;
 import com.zdcf.service.MessageService;
 import com.zdcf.service.RobotService;
 import com.zdcf.service.UserService;
-import com.zdcf.tool.Const;
 import com.zdcf.tool.PageVo;
 import com.zdcf.tool.Tools;
 import com.zdcf.tool.WebUtil;
@@ -155,7 +153,7 @@ public class MessageAction extends BaseAction{
 	@RequestMapping(value ="/addTheme", method = RequestMethod.POST)
 	public String addAirticle(HttpServletRequest request,HttpServletResponse response,@RequestParam("theme")String theme,@RequestParam("content") String content,ModelMap model,@RequestParam("code") String code) throws UnsupportedEncodingException{
 		
-		String realcode = request.getSession().getAttribute(Const.SESSION_IMAGE_CODE).toString();
+		String realcode = request.getSession().getAttribute(Constants.SESSION_IMAGE_CODE).toString();
 		
 		if(null==code||"".equals(code)||!code.equals(realcode)){
 			return "redirect:/message/getAllTheme"; 
@@ -168,7 +166,7 @@ public class MessageAction extends BaseAction{
 		           valcode+=rd.nextInt(10);
 		       // 把产生的验证码存入到Session中
 		       HttpSession  session = request.getSession();
-		       session.setAttribute(Const.SESSION_IMAGE_CODE, valcode);
+		       session.setAttribute(Constants.SESSION_IMAGE_CODE, valcode);
 		}
 		
 		String ip = Tools.getNoHTMLString(StringFilter(getIpAddr(request)));
@@ -242,7 +240,7 @@ public class MessageAction extends BaseAction{
 	@RequestMapping("/addMessage")
 	public String addMessage(HttpServletRequest request,HttpServletResponse response,@RequestParam("message")String message,@RequestParam("themeId")int themeId,@RequestParam("messageCode")String messageCode) throws UnsupportedEncodingException{
 		
-		String realcode = request.getSession().getAttribute(Const.SESSION_IMAGE_CODE).toString();
+		String realcode = request.getSession().getAttribute(Constants.SESSION_IMAGE_CODE).toString();
 		
 		if(null==messageCode||"".equals(messageCode)||!messageCode.equals(realcode)){
 			return "redirect:/message/getThemeDetail?id="+themeId;
@@ -254,7 +252,7 @@ public class MessageAction extends BaseAction{
 	           valcode+=rd.nextInt(10);
 	       // 把产生的验证码存入到Session中
 	       HttpSession  session = request.getSession();
-	       session.setAttribute(Const.SESSION_IMAGE_CODE, valcode);
+	       session.setAttribute(Constants.SESSION_IMAGE_CODE, valcode);
 		}
 		
 		String ip = Tools.getNoHTMLString(getIpAddr(request));
@@ -332,7 +330,7 @@ public class MessageAction extends BaseAction{
 	           valcode+=rd.nextInt(10);
 	       // 把产生的验证码存入到Session中
 	       HttpSession  session = request.getSession();
-	       session.setAttribute(Const.SESSION_IMAGE_CODE, valcode);
+	       session.setAttribute(Constants.SESSION_IMAGE_CODE, valcode);
 	       // 产生图片
 	       int width = 100;
 	       int height = 30;

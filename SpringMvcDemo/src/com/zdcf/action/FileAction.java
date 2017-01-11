@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.zdcf.base.Constants;
 import com.zdcf.dto.FaceAttributeDTO;
 import com.zdcf.dto.FaceDTO;
 import com.zdcf.dto.FileDTO;
@@ -37,7 +38,6 @@ import com.zdcf.model.Images;
 import com.zdcf.model.User;
 import com.zdcf.service.FileService;
 import com.zdcf.service.UserService;
-import com.zdcf.tool.Const;
 import com.zdcf.tool.PageVo;
 import com.zdcf.tool.Tools;
 import com.zdcf.tool.WebUtil;
@@ -68,7 +68,7 @@ public class FileAction implements ServletContextAware{
 	@RequestMapping("/addFile")
     public String addFile(HttpServletRequest request,@RequestParam("discription")String discription,@RequestParam("title")String title,@RequestParam("url")String url,@RequestParam("fileCode")String fileCode,@RequestParam("fileFormat")String fileFormat,ModelMap model){
     	
-    	String realcode = request.getSession().getAttribute(Const.SESSION_IMAGE_CODE).toString();
+    	String realcode = request.getSession().getAttribute(Constants.SESSION_IMAGE_CODE).toString();
     	
     	if(null==fileCode||"".equals(fileCode)||!fileCode.equals(realcode)){
 			return "redirect:/message/getAllTheme"; 
@@ -81,7 +81,7 @@ public class FileAction implements ServletContextAware{
 		           valcode+=rd.nextInt(10);
 		       // 把产生的验证码存入到Session中
 		       HttpSession  session = request.getSession();
-		       session.setAttribute(Const.SESSION_IMAGE_CODE, valcode);
+		       session.setAttribute(Constants.SESSION_IMAGE_CODE, valcode);
 		}
     	
     	
@@ -116,7 +116,7 @@ public class FileAction implements ServletContextAware{
     @RequestMapping("/addImage")
     public String addImage(HttpServletRequest request,@RequestParam("name")String name,@RequestParam("url")String url,@RequestParam("imageCode")String imageCode,@RequestParam("imageFormat")String imageFormat,ModelMap model){
     	
-    	String realcode = request.getSession().getAttribute(Const.SESSION_IMAGE_CODE).toString();
+    	String realcode = request.getSession().getAttribute(Constants.SESSION_IMAGE_CODE).toString();
     	
     	if(null==imageCode||"".equals(imageCode)||!imageCode.equals(realcode)){
 			return "redirect:/message/getAllTheme"; 
@@ -129,7 +129,7 @@ public class FileAction implements ServletContextAware{
 		           valcode+=rd.nextInt(10);
 		       // 把产生的验证码存入到Session中
 		       HttpSession  session = request.getSession();
-		       session.setAttribute(Const.SESSION_IMAGE_CODE, valcode);
+		       session.setAttribute(Constants.SESSION_IMAGE_CODE, valcode);
 		}
     	
     	
@@ -162,10 +162,10 @@ public class FileAction implements ServletContextAware{
     @RequestMapping("/addFace")
     public String addFace(HttpServletRequest request,@RequestParam("url")String url,@RequestParam("faceCode")String faceCode,ModelMap model){
     	
-    	String realcode = request.getSession().getAttribute(Const.SESSION_IMAGE_CODE).toString();
+    	String realcode = request.getSession().getAttribute(Constants.SESSION_IMAGE_CODE).toString();
     	
     	if(null==faceCode||"".equals(faceCode)||!faceCode.equals(realcode)){
-			return "redirect:/message/getAllTheme"; 
+			return "redirect:/file/faceList"; 
 		}else{
 			
 			//验证成功后将session的验证码更新，防止再次使用此验证码发送主题
@@ -175,15 +175,15 @@ public class FileAction implements ServletContextAware{
 		           valcode+=rd.nextInt(10);
 		       // 把产生的验证码存入到Session中
 		       HttpSession  session = request.getSession();
-		       session.setAttribute(Const.SESSION_IMAGE_CODE, valcode);
+		       session.setAttribute(Constants.SESSION_IMAGE_CODE, valcode);
 		}
     	
     	
     	String ip = Tools.getNoHTMLString(Tools.getIpAddr(request));
 		
-    	if(ip.equals("117.38.164.79")||ip.contains("210.195.160")||ip.contains("119.188.94")||ip.contains("119.29.111")){
-    		return "/file/faceListNew";
-    	}
+//    	if(ip.equals("117.38.164.79")||ip.contains("210.195.160")||ip.contains("119.188.94")||ip.contains("119.29.111")){
+//    		return "/file/faceListNew";
+//    	}
 		User u = userService.getUserByIp(ip);
 		
 		FaceDTO face = new FaceDTO();
@@ -545,7 +545,12 @@ public class FileAction implements ServletContextAware{
 			}
 		}
 		return request.getRemoteAddr();
-	   } 
-	
+   } 
+	@RequestMapping(value = "/uploadAvatar",method = RequestMethod.POST, produces="application/json;charset=utf-8") 
+	public String uploadHeadPortrait(MultipartFile avatar_file,String avatar_src,String avatar_data, HttpServletRequest request){
+		avatar_file =avatar_file;
+		
+		return null;
+	}
 	
 }

@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : freeKai
-Source Server Version : 50716
-Source Host           : freekai.net:3306
+Source Server         : 本地
+Source Server Version : 50529
+Source Host           : localhost:3306
 Source Database       : albert
 
 Target Server Type    : MYSQL
-Target Server Version : 50716
+Target Server Version : 50529
 File Encoding         : 65001
 
-Date: 2017-01-08 11:36:48
+Date: 2017-01-11 18:29:20
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,7 +26,7 @@ CREATE TABLE `airticle` (
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `insert_time` datetime DEFAULT NULL,
   PRIMARY KEY (`airticle_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17907 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for chat_record
@@ -39,7 +39,7 @@ CREATE TABLE `chat_record` (
   `time` datetime DEFAULT NULL,
   `message` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=759 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for hdwan_res
@@ -56,7 +56,7 @@ CREATE TABLE `hdwan_res` (
   `update_time` timestamp NULL DEFAULT NULL,
   `review_num` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4344 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for t_face
@@ -68,7 +68,7 @@ CREATE TABLE `t_face` (
   `add_time` datetime DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=211 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for t_face_attribute
@@ -82,7 +82,19 @@ CREATE TABLE `t_face_attribute` (
   `race` varchar(20) DEFAULT NULL,
   `face_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=161 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for t_file_exchange
+-- ----------------------------
+DROP TABLE IF EXISTS `t_file_exchange`;
+CREATE TABLE `t_file_exchange` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `new_url` varchar(1000) DEFAULT NULL,
+  `old_url` varchar(1000) DEFAULT NULL,
+  `add_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for t_files
@@ -97,19 +109,7 @@ CREATE TABLE `t_files` (
   `add_time` datetime NOT NULL,
   `file_format` varchar(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for t_file_exchange
--- ----------------------------
-DROP TABLE IF EXISTS `t_file_exchange`;
-CREATE TABLE `t_file_exchange` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `new_url` varchar(1000) DEFAULT NULL,
-  `old_url` varchar(1000) DEFAULT NULL,
-  `add_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1795 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for t_images
@@ -123,7 +123,7 @@ CREATE TABLE `t_images` (
   `user_id` int(11) DEFAULT NULL,
   `image_format` varchar(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for t_message
@@ -135,7 +135,6 @@ CREATE TABLE `t_message` (
   `theme_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `add_time` datetime NOT NULL,
-  `via` varchar(1000) DEFAULT NULL COMMENT '来源',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25545 DEFAULT CHARSET=utf8;
 
@@ -151,9 +150,8 @@ CREATE TABLE `t_theme` (
   `add_time` datetime NOT NULL,
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `review_num` int(11) DEFAULT '0',
-  `via` varchar(1000) DEFAULT NULL COMMENT '来源',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=62846 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=62845 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for t_user
@@ -167,8 +165,9 @@ CREATE TABLE `t_user` (
   `register_time` datetime DEFAULT NULL COMMENT '注册时间',
   `email` varchar(1000) DEFAULT NULL COMMENT '邮箱',
   `avatar` varchar(1000) DEFAULT NULL COMMENT '头像',
+  `auto_login_code` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10669 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10678 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for t_zhihu
@@ -185,55 +184,4 @@ CREATE TABLE `t_zhihu` (
   `review_num` int(11) DEFAULT '0',
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9119198 DEFAULT CHARSET=utf8mb4;
-
--- ----------------------------
--- Table structure for user
--- ----------------------------
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
-  `Host` char(60) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `User` char(16) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `Password` char(41) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL DEFAULT '',
-  `Select_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `Insert_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `Update_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `Delete_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `Create_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `Drop_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `Reload_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `Shutdown_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `Process_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `File_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `Grant_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `References_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `Index_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `Alter_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `Show_db_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `Super_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `Create_tmp_table_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `Lock_tables_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `Execute_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `Repl_slave_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `Repl_client_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `Create_view_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `Show_view_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `Create_routine_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `Alter_routine_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `Create_user_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `Event_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `Trigger_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `Create_tablespace_priv` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  `ssl_type` enum('','ANY','X509','SPECIFIED') CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `ssl_cipher` blob NOT NULL,
-  `x509_issuer` blob NOT NULL,
-  `x509_subject` blob NOT NULL,
-  `max_questions` int(11) unsigned NOT NULL DEFAULT '0',
-  `max_updates` int(11) unsigned NOT NULL DEFAULT '0',
-  `max_connections` int(11) unsigned NOT NULL DEFAULT '0',
-  `max_user_connections` int(11) unsigned NOT NULL DEFAULT '0',
-  `plugin` char(64) COLLATE utf8_bin DEFAULT '',
-  `authentication_string` text COLLATE utf8_bin,
-  `password_expired` enum('N','Y') CHARACTER SET utf8 NOT NULL DEFAULT 'N',
-  PRIMARY KEY (`Host`,`User`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Users and global privileges';
+) ENGINE=InnoDB AUTO_INCREMENT=9138908 DEFAULT CHARSET=utf8mb4;
