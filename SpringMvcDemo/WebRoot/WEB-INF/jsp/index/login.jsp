@@ -8,6 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
     <title>登录</title>
     <link rel="stylesheet" media="screen" href="<%=path%>/css/register/zzsc.css" />
+    <link rel="shortcut icon" href="<%=path%>/images/favicon.ico">
     <script>
     $('#username').keyup(function(e){
 		var kd = $('#username').val();
@@ -26,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			if (result.status) {
     				$("#msg").html("登陆成功");
     				setTimeout(function(){
-						window.location.href ="<%=path%>/chatroom/toChatroom";
+						window.location.href ="<%=path%>/userInfo";
 					 },2000);
     			} else {
     				alert("登陆失败");	
@@ -43,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <form id="msform" action="<%=path%>/loginvalidate" method="post">
     <!-- progressbar -->
     <ul id="progressbar">
-        <li class="active">登录</li>
+<!--         <li class="active">登录</li> -->
 <!--         <li>Social Profiles</li> -->
 <!--         <li>Personal Details</li> -->
     </ul>

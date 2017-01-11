@@ -24,15 +24,10 @@ public class UserServiceImpl implements  UserService {
 
 	@Resource
 	private UserMapper userMapper;
-	
-	@Override
-	public User getUserByIp(String ip) {
-		return userMapper.getUserByIp(ip);
-	}
 
 	@Override
-	public int addUserByIp(String ip) {
-		return userMapper.addUserByIp(ip);
+	public int updateAvatar(User user) {
+		return userMapper.updateAvatar(user);
 	}
 
 	

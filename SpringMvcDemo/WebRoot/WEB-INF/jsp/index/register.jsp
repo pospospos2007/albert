@@ -8,6 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="http://thecodeplayer.com/uploads/js/jquery-1.9.1.min.js" type="text/javascript"></script>
 <script src="http://thecodeplayer.com/uploads/js/jquery.easing.min.js" type="text/javascript"></script>
 <script src="<%=path%>/js/register/zzsc.js" type="text/javascript"></script>
+<link rel="shortcut icon" href="<%=path%>/images/favicon.ico">
 <head>
     <title>注册</title>
     <link rel="stylesheet" media="screen" href="<%=path%>/css/register/zzsc.css" />

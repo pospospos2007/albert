@@ -182,6 +182,7 @@ public class IndexAction extends BaseAction{
 		user.setEmail(email);
 		user.setUsername(username);
 		user.setPassword(password);
+		user.setAvatar("defaultAvatar.jpg");
 		user.setIp(ip);
 		userService.register(user);
 		logger.info("ip:"+ip+" 注册了"+username);
@@ -218,9 +219,14 @@ public class IndexAction extends BaseAction{
 	
 	@RequestMapping("/userInfo")
 	public String userInfo(@RequestParam(value="id", required=false)Integer id,ModelMap model){
-		if(null!=id){
-			User user =userService.getUserById(id);
-			model.addAttribute("user", user);
+		User u = UserSessionUtil.currentUser();
+		if(null!=id&&u!=null){
+			if(!id.equals(u.getId())){
+				User user =userService.getUserById(id);
+				model.addAttribute("user", user);
+			}
+		}else if(null==u){
+			return "index/login";
 		}
 		return "index/userInfo";
 	}

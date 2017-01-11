@@ -10,10 +10,6 @@ import com.zdcf.model.User;
 
 public interface UserService {
 
-	public User getUserByIp(String ip);
-	
-	public int addUserByIp(String ip);
-
 	public Integer getUidByName(String username);
 
 	public String getPwdByName(String username);
@@ -25,5 +21,7 @@ public interface UserService {
 	public int register(User user);
 
 	public User getUserById(Integer id);
+
+	int updateAvatar(User user);
 	
 }

@@ -58,7 +58,11 @@ public interface MessageMapper {
 			+ "t.content content,"
 			+ "t.add_time addTime,"
 			+ "t.user_id userId,"
-			+ "u.ip as ip from t_theme t left join t_user u on t.user_id=u.id  where t.id=#{id}")
+			+ "u.ip as ip,"
+			+ "u.username as username,"
+			+ "u.avatar as avatar,"
+			+ "u.email as email  "
+			+ "from t_theme t left join t_user u on t.user_id=u.id  where t.id=#{id}")
 	public ThemeDTO getThemeById(int id);
 	
 	@Select("select t.id id,"

@@ -58,6 +58,7 @@ import com.zdcf.service.RobotService;
 import com.zdcf.service.UserService;
 import com.zdcf.tool.PageVo;
 import com.zdcf.tool.Tools;
+import com.zdcf.tool.UserSessionUtil;
 import com.zdcf.tool.WebUtil;
 
 import net.sf.json.JSONObject;
@@ -171,19 +172,13 @@ public class MessageAction extends BaseAction{
 		
 		String ip = Tools.getNoHTMLString(StringFilter(getIpAddr(request)));
 		
-		User u = userService.getUserByIp(ip);
+		User u = UserSessionUtil.currentUser();
 		
 		Theme th = new Theme();
 		
 		th.setTheme(StringFilter(theme));
 		
-		if(null!=u){
-			th.setUserId(u.getId());
-		}else{
-			userService.addUserByIp(ip);
-			int userId = userService.getUserByIp(ip).getId();
-			th.setUserId(userId);
-		}
+		th.setUserId(u.getId());
 		
 		th.setContent(content);
 		
@@ -257,21 +252,15 @@ public class MessageAction extends BaseAction{
 		
 		String ip = Tools.getNoHTMLString(getIpAddr(request));
 		
-		User u = userService.getUserByIp(ip);
+		User u = UserSessionUtil.currentUser();
 		
 		Message me = new Message();
 		
 		int userIdToRobot;
 		
-		if(null!=u){
-			me.setUserId(u.getId());
-			userIdToRobot = u.getId();
-		}else{
-			userService.addUserByIp(ip);
-			int userId = userService.getUserByIp(ip).getId();
-			me.setUserId(userId);
-			userIdToRobot = userId;
-		}
+		me.setUserId(u.getId());
+		
+		userIdToRobot = u.getId();
 		
 		me.setMessage(message);
 		
@@ -285,7 +274,7 @@ public class MessageAction extends BaseAction{
 			JSONObject jsonObject = null;
 			String result = robotService.getAnswerFromRobot(Tools.getNoHTMLString(message),userIdToRobot);
 			jsonObject = JSONObject.fromObject(result);
-			String answer = "@"+ip+" ";
+			String answer = "@"+u.getUsername()+" ";
 			if(null!=jsonObject.get("text")){
 				answer += jsonObject.get("text").toString();
 			}

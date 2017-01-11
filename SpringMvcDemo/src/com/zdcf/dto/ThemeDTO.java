@@ -4,24 +4,15 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.zdcf.model.Theme;
+
 /**
  * @author Li
  *
  */
 
-public class ThemeDTO implements Serializable{
+public class ThemeDTO extends Theme{
 
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8736721416496463128L;
-
-	private Integer id;
-	
-	private String theme;
-	
-	private String userId;
 	
 	private String content;
 	
@@ -31,45 +22,16 @@ public class ThemeDTO implements Serializable{
 	
 	private String ip;
 	
+	private String email;
 	
-	public String getIp() {
-		return ip;
-	}
-
-	public void setIp(String ip) {
-		this.ip = ip;
-	}
-
+	private String avatar;
+	
 	public String getUsername() {
 		return username;
 	}
 
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getTheme() {
-		return theme;
-	}
-
-	public void setTheme(String theme) {
-		this.theme = theme;
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
 	}
 
 	public Date getAddTime() {
@@ -88,16 +50,29 @@ public class ThemeDTO implements Serializable{
 		this.content = content;
 	}
 
-	@Override
-	public String toString() {
-		return "ThemeDTO [id=" + id + ", theme=" + theme + ", userId=" + userId
-				+ ", content=" + content + ", addTime=" + addTime
-				+ ", username=" + username + ", ip=" + ip + "]";
+	public String getIp() {
+		return ip;
 	}
 
-	
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
 
-	
-	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
 
 }

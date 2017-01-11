@@ -18,20 +18,26 @@
                    		<section class="clearfix">
 							<div class="panel panel-default">
 							  <div class="panel-heading">
-							    <h3 class="panel-title">修改头像注意</h3>
+							    <h3 class="panel-title">用户信息</h3>
 							  </div>
 							  <div class="panel-body">
-							    <p>做个有头有脸的人!</p>
-                               <p>上传你喜欢的照片并保存！</p>
-                               <p>建议上传近距离的照片，比如大头照、特写。</p>
-                               <p>您上传的图片已传到服务器，但是暂时不更换管理员头像。</p>
+							    <p>用户名：<c:if test="${empty user}">${USER_SESSION_KEY.username}</c:if>
+   										 <c:if test="${!empty user}">${user.username}</c:if>
+ 								</p>
+                               <p>邮箱:<c:if test="${empty user}">${USER_SESSION_KEY.email}</c:if>
+  									  <c:if test="${!empty user}">${user.email}</c:if>
+                               </p>
+                               <c:if test="${empty user}"><p>Ps:点击下方头像可以修改头像哦～</p></c:if>
 							  </div>
 							</div>
                            <div id="preview-pane" class="preview-pane">
                                <div class="row">
-                                   <div id="crop-avatar" class="col-md-6">
+                               
+                                   <div <c:if test="${empty user}">id="crop-avatar"</c:if> class="col-md-6">
                                        <div class="avatar-view" title="点击更改头像">
-                                       	<img src="http://huiwupay.com:9999/images/favicon.ico" alt="头像加载中...">
+	                                       	<c:if test="${empty user}"><img src="<%=path%>/uploadimage/${USER_SESSION_KEY.avatar}" alt="头像加载中..."></c:if>
+	    									<c:if test="${!empty user}"><img src="<%=path%>/uploadimage/${user.avatar}" alt="头像加载中..."></c:if>
+                                       	
                                        </div>                                        
 									<p class="c-999" style="width: 220px;">220x220</p>
                                    </div>
@@ -97,48 +103,6 @@
           </div>
         </div>
         <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
-        
-        <script>
-        
-        
-        (function (factory) {
-        	  if (typeof define === 'function' && define.amd) {
-        	    define(['jquery'], factory);
-        	  } else if (typeof exports === 'object') {
-        	    // Node / CommonJS
-        	    factory(require('jquery'));
-        	  } else {
-        	    factory(jQuery);
-        	  }
-        	})(function ($) {
-
-        	  'use strict';
-
-        	  var console = window.console || { log: function () {} };
-
-        	  function CropAvatar($element) {
-        	    this.$container = $element;
-
-        	    this.$avatarView = this.$container.find('.avatar-view');
-        	    this.$avatar = this.$avatarView.find('img');
-        	    this.$avatarModal = $("body").find('#avatar-modal');
-        	    this.$loading = $("#page-wrapper").find('.loading');
-
-        	    this.$avatarForm = this.$avatarModal.find('.avatar-form');
-        	    this.$avatarUpload = this.$avatarForm.find('.avatar-upload');
-        	    this.$avatarSrc = this.$avatarForm.find('.avatar-src');
-        	    this.$avatarData = this.$avatarForm.find('.avatar-data');
-        	    this.$avatarInput = this.$avatarForm.find('.avatar-input');
-        	    this.$avatarSave = this.$avatarForm.find('.avatar-save');
-        	    this.$avatarBtns = this.$avatarForm.find('.avatar-btns');
-
-        	    this.$avatarWrapper = this.$avatarModal.find('.avatar-wrapper');
-        	    this.$avatarPreview = this.$avatarModal.find('.avatar-preview');
-
-        	    this.init();
-        	  }
-        
-        </script>
 	 	<script src="<%=path%>/js/userInfo/sitelogo.js"></script>
  		<script src="<%=path%>/js/userInfo/cropper.min.js"></script>
 		<script src="<%=path%>/js/userInfo/icheck.min.js"></script>

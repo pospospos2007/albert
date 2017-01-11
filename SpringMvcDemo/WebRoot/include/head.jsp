@@ -71,6 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<li onclick="active(this)"><a  href="<%=path%>/message/getAllTheme"><s:message code='forum.list'/></a></li>
             <li onclick="active(this)"><a  href="<%=path%>/file/faceList"><s:message code='portrait.recognition.list'/></a></li>
             <li onclick="active(this)"><a  href="<%=path%>/message/getArticleFromZhihu"><s:message code='daily.list'/></a></li>
+            <li onclick="active(this)"><a href="<%=path%>/chatroom/toChatroom">聊天室</a></li>
             <li onclick="active(this)"><a  href="<%=path%>/toGameList"><s:message code='game.list'/></a></li>
             <li onclick="active(this)"><a target="_blank" href="<%=path%>/lab/toLab"><s:message code='laboratory.index'/></a></li>
             <li onclick="active(this)"><a target="_blank" href="<%=path%>/file/toMusicVisual"><s:message code='music.visualization.index'/></a></li>
@@ -82,8 +83,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <button type="button"  class="btn btn-success pull-right" onclick="toRegister()">注册</button>
           </c:if>
           <c:if test="${!empty USER_SESSION_KEY}">
-          	<img src="http://huiwupay.com:9999/images/favicon.ico" width="50px" height="50px" class="pull-right img-circle"></img>
-          	<a href="<%=path%>/userInfo" class="pull-right" ><span>${USER_SESSION_KEY.username}<span></a>
+          	 <a href="<%=path%>/userInfo" class="pull-right" title="111"><img src="<%=path%>/uploadimage/${USER_SESSION_KEY.avatar}"  width="40px" height="40px" class="img-circle"></img></a>
+<%--           	<a href="<%=path%>/userInfo" class="pull-right" ><span>${USER_SESSION_KEY.username}<span></a> --%>
           </c:if>
         </div><!--/.nav-collapse -->
       </div>

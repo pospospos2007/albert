@@ -40,6 +40,8 @@ import com.zdcf.service.FileService;
 import com.zdcf.service.UserService;
 import com.zdcf.tool.PageVo;
 import com.zdcf.tool.Tools;
+import com.zdcf.tool.UploadFileUtils;
+import com.zdcf.tool.UserSessionUtil;
 import com.zdcf.tool.WebUtil;
 
 @Controller
@@ -87,18 +89,12 @@ public class FileAction implements ServletContextAware{
     	
     	String ip =  Tools.getNoHTMLString(Tools.getIpAddr(request));
 		
-		User u = userService.getUserByIp(ip);
+		User u = UserSessionUtil.currentUser();
 		
     	Files file = new Files();
     	
-    	if(null!=u){
-    		file.setUserId(u.getId());
-		}else{
-			userService.addUserByIp(ip);
-			int userId = userService.getUserByIp(ip).getId();
-			file.setUserId(userId);
-		}
-    	
+		file.setUserId(u.getId());
+		
     	file.setDiscription(Tools.getNoHTMLString(discription));
     	
     	file.setUrl(url);
@@ -135,17 +131,11 @@ public class FileAction implements ServletContextAware{
     	
     	String ip = Tools.getNoHTMLString(Tools.getIpAddr(request));
 		
-		User u = userService.getUserByIp(ip);
+		User u = UserSessionUtil.currentUser();
 		
 		Images image = new Images();
     	
-    	if(null!=u){
-    		image.setUserId(u.getId());
-		}else{
-			userService.addUserByIp(ip);
-			int userId = userService.getUserByIp(ip).getId();
-			image.setUserId(userId);
-		}
+		image.setUserId(u.getId());
     	
     	image.setUrl(url);
     	
@@ -184,17 +174,11 @@ public class FileAction implements ServletContextAware{
 //    	if(ip.equals("117.38.164.79")||ip.contains("210.195.160")||ip.contains("119.188.94")||ip.contains("119.29.111")){
 //    		return "/file/faceListNew";
 //    	}
-		User u = userService.getUserByIp(ip);
+		User u = UserSessionUtil.currentUser();
 		
 		FaceDTO face = new FaceDTO();
     	
-    	if(null!=u){
-    		face.setUserId(u.getId());
-		}else{
-			userService.addUserByIp(ip);
-			int userId = userService.getUserByIp(ip).getId();
-			face.setUserId(userId);
-		}
+		face.setUserId(u.getId());
     	
     	face.setUrl(url);
     	fileService.addFace(face);
@@ -547,10 +531,44 @@ public class FileAction implements ServletContextAware{
 		return request.getRemoteAddr();
    } 
 	@RequestMapping(value = "/uploadAvatar",method = RequestMethod.POST, produces="application/json;charset=utf-8") 
-	public String uploadHeadPortrait(MultipartFile avatar_file,String avatar_src,String avatar_data, HttpServletRequest request){
-		avatar_file =avatar_file;
-		
-		return null;
+	@ResponseBody
+	public Map<String, Object> uploadHeadPortrait(MultipartFile avatar_file,String avatar_src,String avatar_data, HttpServletRequest request){
+		Map<String, Object> json = new HashMap<String, Object>();
+		if (!avatar_file.isEmpty()) {
+			try{
+		        //判断文件的MIMEtype
+		        String type = avatar_file.getContentType();
+		        if(type == null || !type.toLowerCase().startsWith("image/")){
+		        	json = this.setJson(false, "不支持的文件类型，仅支持图片!", null);
+		        	return  json;
+		        }
+				//头像存放文件
+				String dir = "avator";
+				Map<String, Object> returnMap = UploadFileUtils.Upload(request,avatar_file,avatar_data,dir);
+				//返回的布尔型参数的值为true，如果字符串参数不为null，是相等的，忽略大小写字符串“true”。
+				if (Boolean.parseBoolean(returnMap.get("flag").toString()) == true) {
+					User user =UserSessionUtil.currentUser();
+					user.setAvatar(returnMap.get("savaPath").toString().replace("uploadimage/",""));
+					userService.updateAvatar(user);
+					json = this.setJson(true, "上传成功!", returnMap.get("savaPath").toString());
+					System.out.println("存放路径："+returnMap.get("savaPath").toString());
+					return json;
+				} 
+			}catch(Exception e){
+				logger.error("ImageUploadController.uploadHeadPortrait", e);
+				json = this.setJson(false, "上传失败，出现异常："+e.getMessage(), null);
+				return json;
+			}
+		}
+    	json = this.setJson(false, "不支持的文件类型，仅支持图片!", null);
+    	return  json;
+	}
+	protected Map<String, Object> setJson(boolean success, String message, Object entity){
+		Map<String,Object> json = new HashMap<String,Object>();
+		json.put("success", success);
+		json.put("message", message);
+		json.put("entity", entity);
+		return json;
 	}
 	
 }

@@ -13,9 +13,9 @@
       <h1>${theme.theme}</h1>
      
       <div class="article">
-        <h2></h2>
-        <p class="right">楼主${theme.ip}
-	        &nbsp;&nbsp;添加时间:<fmt:formatDate value="${theme.addTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+        <h2><img src="<%=path%>/uploadimage/${theme.avatar }" width="30px" height="30px" class="img-circle"></img></h2>
+        <p class="right">楼主:<a href="<%=path%>/userInfo?id=${theme.userId}">${theme.username}</a>
+	        &nbsp;&nbsp;<fmt:formatDate value="${theme.addTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
         </p>
         <br />
         <p>${theme.content}</p>
@@ -28,9 +28,9 @@
 			<br/>
 	     	<div class="article">
 	        <h2></h2>
-	        <p class="right"><li>楼&nbsp;
-		        <a href="#" target="_blank">${message.ip}</a>
-		        &nbsp;&nbsp;添加时间:<fmt:formatDate value="${message.addTime}" pattern="yyyy-MM-dd HH:mm:ss"/></li>
+	        <img src="<%=path%>/uploadimage/${message.avatar }" width="50px" height="50px" class="img-circle pull-left"></img><p class="right"><li>楼&nbsp;
+		        <a href="<%=path%>/userInfo?id=${theme.userId}" target="_blank">${message.username}</a>
+		        &nbsp;&nbsp;<fmt:formatDate value="${message.addTime}" pattern="yyyy-MM-dd HH:mm:ss"/></li>
 	        </p>
 	        <br />
 	        <p>${message.message}</p>
