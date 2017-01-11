@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  window.location.href ="<%=path%>/login";
   }
   function toRegister(){
-	  window.location.href ="<%=path%>/register";
+	  window.location.href ="<%=path%>/toRegister";
   }
   
 </script>
