@@ -54,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <h3 class="fs-subtitle">填写信息</h3>
         <input type="text" name="username" id="username" placeholder="用户名" autocomplete="off" />
         <input type="password" name="password" placeholder="密码" autocomplete="off" />
-        <input type="button" onclick="login()" class="action-button" value="提交" />
+        <input type="button" onclick="login()" class="action-button btn" value="提交" />
         <span id="msg" style="color:red"></span>
     </fieldset>
 </form>

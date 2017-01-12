@@ -1,9 +1,12 @@
 package com.zdcf.action;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -50,19 +53,20 @@ public class ChatroomAction {
 	
 	@RequestMapping("/onlineusers")
 	@ResponseBody
-	public Set<String> onlineusers(HttpSession session){
+	public List<User> onlineusers(HttpSession session){
 		Map<Integer, WebSocketSession> map=MyWebSocketHandler.userSocketSessionMap;
 		Set<Integer> set=map.keySet();
 		Iterator<Integer> it = set.iterator();
-		Set<String> nameset=new HashSet<String>();
+		List<User> list=new ArrayList<>();
 		while(it.hasNext()){
 			Integer entry = it.next();
-			String name=userService.getNameById(entry);
+			User u=userService.getUserById(entry);
 			String user=UserSessionUtil.currentUser().getUsername();
-			if(!user.equals(name))
-				nameset.add(name);
+			if(!user.equals(u.getUsername())){
+				list.add(u);
+			}
 		}
-		return nameset;
+		return list;
 	}
 	
 	// 发布系统广播（群发）

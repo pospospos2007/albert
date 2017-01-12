@@ -116,7 +116,7 @@ public class IndexAction extends BaseAction{
 	public String logout(HttpSession httpSession){
 		httpSession.removeAttribute(Constants.USER_SESSION_KEY);
 		//TODO 删除在登陆后放入的浏览器的cookie
-		return "index/login";
+		return "redirect:/movie/toMovieList";
 	}
 	
 	

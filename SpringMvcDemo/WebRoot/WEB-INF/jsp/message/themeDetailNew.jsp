@@ -13,7 +13,7 @@
       <h1>${theme.theme}</h1>
      
       <div class="article">
-        <h2><img src="<%=path%>/uploadimage/${theme.avatar }" width="30px" height="30px" class="img-circle"></img></h2>
+        <h2><img src="<%=path%>/uploadimage/${theme.avatar }" width="50px" height="50px" class="img-rounded"></img></h2>
         <p class="right">楼主:<a href="<%=path%>/userInfo?id=${theme.userId}">${theme.username}</a>
 	        &nbsp;&nbsp;<fmt:formatDate value="${theme.addTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
         </p>
@@ -28,9 +28,10 @@
 			<br/>
 	     	<div class="article">
 	        <h2></h2>
-	        <img src="<%=path%>/uploadimage/${message.avatar }" width="50px" height="50px" class="img-circle pull-left"></img><p class="right"><li>楼&nbsp;
-		        <a href="<%=path%>/userInfo?id=${theme.userId}" target="_blank">${message.username}</a>
-		        &nbsp;&nbsp;<fmt:formatDate value="${message.addTime}" pattern="yyyy-MM-dd HH:mm:ss"/></li>
+	        <a href="<%=path%>/userInfo?id=${message.userId}" target="_blank"><img src="<%=path%>/uploadimage/${message.avatar }" width="50px" height="50px" class="img-rounded pull-left"></img></a>
+	        <p class="right">
+		        ${message.username}
+		        &nbsp;&nbsp;<fmt:formatDate value="${message.addTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 	        </p>
 	        <br />
 	        <p>${message.message}</p>
@@ -39,7 +40,13 @@
 		</c:forEach>
 		</ol>
 	  </c:if>
+	  
+	  
       <div class="article">
+      <c:if test="${empty USER_SESSION_KEY}">
+      	请<a href="<%=path%>/login" >登录</a>后进行操作！
+      </c:if>
+      <c:if test="${!empty USER_SESSION_KEY}">
       <form method="post" action="<%=path%>/message/addMessage" >
       	<input type="hidden" name="themeId" value="${theme.id}"></input>
                 
@@ -62,7 +69,7 @@
 
             <input type="submit" value="回复" />
         </form>
-      
+      </c:if>
       </div>
 	</div>
    

@@ -43,12 +43,15 @@ public class MyWebSocketHandler implements WebSocketHandler {
 	public void afterConnectionEstablished(WebSocketSession session)
 			throws Exception {
 		Integer uid = (Integer) session.getAttributes().get("uid");
-		String username=userService.getNameById(uid);
+		User u=userService.getUserById(uid);
 		if (userSocketSessionMap.get(uid) == null) {
 			userSocketSessionMap.put(uid, session);
 			Message msg = new Message();
 			msg.setFrom(0);//0表示上线消息
-			msg.setText(username);
+			msg.setText(u.getUsername());
+			msg.setUserId(u.getId());
+			msg.setAvatar(u.getAvatar());
+			msg.setEmail(u.getEmail());
 			this.broadcast(new TextMessage(new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create().toJson(msg)));
 		}
 	}

@@ -48,7 +48,7 @@ public class MovieAction {
 	private MovieService movieService;
 
 	@RequestMapping("/toMovieList")
-	public String toGameList(MovieSearchParam searchParam,HttpServletRequest request,ModelMap model) throws IOException{
+	public String toMovieList(MovieSearchParam searchParam,HttpServletRequest request,ModelMap model) throws IOException{
 		
 		String ip = Tools.getNoHTMLString(getIpAddr(request));
 		

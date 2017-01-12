@@ -71,16 +71,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<li onclick="active(this)"><a  href="<%=path%>/message/getAllTheme"><s:message code='forum.list'/></a></li>
             <li onclick="active(this)"><a  href="<%=path%>/file/faceList"><s:message code='portrait.recognition.list'/></a></li>
             <li onclick="active(this)"><a  href="<%=path%>/message/getArticleFromZhihu"><s:message code='daily.list'/></a></li>
-            <li onclick="active(this)"><a href="<%=path%>/chatroom/toChatroom">聊天室</a></li>
+            <li onclick="active(this)"><a href="<%=path%>/chatroom/toChatroom"><s:message code='chatroom.index'/></a></li>
             <li onclick="active(this)"><a  href="<%=path%>/toGameList"><s:message code='game.list'/></a></li>
             <li onclick="active(this)"><a target="_blank" href="<%=path%>/lab/toLab"><s:message code='laboratory.index'/></a></li>
             <li onclick="active(this)"><a target="_blank" href="<%=path%>/file/toMusicVisual"><s:message code='music.visualization.index'/></a></li>
-            
-<%--              <li onclick="active(this)"><a href="<%=path%>/chatroom/toChatroom">聊天室</a></li> --%>
           </ul>
           <c:if test="${empty USER_SESSION_KEY}">
-          <button type="button"  class="btn btn-default pull-right" onclick="toLogin()">登录</button>
-          <button type="button"  class="btn btn-success pull-right" onclick="toRegister()">注册</button>
+          <button type="button"  class="btn btn-default pull-right" onclick="toLogin()"><s:message code='login.index'/></button>
+          <button type="button"  class="btn btn-success pull-right" onclick="toRegister()"><s:message code='register.index'/></button>
           </c:if>
           <c:if test="${!empty USER_SESSION_KEY}">
           	 <a href="<%=path%>/userInfo" class="pull-right" title="111"><img src="<%=path%>/uploadimage/${USER_SESSION_KEY.avatar}"  width="40px" height="40px" class="img-circle"></img></a>

@@ -26,7 +26,7 @@ public class MessageSqlProvider {
 		StringBuilder sb = new StringBuilder("");
 		
 		sb.append("select m.id as id,m.message as message," +
-				"m.add_time as addTime,t.theme as theme,u.ip as ip,u.avatar as avatar,u.username as username,u.email as email " +
+				"m.add_time as addTime,t.theme as theme,u.ip as ip,u.avatar as avatar,u.username as username,u.email as email,u.id as userId " +
 				"from t_message m left join t_theme t on t.id=m.theme_id left join t_user u on u.id=m.user_id "
 				+ "where m.theme_id="+id
 				+ " order by m.add_time asc");

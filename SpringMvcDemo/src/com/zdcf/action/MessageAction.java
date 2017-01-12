@@ -134,7 +134,10 @@ public class MessageAction extends BaseAction{
 	
 	@RequestMapping("/toAddTheme")
 	public String toAddTheme(ModelMap model,HttpServletRequest request){
-		
+		User u = UserSessionUtil.currentUser();
+		if(null==u){
+			return "index/login";
+		}
 		return "/message/addThemeNew";
 	}
 	

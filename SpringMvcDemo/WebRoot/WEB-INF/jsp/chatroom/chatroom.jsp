@@ -2,7 +2,7 @@
 <%@ include file="/include/head.jsp"%>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-    <title>聊天室</title>
+    <title><s:message code='chatroom.index'/></title>
 
 <script type="text/javascript" src="<%=path%>/kindeditor/kindeditor-min.js"></script>
 	<script type="text/javascript" src="<%=path%>/kindeditor/commoneditor.js"></script>
@@ -99,7 +99,8 @@
             }else if(data.from==0){//上线消息
             	if(data.text!="${USER_SESSION_KEY.username}")
             	{	
-            		$("#users").append('<a href="#" onclick="talk(this)" class="list-group-item">'+data.text+'</a>');
+//             		$("#users").append('<a href="#" onclick="talk(this)" class="list-group-item">'+data.text+'</a>');
+            		$("#users").append('<a href="'+getRootPath()+'userInfo?id='+data.userId+'" target="_blank" class="list-group-item">'+'<img src="'+getRootPath()+'uploadimage/'+data.avatar+'" class="img-circle pull-left" width="20px" height="20px" ></img>'+data.text+'</a>');
 //             		alert(data.text+"上线了");
             	}
             }else if(data.from==-2){//下线消息
@@ -111,10 +112,11 @@
             }
         };
         $.post(getRootPath()+"chatroom/onlineusers",function(data){
-    		for(var i=0;i<data.length;i++)
+    		for(var i=0;i<data.length;i++){
 //     			$("#users").append('<a href="#" onclick="talk(this)" class="list-group-item">'+data[i]+'</a>');
-    			$("#users").append('<a href="#" target="_blank"  class="list-group-item">'+data[i]+'</a>');
-    	});
+    			$("#users").append('<a href="'+getRootPath()+'userInfo?id='+data[i].id+'" target="_blank"  class="list-group-item">'+'<img src="'+getRootPath()+'uploadimage/'+data[i].avatar+'" class="img-circle pull-left" width="20px" height="20px" ></img>'+data[i].username+'</a>');
+    		}
+   		});
         
         $("#broadcast").click(function(){
         	KindEditor.instances[0].html('');

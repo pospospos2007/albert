@@ -266,6 +266,11 @@ public class FileAction implements ServletContextAware{
     @RequestMapping("/toAddFile")
     public String toAddFile(){
     	
+    	User u = UserSessionUtil.currentUser();
+		if(null==u){
+			return "index/login";
+		}
+		
     	return "/file/addFile";
     }
     
@@ -273,12 +278,21 @@ public class FileAction implements ServletContextAware{
     @RequestMapping("/toUploadImage")
     public String toUploadImage(){
     	
+    	User u = UserSessionUtil.currentUser();
+		if(null==u){
+			return "index/login";
+		}
+		
     	return "/file/addImage";
     }
     
     @RequestMapping("/toAddFace")
     public String toAddFace(){
     	
+    	User u = UserSessionUtil.currentUser();
+		if(null==u){
+			return "index/login";
+		}
     	return "/file/addFace";
     }
     

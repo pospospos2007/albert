@@ -27,7 +27,11 @@
                                <p>邮箱:<c:if test="${empty user}">${USER_SESSION_KEY.email}</c:if>
   									  <c:if test="${!empty user}">${user.email}</c:if>
                                </p>
+                               <c:if test="${empty user}"><p><button onclick="layout()" class="btn-danger">退出</button></p>
+                               </c:if>
+                               
                                <c:if test="${empty user}"><p>Ps:点击下方头像可以修改头像哦～</p></c:if>
+                               
 							  </div>
 							</div>
                            <div id="preview-pane" class="preview-pane">
@@ -106,4 +110,9 @@
 	 	<script src="<%=path%>/js/userInfo/sitelogo.js"></script>
  		<script src="<%=path%>/js/userInfo/cropper.min.js"></script>
 		<script src="<%=path%>/js/userInfo/icheck.min.js"></script>
+		<script>
+		function layout(){
+			window.location.href ="<%=path%>/logout";
+		}
+		</script>
 <%@ include file="/include/footer.jsp"%>

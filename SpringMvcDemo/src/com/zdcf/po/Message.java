@@ -13,7 +13,13 @@ public class Message {
 	public String text;
 	//发送日期
 	public Date date;
-
+	
+	public String avatar;
+	
+	public int userId;
+	
+	public String email;
+	
 	public Integer getFrom() {
 		return from;
 	}
@@ -54,4 +60,28 @@ public class Message {
 		this.date = date;
 	}
 
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 }
