@@ -562,7 +562,7 @@ public class FileAction implements ServletContextAware{
 				//返回的布尔型参数的值为true，如果字符串参数不为null，是相等的，忽略大小写字符串“true”。
 				if (Boolean.parseBoolean(returnMap.get("flag").toString()) == true) {
 					User user =UserSessionUtil.currentUser();
-					user.setAvatar(returnMap.get("savaPath").toString().replace("uploadimage/",""));
+					user.setAvatar(returnMap.get("savaPath").toString());
 					userService.updateAvatar(user);
 					json = this.setJson(true, "上传成功!", returnMap.get("savaPath").toString());
 					System.out.println("存放路径："+returnMap.get("savaPath").toString());

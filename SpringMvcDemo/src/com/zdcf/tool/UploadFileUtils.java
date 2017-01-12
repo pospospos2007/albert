@@ -119,7 +119,9 @@ public class UploadFileUtils {
         }catch(Exception e){
             e.printStackTrace();  
         }
-        returnMap.put("savaPath", getSavaDir(request, serverSaveDir, newFileName));
+        String a = serverSaveDir.replaceAll("\\\\", "/");
+        String[] options = a.split( "uploadimage/");
+        returnMap.put("savaPath", options[1]+"/"+ newFileName);
         returnMap.put("flag", flag);
 		return returnMap;
     }

@@ -325,9 +325,13 @@ public class UnitTest extends BaseService {
 	
 	@Test
 	public void testStringReplace(){
-		String a = "abcdbc";
-		a = a.replace("abcd","");
-		System.out.println(a);
+		String a = "235235rf4562t54t/upload/4tabcdbc";
+//		a = a.replace("abcd","");
+//		int index =a.lastIndexOf("upload",);
+		String[] options = a.split( "upload/");
+		
+//		String b =a.substring("upload/",a.length());
+		System.out.println(options[1]);
 	}
 	
 	@Test

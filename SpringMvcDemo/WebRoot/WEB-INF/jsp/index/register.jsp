@@ -58,6 +58,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <input type="password" name="password" placeholder="密码" autocomplete="off"  />
  		<input type="text" name="email" placeholder="Email" autocomplete="off" />
         <input type="submit"  id="submitBtn" class="next action-button" value="提交" />
+        <span id="msg" style="color:blue"><a href="<%=path%>/login" >登录</a></span>
     </fieldset>
 
 </form>

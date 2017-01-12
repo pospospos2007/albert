@@ -73,21 +73,26 @@
 <script>
 
 	function getRootPath(){   
-		var pathName = window.location.pathname.substring(1);   
-		var webName = pathName == '' ? '' : pathName.substring(0, pathName.indexOf('/'));   
-		return window.location.protocol + '//' + window.location.host + '/'+ webName + '/';   
+		return "<%=path%>/";
+// 		var pathName = window.location.pathname.substring(1);   
+// 		var webName = pathName == '' ? '' : pathName.substring(0, pathName.indexOf('/'));   
+// 		return window.location.protocol + '//' + window.location.host + '/'+ webName + '/';   
 	}
 
     $(document).ready(function() {
         // 指定websocket路径
         var websocket;
         if ('WebSocket' in window) {
-			websocket = new WebSocket("ws://localhost:8080/SpringMvcDemo/ws?uid="+${USER_SESSION_KEY.id});
+// 			websocket = new WebSocket("ws://localhost:8080/SpringMvcDemo/ws?uid="+${USER_SESSION_KEY.id});
+			websocket = new WebSocket("ws://huiwupay.com:9999/ws?uid="+${USER_SESSION_KEY.id});
 		}else if('MozWebSocket' in window) {
-			websocket = new MozWebSocket("ws://localhost:8080/SpringMvcDemo/ws"+${USER_SESSION_KEY.id});
+// 			websocket = new MozWebSocket("ws://localhost:8080/SpringMvcDemo/ws"+${USER_SESSION_KEY.id});
+			websocket = new MozWebSocket("ws://huiwupay.com:9999/ws"+${USER_SESSION_KEY.id});
 		}else{
-			websocket = new SockJS("http://localhost:8080/SpringMvcDemo/ws/sockjs"+${USER_SESSION_KEY.id});
+// 			websocket = new SockJS("http://localhost:8080/SpringMvcDemo/ws/sockjs"+${USER_SESSION_KEY.id});
+			websocket = new SockJS("http://huiwupay.com:9999/ws/sockjs"+${USER_SESSION_KEY.id});
 		}
+        
         //var websocket = new WebSocket('ws://localhost:8080/SpringMvcDemo/ws');
         websocket.onmessage = function(event) {
        	 var data=JSON.parse(event.data);
@@ -111,6 +116,7 @@
             	}
             }
         };
+        
         $.post(getRootPath()+"chatroom/onlineusers",function(data){
     		for(var i=0;i<data.length;i++){
 //     			$("#users").append('<a href="#" onclick="talk(this)" class="list-group-item">'+data[i]+'</a>');

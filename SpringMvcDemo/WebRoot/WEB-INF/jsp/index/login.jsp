@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <input type="text" name="username" id="username" placeholder="用户名" autocomplete="off" />
         <input type="password" name="password" placeholder="密码" autocomplete="off" />
         <input type="button" onclick="login()" class="action-button btn" value="提交" />
-        <span id="msg" style="color:red"></span>
+        <span id="msg" style="color:blue"><a href="<%=path%>/toRegister" >注册</a></span>
     </fieldset>
 </form>
 <script src="http://thecodeplayer.com/uploads/js/jquery-1.9.1.min.js" type="text/javascript"></script>
