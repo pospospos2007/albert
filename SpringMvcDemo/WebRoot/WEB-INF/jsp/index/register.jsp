@@ -54,8 +54,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <fieldset>
         <h2 class="fs-title">创建账号</h2>
         <h3 class="fs-subtitle">填写信息</h3>
-        <input type="text" name="username" id="username" placeholder="用户名" autocomplete="off"  />
-        <input type="password" name="password" placeholder="密码" autocomplete="off"  />
+        <input type="text" name="username" id="username" placeholder="用户名" autocomplete="off" require="true" />
+        <input type="password" name="password" placeholder="密码" autocomplete="off" require="true" />
  		<input type="text" name="email" placeholder="Email" autocomplete="off" />
         <input type="submit"  id="submitBtn" class="next action-button" value="提交" />
         <span id="msg" style="color:blue"><a href="<%=path%>/login" >登录</a></span>
