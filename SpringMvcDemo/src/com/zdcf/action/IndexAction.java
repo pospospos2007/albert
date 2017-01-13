@@ -28,6 +28,7 @@ import com.zdcf.model.User;
 import com.zdcf.service.AirticleService;
 import com.zdcf.service.MessageService;
 import com.zdcf.service.UserService;
+import com.zdcf.tool.StringUtil;
 import com.zdcf.tool.Tools;
 import com.zdcf.tool.UserSessionUtil;
 
@@ -173,6 +174,9 @@ public class IndexAction extends BaseAction{
 	public String register(String username,String password,@RequestParam(
 			value="email", required=false) String email,ModelMap model,HttpServletRequest request){
 		
+		if(StringUtil.isEmpty(username)||StringUtil.isEmpty(password)){
+			return "index/login";
+		}
 		User u=userService.getUserByName(username);
 		if(u!=null){
 			return "index/login";
@@ -187,7 +191,7 @@ public class IndexAction extends BaseAction{
 		userService.register(user);
 		logger.info("ip:"+ip+" 注册了"+username);
 		UserSessionUtil.setUser(user);
-		return "redirect:/chatroom/toChatroom";
+		return "index/userInfo";
 	}
 	
 	public String getIpAddr(HttpServletRequest request) { 
