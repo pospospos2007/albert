@@ -96,7 +96,7 @@ public interface MessageMapper {
 	public List<Map<String, Object>> getThemeListPage(
 			@Param("offset") int offset, @Param("pagesize") int pagesize);
 	
-	@Select("SELECT COUNT(*) from t_theme t left join t_user u on u.id=t.user_id ")
+	@Select("SELECT COUNT(t.id) from t_theme t")
 	public int getThemeCount(@Param("offset") int offset, @Param("pagesize") int pagesize);
 	
 	@Update("set names utf8mb4")
@@ -108,7 +108,7 @@ public interface MessageMapper {
 	public List<Map<String, Object>> getZhihuArticleListPage(
 			@Param("offset") int offset, @Param("pagesize") int pagesize);
 	
-	@Select("SELECT COUNT(*) from t_zhihu t  ")
+	@Select("SELECT COUNT(t.id) from t_zhihu t  ")
 	public int getZhihuArticleCount(@Param("offset") int offset, @Param("pagesize") int pagesize);
 	
 	@Select("select t.id as id,t.title as title," +
