@@ -5,17 +5,20 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zdcf.dto.ZhihuDTO;
+import com.zdcf.mapper.Plugin;
 import com.zdcf.model.Zhihu;
 import com.zdcf.service.MessageService;
 import com.zdcf.service.MovieService;
 import com.zdcf.service.RobotService;
 import com.zdcf.tool.PageInfo;
+import com.zdcf.weibo.Config;
 
 import net.sf.json.JSONObject;
 
@@ -36,10 +39,10 @@ public class Job {
 	@Autowired
 	private MovieService movieService;
 	
+	@Autowired
+	private Plugin plugin;
+	
 
-	private int i =1 ;
-	
-	
 	
 //	@Scheduled(cron = "1 0/1 * * * ? ")
 	@Scheduled(cron = "0 0 8,20 * * ? ")
@@ -52,8 +55,6 @@ public class Job {
 		jsonObject = JSONObject.fromObject(result);
 		
 		List<Map<String,Object>>  stories = (List<Map<String, Object>>) jsonObject.get("stories");
-		
-		log.info("执行第"+(i++)+"次...");
 		
 		for(int i=0;i<stories.size();i++){
 			
@@ -97,6 +98,22 @@ public class Job {
 			
 		}
 		
+	}
+	
+	
+	@Scheduled(cron = "1 0/1 * * * ? ")
+//	@Test
+	public void addWeibo(){
+//		AnnotationConfigApplicationContext ctx =new AnnotationConfigApplicationContext();
+//		ctx.register(Config.class);
+//		ctx.refresh();
+//		Config config = ctx.getBean(Config.class);
+		
+		Config config =new Config();
+		config.setPlugin(plugin);
+		config.getAllThreadsRun();
+//		HttpClientPoolUtil.shutDown();
+//		ctx.close();
 	}
 	
 	

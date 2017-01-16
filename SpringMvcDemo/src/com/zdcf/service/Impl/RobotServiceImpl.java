@@ -10,10 +10,12 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
+import com.zdcf.mapper.Plugin;
 import com.zdcf.service.RobotService;
 import com.zdcf.tool.Aes;
 import com.zdcf.tool.Md5;
@@ -23,6 +25,10 @@ import com.zdcf.tool.PostServer;
 @Transactional
 public class RobotServiceImpl implements  RobotService {
 
+		
+	@Autowired
+	public Plugin plugin;
+	
 	@Override
 	public String getAnswerFromRobot(String question,int userId) {
 		//图灵网站上的secret
@@ -144,6 +150,8 @@ public class RobotServiceImpl implements  RobotService {
 		
 		return result;
 	}
+	
+	
 
 	
 

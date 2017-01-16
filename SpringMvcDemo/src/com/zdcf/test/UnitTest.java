@@ -35,6 +35,7 @@ import org.junit.Test;
 import com.zdcf.dto.ZhihuDTO;
 import com.zdcf.service.BaseService;
 import com.zdcf.tool.DateUtil;
+import com.zdcf.weibo.Config;
 
 import net.sf.json.JSONObject;
 
@@ -580,6 +581,16 @@ public class UnitTest extends BaseService {
 		for(int i=0; i<localeList.length; i++) {
 		    System.out.println(localeList[i].getDisplayCountry()+"="+localeList[i].getCountry() + " " + localeList[i].getDisplayLanguage() + "=" +localeList[i].getLanguage());
 	    }
+	}
+	
+	/**
+	 * 测试微博
+	 * 
+	 */
+	@Test
+	public void testWeibo(){
+		Config config =new Config();
+		config.getAllThreadsRun();
 	}
 	
 }

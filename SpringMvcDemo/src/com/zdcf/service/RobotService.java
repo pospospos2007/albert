@@ -3,6 +3,7 @@ package com.zdcf.service;
 import java.util.List;
 
 import com.zdcf.dto.ThemeDTO;
+import com.zdcf.mapper.Plugin;
 import com.zdcf.model.Airticle;
 import com.zdcf.model.Message;
 import com.zdcf.model.Theme;
@@ -17,5 +18,5 @@ public interface RobotService {
 	public String getZhiHuAirticleDetail(String id);
 
 	String getZhiHuAirticleListBefore(String date);
-	
+
 }
