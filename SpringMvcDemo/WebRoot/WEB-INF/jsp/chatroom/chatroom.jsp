@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ include file="/include/head.jsp"%>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+ <meta name="keywords" content="<s:message code='chatroom.index'/>" />
 
     <title><s:message code='chatroom.index'/></title>
 

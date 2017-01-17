@@ -6,6 +6,8 @@
 	<script type="text/javascript" src="<%=path%>/kindeditor/lang/zh_CN.js"></script>
 	<script type="text/javascript" src="<%=path%>/kindeditor/kindeditor.js"></script>
     <title>${theme.theme}</title>
+    <meta name="keywords" content="${theme.theme}" />
+    
 
 
 	<div class="content">

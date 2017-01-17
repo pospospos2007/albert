@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ include file="/include/head.jsp"%>
     <title>人像识别结果</title>
+    <meta name="keywords" content="人像识别结果" />
 
     <h1>人像识别结果</h1>
     <div class="article">

@@ -38,12 +38,12 @@ public class WeiboUser implements java.io.Serializable {
 	private int statusesCount; // * 微博数,must have
 	private int favouritesCount; // 收藏数,must have
 	private Date createdAt; // * 创建时间,must have
-	private boolean following; // 保留字段,是否已关注(此特性暂不支持),must have
-	private boolean verified; // * 加V标示，是否微博认证用户,must have
+	private Boolean  following; // 保留字段,是否已关注(此特性暂不支持),must have
+	private Boolean  verified; // * 加V标示，是否微博认证用户,must have
 	private int verifiedType; // 认证类型,暂未支持,must have
-	private boolean allowAllActMsg; // 是否允许所有人给我发私信,must have
-	private boolean allowAllComment; // 是否允许所有人对我的微博进行评论,must have
-	private boolean followMe; // 此用户是否关注我,must have
+	private Boolean  allowAllActMsg; // 是否允许所有人给我发私信,must have
+	private Boolean  allowAllComment; // 是否允许所有人对我的微博进行评论,must have
+	private Boolean  followMe; // 此用户是否关注我,must have
 	private String avatarLarge; // 大头像地址,must have
 	private int onlineStatus; // 用户在线状态,must have
 	private WeiboStatus weiboStatus; // 用户最新一条微博
@@ -224,37 +224,14 @@ public class WeiboUser implements java.io.Serializable {
 		this.createdAt = createdAt;
 	}
 
-	public void setFollowing(boolean following) {
-		this.following = following;
-	}
-
-	public void setVerified(boolean verified) {
-		this.verified = verified;
-	}
-
 	public void setVerifiedType(int verifiedType) {
 		this.verifiedType = verifiedType;
-	}
-
-	public void setAllowAllActMsg(boolean allowAllActMsg) {
-		this.allowAllActMsg = allowAllActMsg;
-	}
-
-	public void setAllowAllComment(boolean allowAllComment) {
-		this.allowAllComment = allowAllComment;
-	}
-
-	public void setFollowMe(boolean followMe) {
-		this.followMe = followMe;
 	}
 
 	public void setAvatarLarge(String avatarLarge) {
 		this.avatarLarge = avatarLarge;
 	}
 
-	public void setOnlineStatus(int onlineStatus) {
-		this.onlineStatus = onlineStatus;
-	}
 
 	public void setStatus(WeiboStatus weiboStatus) {
 		this.weiboStatus = weiboStatus;
@@ -300,24 +277,9 @@ public class WeiboUser implements java.io.Serializable {
 		return verifiedType;
 	}
 
-	public boolean isAllowAllActMsg() {
-		return allowAllActMsg;
-	}
-
-	public boolean isAllowAllComment() {
-		return allowAllComment;
-	}
-
-	public boolean isFollowMe() {
-		return followMe;
-	}
 
 	public String getAvatarLarge() {
 		return avatarLarge;
-	}
-
-	public int getOnlineStatus() {
-		return onlineStatus;
 	}
 
 	public int getBiFollowersCount() {
@@ -401,44 +363,8 @@ public class WeiboUser implements java.io.Serializable {
 		return createdAt;
 	}
 
-	public boolean isFollowing() {
-		return following;
-	}
-
-	public boolean isVerified() {
-		return verified;
-	}
-
-	public int getverifiedType() {
-		return verifiedType;
-	}
-
-	public boolean isallowAllActMsg() {
-		return allowAllActMsg;
-	}
-
-	public boolean isallowAllComment() {
-		return allowAllComment;
-	}
-
-	public boolean isfollowMe() {
-		return followMe;
-	}
-
-	public String getavatarLarge() {
-		return avatarLarge;
-	}
-
-	public int getonlineStatus() {
-		return onlineStatus;
-	}
-
 	public WeiboStatus getStatus() {
 		return weiboStatus;
-	}
-
-	public int getbiFollowersCount() {
-		return biFollowersCount;
 	}
 
 	public String getRemark() {
@@ -449,6 +375,14 @@ public class WeiboUser implements java.io.Serializable {
 		return lang;
 	}
 
+	public int getOnlineStatus() {
+		return onlineStatus;
+	}
+
+	public void setOnlineStatus(int onlineStatus) {
+		this.onlineStatus = onlineStatus;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -461,6 +395,62 @@ public class WeiboUser implements java.io.Serializable {
 		if (!(id == (other.id)))
 			return false;
 		return true;
+	}
+	
+	public String getIdstr() {
+		return idstr;
+	}
+
+	public void setIdstr(String idstr) {
+		this.idstr = idstr;
+	}
+
+	public Boolean getFollowing() {
+		return following;
+	}
+
+	public void setFollowing(Boolean following) {
+		this.following = following;
+	}
+
+	public Boolean getVerified() {
+		return verified;
+	}
+
+	public void setVerified(Boolean verified) {
+		this.verified = verified;
+	}
+
+	public Boolean getAllowAllActMsg() {
+		return allowAllActMsg;
+	}
+
+	public void setAllowAllActMsg(Boolean allowAllActMsg) {
+		this.allowAllActMsg = allowAllActMsg;
+	}
+
+	public Boolean getAllowAllComment() {
+		return allowAllComment;
+	}
+
+	public void setAllowAllComment(Boolean allowAllComment) {
+		this.allowAllComment = allowAllComment;
+	}
+
+	public Boolean getFollowMe() {
+		return followMe;
+	}
+
+	public void setFollowMe(Boolean followMe) {
+		this.followMe = followMe;
+	}
+
+	public WeiboStatus getWeiboStatus() {
+		return weiboStatus;
+	}
+
+	public void setWeiboStatus(WeiboStatus weiboStatus) {
+		this.weiboStatus = weiboStatus;
 	}
 
 	@Override

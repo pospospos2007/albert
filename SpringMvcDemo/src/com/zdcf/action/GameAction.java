@@ -40,7 +40,7 @@ public class GameAction {
 	
 	
 	@RequestMapping("/toGameList")
-	public String toGameList(HttpServletRequest request,HttpServletResponse respons){
+	public String toGameList(String code){
 		
 		return "game/gameList";
 	}

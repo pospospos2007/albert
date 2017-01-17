@@ -4,6 +4,7 @@
 <%@ taglib uri="/WEB-INF/tld/pager.tld" prefix="pager" %> 
 
     <title>${movie.name }</title>
+    <meta name="keywords" content="${movie.name}" />
   
         ${movie.metadata}
 <script type="text/javascript">

@@ -100,9 +100,8 @@ public class Job {
 		
 	}
 	
-	
-	@Scheduled(cron = "1 0/1 * * * ? ")
-//	@Test
+	@Test
+//	@Scheduled(cron = "1 0/1 * * * ? ")
 	public void addWeibo(){
 //		AnnotationConfigApplicationContext ctx =new AnnotationConfigApplicationContext();
 //		ctx.register(Config.class);

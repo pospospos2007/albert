@@ -6,13 +6,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.math.BigInteger;
+import java.net.HttpURLConnection;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.MalformedURLException;
+import java.net.NetworkInterface;
+import java.net.Proxy;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -455,14 +462,14 @@ public class UnitTest extends BaseService {
 		
 		 HttpClient client = new DefaultHttpClient();
 		 
-		 HttpGet get = new HttpGet("http://www.baidu.com.cn/s?cl=3&wd="+1212);
+		 HttpGet get = new HttpGet("http://www.baidu.com");
 		 
 		 HttpResponse httpResponse;  
 		 
 		 try {
 			httpResponse = client.execute(get);
 			
-			Document doc = Jsoup.parse(httpResponse.getEntity().getContent(), "utf8", "http://www.baidu.com.cn/s?cl=3&wd="+1212);
+			Document doc = Jsoup.parse(httpResponse.getEntity().getContent(), "utf8", "http://www.baidu.com");
 
 //			Elements elemnt = doc.getElementsByClass("list_item");
 			
@@ -592,5 +599,17 @@ public class UnitTest extends BaseService {
 		Config config =new Config();
 		config.getAllThreadsRun();
 	}
+	
+	/**
+	 * 测试最大数字
+	 * 
+	 */
+	@Test
+	public void testMaxInt(){
+		System.out.println("max:"+Integer.MAX_VALUE);
+		System.out.println("min:"+Integer.MIN_VALUE);
+		System.out.println("max:"+Long.MAX_VALUE);
+	}
+	
 	
 }
