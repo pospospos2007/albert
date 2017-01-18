@@ -16,15 +16,12 @@ public class GetPublicTlAll {
 	private Timeline tm;
 	private Task t;
 	//
-	private DownloadPic dt;// download pic
 	private int count; // how many weibos are downloaded
 	private static Logger log = LoggerFactory.getLogger(GetPublicTlAll.class.getName());
 
 	public GetPublicTlAll(Timeline tm,Task t) {
 		this.tm=tm;
 		this.t=t;
-		if (t.isDownloadPicture())
-			dt = new DownloadPic(t.getName());
 	}
 
 	public List<WeiboStatus> returnall() throws IOException {
@@ -39,18 +36,6 @@ public class GetPublicTlAll {
 		if (!statusa.getStatuses().isEmpty()) {
 			for (WeiboStatus s : statusa.getStatuses()) {
 				String stext = s.getText();
-				if (t.isDownloadPicture()) {
-					if (s.getThumbnailPic() != null && s.getThumbnailPic().length() > 3) {
-						String statusid = String.valueOf(s.getId());
-						dt.setFilename(statusid);
-						// begin saving pic
-						try {
-							dt.write(s.getThumbnailPic(), s.getBmiddlePic(), s.getOriginalPic());
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-					}
-				}// end saving pic
 				if (t.getKeywords() != null && !t.getKeywords().isEmpty()) {
 					for (String keyw : t.getKeywords()) {
 						// if (stext.indexOf(keyw) != -1) {

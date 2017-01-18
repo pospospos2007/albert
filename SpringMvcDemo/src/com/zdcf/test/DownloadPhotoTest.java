@@ -13,9 +13,9 @@ public class DownloadPhotoTest
     {
 	HttpClient client = new HttpClient();
 	GetMethod get = new GetMethod(
-	"http://img.hdwan.net/2015/05/p2235597645.jpg");
+	"http://pbs.twimg.com/media/C2a7poDUQAAHs-d.jpg");
 
-	File storeFile = new File("D:/test1.jpg");
+	File storeFile = new File("D:/test2.jpg");
 	FileOutputStream output = null;
 	try
 	{

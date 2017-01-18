@@ -20,7 +20,6 @@ import org.jsoup.nodes.Document;
 import com.zdcf.model.WeiboStatus;
 import com.zdcf.weibo.StatusWapper;
 import com.zdcf.weibo.WeiboException;
-import com.zdcf.weibo.HttpClientPoolUtil;
 import com.zdcf.weibo.JsonUtil;
 import com.zdcf.weibo.SinaTasks;
 import org.slf4j.Logger;
