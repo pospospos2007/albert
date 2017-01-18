@@ -2,6 +2,20 @@ package com.zdcf.base;
 
 public interface Constants {
 
+	//推特验证信息
+	static String AccessToken = "Your AccessToken";
+	static String AccessSecret = "Your AccessSecret";
+	static String ConsumerKey = "Your ConsumerKey";
+	static String ConsumerSecret = "Your ConsumerSecret";
+	
+	String TWITTER_MY_TIME_LINE="https://api.twitter.com/1.1/statuses/home_timeline.json";
+	
+	String TWITTER_USER_TIME_LINE="https://api.twitter.com/1.1/statuses/user_timeline.json";
+	
+	String TWITTER_MY_MENTIONS_TIME_LINE="https://api.twitter.com/1.1/statuses/mentions_timeline.json";
+	
+	String TWITTER_SEARCH_TWEETS="https://api.twitter.com/1.1/search/tweets.json";
+	
 	String USER_SESSION_KEY = "USER_SESSION_KEY";
 	String ADMIN_SESSION_KEY = "ADMIN_SESSION_KEY";
 	
