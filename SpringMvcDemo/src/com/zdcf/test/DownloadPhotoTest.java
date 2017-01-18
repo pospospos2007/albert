@@ -11,9 +11,10 @@ public class DownloadPhotoTest
 {
     public static void main(String args[]) throws IOException,FileNotFoundException
     {
+    	
 	HttpClient client = new HttpClient();
 	GetMethod get = new GetMethod(
-	"http://pbs.twimg.com/media/C2a7poDUQAAHs-d.jpg");
+	"http://pbs.twimg.com/media/C2bm-eXXcAAd1sc.jpg");
 
 	File storeFile = new File("D:/test2.jpg");
 	FileOutputStream output = null;

@@ -11,7 +11,8 @@ public class ProxyUtil {
 
 		DefaultHttpClient httpClient = new DefaultHttpClient();
 		String proxyHost = "127.0.0.1";
-		int proxyPort = 1080;
+//		10.172.19.130
+		int proxyPort = 8123;
 //				 String userName = "111";
 //				 String password = "111";
 //				 httpClient.getCredentialsProvider().setCredentials(

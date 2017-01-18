@@ -1,33 +1,33 @@
 package com.zdcf.action;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
+import oauth.signpost.OAuthConsumer;
+import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
+import oauth.signpost.exception.OAuthCommunicationException;
+import oauth.signpost.exception.OAuthExpectationFailedException;
+import oauth.signpost.exception.OAuthMessageSignerException;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.zdcf.mapper.AirticleMapper;
-import com.zdcf.mapper.UserMapper;
-import com.zdcf.model.Airticle;
-import com.zdcf.model.User;
-import com.zdcf.service.AirticleService;
+import com.zdcf.base.Constants;
 import com.zdcf.tool.AddressUtils;
-import com.zdcf.tool.EncodingTool;
+import com.zdcf.tool.ProxyUtil;
 import com.zdcf.tool.Tools;
 
 @Controller
@@ -144,11 +144,5 @@ public class GameAction {
 		}
 		return request.getRemoteAddr();
 	   } 
-	
-	
-
-
-	
-	
 	
 }

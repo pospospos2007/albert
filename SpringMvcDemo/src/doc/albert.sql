@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50529
 File Encoding         : 65001
 
-Date: 2017-01-11 18:29:20
+Date: 2017-01-18 15:01:32
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -136,7 +136,7 @@ CREATE TABLE `t_message` (
   `user_id` int(11) NOT NULL,
   `add_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25545 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25547 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for t_theme
@@ -184,4 +184,109 @@ CREATE TABLE `t_zhihu` (
   `review_num` int(11) DEFAULT '0',
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9138908 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9141093 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Table structure for twitter_media
+-- ----------------------------
+DROP TABLE IF EXISTS `twitter_media`;
+CREATE TABLE `twitter_media` (
+  `id` bigint(20) NOT NULL,
+  `media_url` varchar(255) DEFAULT NULL,
+  `post_id` bigint(20) NOT NULL,
+  `video_info_url` varchar(255) DEFAULT NULL COMMENT '如果没有说明只有图片，一张图片对应一个mp4',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Table structure for twitter_post
+-- ----------------------------
+DROP TABLE IF EXISTS `twitter_post`;
+CREATE TABLE `twitter_post` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `text` varchar(255) DEFAULT NULL,
+  `user_id` bigint(20) DEFAULT NULL,
+  `create_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Table structure for twitter_user
+-- ----------------------------
+DROP TABLE IF EXISTS `twitter_user`;
+CREATE TABLE `twitter_user` (
+  `id` bigint(20) NOT NULL,
+  `screen_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Table structure for weibo_status
+-- ----------------------------
+DROP TABLE IF EXISTS `weibo_status`;
+CREATE TABLE `weibo_status` (
+  `id` bigint(20) NOT NULL,
+  `annotations` longtext,
+  `bmiddlePic` varchar(255) DEFAULT NULL,
+  `commentsCount` int(11) DEFAULT NULL,
+  `createdAt` datetime DEFAULT NULL,
+  `favorited` bit(1) DEFAULT NULL,
+  `geo` varchar(255) DEFAULT NULL,
+  `idstr` varchar(255) DEFAULT NULL,
+  `inReplyToScreenName` varchar(255) DEFAULT NULL,
+  `inReplyToStatusId` varchar(255) DEFAULT NULL,
+  `inReplyToUserId` varchar(255) DEFAULT NULL,
+  `latitude` double DEFAULT NULL,
+  `longitude` double DEFAULT NULL,
+  `mid` varchar(255) DEFAULT NULL,
+  `mlevel` int(11) DEFAULT NULL,
+  `originalPic` varchar(255) DEFAULT NULL,
+  `repostsCount` int(11) DEFAULT NULL,
+  `source_name` varchar(255) DEFAULT NULL,
+  `source_relationShip` varchar(255) DEFAULT NULL,
+  `source_url` varchar(255) DEFAULT NULL,
+  `text` varchar(255) DEFAULT NULL,
+  `thumbnailPic` varchar(255) DEFAULT NULL,
+  `truncated` bit(1) DEFAULT NULL,
+  `user_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_4ujpud87xki9xppbs0ab3w52m` (`user_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for weibo_user
+-- ----------------------------
+DROP TABLE IF EXISTS `weibo_user`;
+CREATE TABLE `weibo_user` (
+  `id` bigint(20) NOT NULL,
+  `allowAllActMsg` bit(1) DEFAULT NULL,
+  `allowAllComment` bit(1) DEFAULT NULL,
+  `avatarLarge` varchar(255) DEFAULT NULL,
+  `biFollowersCount` int(11) DEFAULT NULL,
+  `city` int(11) DEFAULT NULL,
+  `createdAt` datetime DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `domain` varchar(255) DEFAULT NULL,
+  `favouritesCount` int(11) DEFAULT NULL,
+  `followMe` bit(1) DEFAULT NULL,
+  `followersCount` int(11) DEFAULT NULL,
+  `following` bit(1) DEFAULT NULL,
+  `friendsCount` int(11) DEFAULT NULL,
+  `gender` varchar(255) DEFAULT NULL,
+  `idstr` varchar(255) DEFAULT NULL,
+  `lang` varchar(255) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `onlineStatus` int(11) DEFAULT NULL,
+  `profileImageUrl` varchar(255) DEFAULT NULL,
+  `province` int(11) DEFAULT NULL,
+  `remark` varchar(255) DEFAULT NULL,
+  `screenName` varchar(255) DEFAULT NULL,
+  `statusesCount` int(11) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `verified` bit(1) DEFAULT NULL,
+  `verifiedReason` varchar(255) DEFAULT NULL,
+  `verifiedType` int(11) DEFAULT NULL,
+  `weihao` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
