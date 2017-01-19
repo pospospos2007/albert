@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zdcf.dao.customize.CustomizeTwitterPostMapper" >
+  <resultMap id="BaseResultMap" type="com.zdcf.model.TwitterPost" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="text" property="text" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="create_at" property="createAt" jdbcType="TIMESTAMP" />
+    <result column="post_type" property="postType" jdbcType="INTEGER" />
+  </resultMap>
+  	
+  	<select id="getListPage" resultType="com.zdcf.dto.TwitterPostDTO">
+    SELECT 
+   		tp.id id,tp.text text,tp.create_at createAt,tp.user_id userId,tp.post_type postType,tu.avatar avatar,tu.name name,tu.location location,tu.description description,tu.screen_name screenName 
+    FROM twitter_post tp left join twitter_user tu on tu.id=tp.user_id 
+    WHERE 1=1 
+	      <if test="twitterPost.postType !=null ">   
+	     	 AND tp.post_type = ${twitterPost.postType}
+	      </if>
+	 ORDER BY tp.create_at desc 
+     LIMIT #{offset}, #{pagesize} 
+  </select>
+  
+   <select id="getCount" resultType="java.lang.Integer">
+  	SELECT count(tp.id) FROM twitter_post tp  WHERE tp.post_type=#{twitterPost.postType} 
+  </select>
+  
+</mapper>

@@ -28,7 +28,7 @@
         </javaModelGenerator>    
             
          <!-- 生成映射文件的包名和位置-->  
-       <sqlMapGenerator targetPackage="com.zdcf.mapper" targetProject="SpringMvcDemo">  
+       <sqlMapGenerator targetPackage="com.zdcf.dao.mapper" targetProject="SpringMvcDemo">  
             <property name="enableSubPackages" value="true"/>  
         </sqlMapGenerator> 
         
@@ -36,7 +36,10 @@
        <javaClientGenerator type="XMLMAPPER" targetPackage="com.zdcf.dao" targetProject="SpringMvcDemo">  
             <property name="enableSubPackages" value="true"/>  
         </javaClientGenerator>
-         <table tableName="pms_building"  domainObjectName="PmsBuilding" ><generatedKey column="id" sqlStatement="MySql" identity="true"/></table>  
+         <table tableName="twitter_user"  domainObjectName="TwitterUser" ></table>  
+         <table tableName="twitter_search_history"  domainObjectName="TwitterSearchHistory" ><generatedKey column="id" sqlStatement="MySql" identity="true"/></table>  
+         <table tableName="twitter_post"  domainObjectName="TwitterPost" ></table>  
+         <table tableName="twitter_media"  domainObjectName="TwitterMedia" ></table>  
 <!--          <table tableName="t_adm_admin"  domainObjectName="AdmAdmin" ><generatedKey column="id" sqlStatement="MySql" identity="true"/></table> -->
          <!--  <table tableName="t_adm_admin_role"  domainObjectName="AdmAdminRole" ><generatedKey column="id" sqlStatement="MySql" identity="true"/></table>  
           <table tableName="t_adm_cntry"  domainObjectName="AdmCntry" ></table>  

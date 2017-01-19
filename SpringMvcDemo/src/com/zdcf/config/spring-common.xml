@@ -112,13 +112,15 @@
 		<property name="mapperLocations">
 			<list>
 				<value>classpath:com/zdcf/mapper/*.java</value>
+				<value>classpath:com/zdcf/dao/mapper/*.xml</value>
+				<value>classpath:com/zdcf/dao/customize/mapper/*.xml</value>
 			</list>
 		</property>
 	</bean>
 
 	<!-- 3. mybatis自动扫描加载接口,basePackage:指定sql接口所在的包（自动扫描） -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.zdcf.mapper"></property>
+		<property name="basePackage" value="com.zdcf.mapper,com.zdcf.dao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 

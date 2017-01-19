@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zdcf.dao.TwitterSearchHistoryMapper" >
+  <resultMap id="BaseResultMap" type="com.zdcf.model.TwitterSearchHistory" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="search_date" property="searchDate" jdbcType="DATE" />
+    <result column="search_key" property="searchKey" jdbcType="VARCHAR" />
+    <result column="searcher_type" property="searcherType" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zdcf.model.TwitterSearchHistory" extends="BaseResultMap" >
+    <result column="search_result" property="searchResult" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, search_date, search_key, searcher_type
+  </sql>
+  <sql id="Blob_Column_List" >
+    search_result
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.zdcf.model.TwitterSearchHistoryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from twitter_search_history
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zdcf.model.TwitterSearchHistoryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from twitter_search_history
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from twitter_search_history
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from twitter_search_history
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zdcf.model.TwitterSearchHistoryExample" >
+    delete from twitter_search_history
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zdcf.model.TwitterSearchHistory" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into twitter_search_history (search_date, search_key, searcher_type, 
+      search_result)
+    values (#{searchDate,jdbcType=DATE}, #{searchKey,jdbcType=VARCHAR}, #{searcherType,jdbcType=INTEGER}, 
+      #{searchResult,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdcf.model.TwitterSearchHistory" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into twitter_search_history
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="searchDate != null" >
+        search_date,
+      </if>
+      <if test="searchKey != null" >
+        search_key,
+      </if>
+      <if test="searcherType != null" >
+        searcher_type,
+      </if>
+      <if test="searchResult != null" >
+        search_result,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="searchDate != null" >
+        #{searchDate,jdbcType=DATE},
+      </if>
+      <if test="searchKey != null" >
+        #{searchKey,jdbcType=VARCHAR},
+      </if>
+      <if test="searcherType != null" >
+        #{searcherType,jdbcType=INTEGER},
+      </if>
+      <if test="searchResult != null" >
+        #{searchResult,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zdcf.model.TwitterSearchHistoryExample" resultType="java.lang.Integer" >
+    select count(*) from twitter_search_history
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update twitter_search_history
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.searchDate != null" >
+        search_date = #{record.searchDate,jdbcType=DATE},
+      </if>
+      <if test="record.searchKey != null" >
+        search_key = #{record.searchKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.searcherType != null" >
+        searcher_type = #{record.searcherType,jdbcType=INTEGER},
+      </if>
+      <if test="record.searchResult != null" >
+        search_result = #{record.searchResult,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update twitter_search_history
+    set id = #{record.id,jdbcType=INTEGER},
+      search_date = #{record.searchDate,jdbcType=DATE},
+      search_key = #{record.searchKey,jdbcType=VARCHAR},
+      searcher_type = #{record.searcherType,jdbcType=INTEGER},
+      search_result = #{record.searchResult,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update twitter_search_history
+    set id = #{record.id,jdbcType=INTEGER},
+      search_date = #{record.searchDate,jdbcType=DATE},
+      search_key = #{record.searchKey,jdbcType=VARCHAR},
+      searcher_type = #{record.searcherType,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdcf.model.TwitterSearchHistory" >
+    update twitter_search_history
+    <set >
+      <if test="searchDate != null" >
+        search_date = #{searchDate,jdbcType=DATE},
+      </if>
+      <if test="searchKey != null" >
+        search_key = #{searchKey,jdbcType=VARCHAR},
+      </if>
+      <if test="searcherType != null" >
+        searcher_type = #{searcherType,jdbcType=INTEGER},
+      </if>
+      <if test="searchResult != null" >
+        search_result = #{searchResult,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zdcf.model.TwitterSearchHistory" >
+    update twitter_search_history
+    set search_date = #{searchDate,jdbcType=DATE},
+      search_key = #{searchKey,jdbcType=VARCHAR},
+      searcher_type = #{searcherType,jdbcType=INTEGER},
+      search_result = #{searchResult,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zdcf.model.TwitterSearchHistory" >
+    update twitter_search_history
+    set search_date = #{searchDate,jdbcType=DATE},
+      search_key = #{searchKey,jdbcType=VARCHAR},
+      searcher_type = #{searcherType,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

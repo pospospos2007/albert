@@ -610,6 +610,16 @@ public class UnitTest extends BaseService {
 		System.out.println("min:"+Integer.MIN_VALUE);
 		System.out.println("max:"+Long.MAX_VALUE);
 	}
-	
+	/**
+	 * 测试时间转换
+	 */
+	@Test
+	public void testTransformDateString(){
+		String dateStr = "Thu Jan 19 07:00:23 +0000 2017";
+		Date date =new Date(dateStr);
+	}
+	@Test
+	public void testJsonObject(){
+	}
 	
 }

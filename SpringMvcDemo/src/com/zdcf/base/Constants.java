@@ -3,10 +3,10 @@ package com.zdcf.base;
 public interface Constants {
 
 	//推特验证信息
-	static String AccessToken = "Your AccessToken";
-	static String AccessSecret = "Your AccessSecret";
-	static String ConsumerKey = "Your ConsumerKey";
-	static String ConsumerSecret = "Your ConsumerSecret";
+	static String AccessToken = "";
+	static String AccessSecret = "";
+	static String ConsumerKey = "";
+	static String ConsumerSecret = "";
 	
 	String TWITTER_MY_TIME_LINE="https://api.twitter.com/1.1/statuses/home_timeline.json";
 	
@@ -53,6 +53,11 @@ public interface Constants {
 		String  zh_CN = "zh_CN"; //中文
 		String  en_US = "en_US"; //英文
 		String  zh_HK = "zh_HK"; //繁体
+	}
+	
+	interface TWITTER_POST_TYPE{
+		Integer MY_POST=0;
+		Integer SEARCH_RESULT=1;
 	}
 		
 }
