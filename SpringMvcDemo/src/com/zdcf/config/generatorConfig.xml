@@ -36,10 +36,11 @@
        <javaClientGenerator type="XMLMAPPER" targetPackage="com.zdcf.dao" targetProject="SpringMvcDemo">  
             <property name="enableSubPackages" value="true"/>  
         </javaClientGenerator>
-         <table tableName="twitter_user"  domainObjectName="TwitterUser" ></table>  
-         <table tableName="twitter_search_history"  domainObjectName="TwitterSearchHistory" ><generatedKey column="id" sqlStatement="MySql" identity="true"/></table>  
-         <table tableName="twitter_post"  domainObjectName="TwitterPost" ></table>  
-         <table tableName="twitter_media"  domainObjectName="TwitterMedia" ></table>  
+<!--          <table tableName="twitter_user"  domainObjectName="TwitterUser" ></table>   -->
+         <table tableName="twitter_search_history"  domainObjectName="TwitterSearchHistory" ><generatedKey column="id" sqlStatement="MySql" identity="true"/></table> 
+         <table tableName="twitter_post_search"  domainObjectName="TwitterPostSearch" ><generatedKey column="id" sqlStatement="MySql" identity="true"/></table> 
+<!--          <table tableName="twitter_post"  domainObjectName="TwitterPost" ></table>   -->
+<!--          <table tableName="twitter_media"  domainObjectName="TwitterMedia" ></table>   -->
 <!--          <table tableName="t_adm_admin"  domainObjectName="AdmAdmin" ><generatedKey column="id" sqlStatement="MySql" identity="true"/></table> -->
          <!--  <table tableName="t_adm_admin_role"  domainObjectName="AdmAdminRole" ><generatedKey column="id" sqlStatement="MySql" identity="true"/></table>  
           <table tableName="t_adm_cntry"  domainObjectName="AdmCntry" ></table>  
@@ -49,23 +50,6 @@
           <table tableName="t_adm_menu_item"  domainObjectName="AdmMenuItem" ><generatedKey column="id" sqlStatement="MySql" identity="true"/></table>  
           <table tableName="t_adm_role"  domainObjectName="AdmRole" ><generatedKey column="id" sqlStatement="MySql" identity="true"/></table>  
           <table tableName="t_adm_role_menu_item"  domainObjectName="AdmRoleMenuItem" ><generatedKey column="id" sqlStatement="MySql" identity="true"/></table>  
-          <table tableName="t_chnl_car"  domainObjectName="ChnlCar" ></table> 
-          <table tableName="t_chnl_company"  domainObjectName="ChnlCompany" ></table>  
-          <table tableName="t_chnl_food"  domainObjectName="ChnlFood" ></table>  
-          <table tableName="t_chnl_hotel"  domainObjectName="ChnlHotel" ></table>  
-         
-          <table tableName="t_chnl_image"  domainObjectName="ChnlImage" ></table>  
-          <table tableName="t_chnl_job"  domainObjectName="ChnlJob" ></table>  
-          <table tableName="t_chnl_option"  domainObjectName="ChnlOption" ></table> 
-          <table tableName="t_chnl_score"  domainObjectName="ChnlScore" ></table>   
-          <table tableName="t_chnl_snd_hand"  domainObjectName="ChnlSndHand" ></table>  
-           <table tableName="t_user"  domainObjectName="User" ></table> 
-           <table tableName="t_user_complain"  domainObjectName="UserComplain" ><generatedKey column="id" sqlStatement="MySql" identity="true"/></table> 
-           <table tableName="t_user_favorite"  domainObjectName="UserFavorite" ></table> 
-           <table tableName="t_user_feedback"  domainObjectName="UserFeedback" ><generatedKey column="id" sqlStatement="MySql" identity="true"/></table>  
-           <table tableName="t_user_login"  domainObjectName="UserLogin" ><generatedKey column="id" sqlStatement="MySql" identity="true"/></table>  
-           <table tableName="t_user_message"  domainObjectName="UserMessage" ></table> 
-           <table tableName="t_user_password_change"  domainObjectName="UserPasswordChange" ><generatedKey column="id" sqlStatement="MySql" identity="true"/></table>  
            <table tableName="t_user_view"  domainObjectName="UserView" ></table>  -->
          </context>
 </generatorConfiguration>

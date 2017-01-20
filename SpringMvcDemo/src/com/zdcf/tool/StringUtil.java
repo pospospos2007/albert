@@ -284,6 +284,19 @@ public class StringUtil {
 		}
 		return 0;
 	}
+	
+	/**
+	 * @Title: ObjectToLongUtil
+	 * @Description: { Object to Long }
+	 * @file_name: LoanInvestQueryService.java
+	 * @user:DING
+	 */
+	public static Long ObjectToLongUtil(Object obj) {
+		if (obj != null) {
+			return Long.valueOf(obj.toString());
+		}
+		return 0l;
+	}
 
 	/**
 	 * @Title: ObjectToDoubleUtil

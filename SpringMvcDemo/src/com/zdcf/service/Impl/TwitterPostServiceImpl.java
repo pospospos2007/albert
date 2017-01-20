@@ -8,12 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.zdcf.dao.TwitterMediaMapper;
 import com.zdcf.dao.TwitterPostMapper;
 import com.zdcf.dao.customize.CustomizeTwitterPostMapper;
+import com.zdcf.dto.TwitterPostDTO;
+import com.zdcf.model.TwitterMedia;
+import com.zdcf.model.TwitterMediaExample;
 import com.zdcf.model.TwitterPost;
 import com.zdcf.model.TwitterUser;
 import com.zdcf.service.TwitterPostService;
 import com.zdcf.tool.PageVo;
+import com.zdcf.tool.StringUtil;
 
 @Service
 @Transactional
@@ -25,6 +30,9 @@ public class TwitterPostServiceImpl implements  TwitterPostService {
 	
 	@Autowired
 	private CustomizeTwitterPostMapper customizeTwitterPostMapper;
+	
+	@Autowired
+	private TwitterMediaMapper twitterMediaMapper;
 	
 	public int insert(TwitterPost twitterPost){
 		
@@ -49,11 +57,27 @@ public class TwitterPostServiceImpl implements  TwitterPostService {
 				.getListPage( offset * pageVo.getPageSize(),
 						pageVo.getPageSize(),tp);
 		int count = customizeTwitterPostMapper.getCount(tp);
+		
+		Long postId;
+		List<TwitterMedia> mediaList =null;
+		for(int i=0;i<list.size();i++){
+			TwitterPostDTO obj =(TwitterPostDTO) list.get(i);
+			postId = StringUtil.ObjectToLongUtil(obj.getId());
+			mediaList =this.getMediaListByPostId(postId);
+			list.get(i).put("mediaList", mediaList);
+		}
+		
 		pageVo.setVoList(list);
 		pageVo.setRecordCount(count);
 		
 		return pageVo;
 		
+	}
+	
+	protected List<TwitterMedia> getMediaListByPostId(Long id){
+		TwitterMediaExample example = new TwitterMediaExample();
+		example.createCriteria().andPostIdEqualTo(id);
+		return twitterMediaMapper.selectByExample(example);
 	}
 	
 }

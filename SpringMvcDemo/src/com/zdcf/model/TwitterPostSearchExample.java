@@ -1,18 +1,16 @@
 package com.zdcf.model;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
-public class TwitterSearchHistoryExample {
+public class TwitterPostSearchExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public TwitterSearchHistoryExample() {
+    public TwitterPostSearchExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -106,32 +104,6 @@ public class TwitterSearchHistoryExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
-            if (value == null) {
-                throw new RuntimeException("Value for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value.getTime()), property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
-            if (values == null || values.size() == 0) {
-                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
-            }
-            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
-            Iterator<Date> iter = values.iterator();
-            while (iter.hasNext()) {
-                dateList.add(new java.sql.Date(iter.next().getTime()));
-            }
-            addCriterion(condition, dateList, property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
-            if (value1 == null || value2 == null) {
-                throw new RuntimeException("Between values for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
-        }
-
         public Criteria andIdIsNull() {
             addCriterion("id is null");
             return (Criteria) this;
@@ -192,193 +164,123 @@ public class TwitterSearchHistoryExample {
             return (Criteria) this;
         }
 
-        public Criteria andSearchDateIsNull() {
-            addCriterion("search_date is null");
+        public Criteria andSearchIdIsNull() {
+            addCriterion("search_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andSearchDateIsNotNull() {
-            addCriterion("search_date is not null");
+        public Criteria andSearchIdIsNotNull() {
+            addCriterion("search_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSearchDateEqualTo(Date value) {
-            addCriterionForJDBCDate("search_date =", value, "searchDate");
+        public Criteria andSearchIdEqualTo(Long value) {
+            addCriterion("search_id =", value, "searchId");
             return (Criteria) this;
         }
 
-        public Criteria andSearchDateNotEqualTo(Date value) {
-            addCriterionForJDBCDate("search_date <>", value, "searchDate");
+        public Criteria andSearchIdNotEqualTo(Long value) {
+            addCriterion("search_id <>", value, "searchId");
             return (Criteria) this;
         }
 
-        public Criteria andSearchDateGreaterThan(Date value) {
-            addCriterionForJDBCDate("search_date >", value, "searchDate");
+        public Criteria andSearchIdGreaterThan(Long value) {
+            addCriterion("search_id >", value, "searchId");
             return (Criteria) this;
         }
 
-        public Criteria andSearchDateGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("search_date >=", value, "searchDate");
+        public Criteria andSearchIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("search_id >=", value, "searchId");
             return (Criteria) this;
         }
 
-        public Criteria andSearchDateLessThan(Date value) {
-            addCriterionForJDBCDate("search_date <", value, "searchDate");
+        public Criteria andSearchIdLessThan(Long value) {
+            addCriterion("search_id <", value, "searchId");
             return (Criteria) this;
         }
 
-        public Criteria andSearchDateLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("search_date <=", value, "searchDate");
+        public Criteria andSearchIdLessThanOrEqualTo(Long value) {
+            addCriterion("search_id <=", value, "searchId");
             return (Criteria) this;
         }
 
-        public Criteria andSearchDateIn(List<Date> values) {
-            addCriterionForJDBCDate("search_date in", values, "searchDate");
+        public Criteria andSearchIdIn(List<Long> values) {
+            addCriterion("search_id in", values, "searchId");
             return (Criteria) this;
         }
 
-        public Criteria andSearchDateNotIn(List<Date> values) {
-            addCriterionForJDBCDate("search_date not in", values, "searchDate");
+        public Criteria andSearchIdNotIn(List<Long> values) {
+            addCriterion("search_id not in", values, "searchId");
             return (Criteria) this;
         }
 
-        public Criteria andSearchDateBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("search_date between", value1, value2, "searchDate");
+        public Criteria andSearchIdBetween(Long value1, Long value2) {
+            addCriterion("search_id between", value1, value2, "searchId");
             return (Criteria) this;
         }
 
-        public Criteria andSearchDateNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("search_date not between", value1, value2, "searchDate");
+        public Criteria andSearchIdNotBetween(Long value1, Long value2) {
+            addCriterion("search_id not between", value1, value2, "searchId");
             return (Criteria) this;
         }
 
-        public Criteria andSearchKeyIsNull() {
-            addCriterion("search_key is null");
+        public Criteria andPostIdIsNull() {
+            addCriterion("post_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andSearchKeyIsNotNull() {
-            addCriterion("search_key is not null");
+        public Criteria andPostIdIsNotNull() {
+            addCriterion("post_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSearchKeyEqualTo(String value) {
-            addCriterion("search_key =", value, "searchKey");
+        public Criteria andPostIdEqualTo(Long value) {
+            addCriterion("post_id =", value, "postId");
             return (Criteria) this;
         }
 
-        public Criteria andSearchKeyNotEqualTo(String value) {
-            addCriterion("search_key <>", value, "searchKey");
+        public Criteria andPostIdNotEqualTo(Long value) {
+            addCriterion("post_id <>", value, "postId");
             return (Criteria) this;
         }
 
-        public Criteria andSearchKeyGreaterThan(String value) {
-            addCriterion("search_key >", value, "searchKey");
+        public Criteria andPostIdGreaterThan(Long value) {
+            addCriterion("post_id >", value, "postId");
             return (Criteria) this;
         }
 
-        public Criteria andSearchKeyGreaterThanOrEqualTo(String value) {
-            addCriterion("search_key >=", value, "searchKey");
+        public Criteria andPostIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("post_id >=", value, "postId");
             return (Criteria) this;
         }
 
-        public Criteria andSearchKeyLessThan(String value) {
-            addCriterion("search_key <", value, "searchKey");
+        public Criteria andPostIdLessThan(Long value) {
+            addCriterion("post_id <", value, "postId");
             return (Criteria) this;
         }
 
-        public Criteria andSearchKeyLessThanOrEqualTo(String value) {
-            addCriterion("search_key <=", value, "searchKey");
+        public Criteria andPostIdLessThanOrEqualTo(Long value) {
+            addCriterion("post_id <=", value, "postId");
             return (Criteria) this;
         }
 
-        public Criteria andSearchKeyLike(String value) {
-            addCriterion("search_key like", value, "searchKey");
+        public Criteria andPostIdIn(List<Long> values) {
+            addCriterion("post_id in", values, "postId");
             return (Criteria) this;
         }
 
-        public Criteria andSearchKeyNotLike(String value) {
-            addCriterion("search_key not like", value, "searchKey");
+        public Criteria andPostIdNotIn(List<Long> values) {
+            addCriterion("post_id not in", values, "postId");
             return (Criteria) this;
         }
 
-        public Criteria andSearchKeyIn(List<String> values) {
-            addCriterion("search_key in", values, "searchKey");
+        public Criteria andPostIdBetween(Long value1, Long value2) {
+            addCriterion("post_id between", value1, value2, "postId");
             return (Criteria) this;
         }
 
-        public Criteria andSearchKeyNotIn(List<String> values) {
-            addCriterion("search_key not in", values, "searchKey");
-            return (Criteria) this;
-        }
-
-        public Criteria andSearchKeyBetween(String value1, String value2) {
-            addCriterion("search_key between", value1, value2, "searchKey");
-            return (Criteria) this;
-        }
-
-        public Criteria andSearchKeyNotBetween(String value1, String value2) {
-            addCriterion("search_key not between", value1, value2, "searchKey");
-            return (Criteria) this;
-        }
-
-        public Criteria andSearchTypeIsNull() {
-            addCriterion("search_type is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSearchTypeIsNotNull() {
-            addCriterion("search_type is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSearchTypeEqualTo(Integer value) {
-            addCriterion("search_type =", value, "searchType");
-            return (Criteria) this;
-        }
-
-        public Criteria andSearchTypeNotEqualTo(Integer value) {
-            addCriterion("search_type <>", value, "searchType");
-            return (Criteria) this;
-        }
-
-        public Criteria andSearchTypeGreaterThan(Integer value) {
-            addCriterion("search_type >", value, "searchType");
-            return (Criteria) this;
-        }
-
-        public Criteria andSearchTypeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("search_type >=", value, "searchType");
-            return (Criteria) this;
-        }
-
-        public Criteria andSearchTypeLessThan(Integer value) {
-            addCriterion("search_type <", value, "searchType");
-            return (Criteria) this;
-        }
-
-        public Criteria andSearchTypeLessThanOrEqualTo(Integer value) {
-            addCriterion("search_type <=", value, "searchType");
-            return (Criteria) this;
-        }
-
-        public Criteria andSearchTypeIn(List<Integer> values) {
-            addCriterion("search_type in", values, "searchType");
-            return (Criteria) this;
-        }
-
-        public Criteria andSearchTypeNotIn(List<Integer> values) {
-            addCriterion("search_type not in", values, "searchType");
-            return (Criteria) this;
-        }
-
-        public Criteria andSearchTypeBetween(Integer value1, Integer value2) {
-            addCriterion("search_type between", value1, value2, "searchType");
-            return (Criteria) this;
-        }
-
-        public Criteria andSearchTypeNotBetween(Integer value1, Integer value2) {
-            addCriterion("search_type not between", value1, value2, "searchType");
+        public Criteria andPostIdNotBetween(Long value1, Long value2) {
+            addCriterion("post_id not between", value1, value2, "postId");
             return (Criteria) this;
         }
     }

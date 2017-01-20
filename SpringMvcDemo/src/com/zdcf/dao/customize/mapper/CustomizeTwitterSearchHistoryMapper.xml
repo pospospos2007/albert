@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zdcf.dao.customize.CustomizeTwitterSearchHistoryMapper" >
+  <resultMap id="BaseResultMap" type="com.zdcf.model.TwitterSearchHistory" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="search_date" property="searchDate" jdbcType="DATE" />
+    <result column="search_key" property="searchKey" jdbcType="VARCHAR" />
+    <result column="search_type" property="searchType" jdbcType="INTEGER" />
+  </resultMap>
+  
+  	<select id="getListPage" resultType="com.zdcf.dto.TwitterPostDTO">
+    SELECT 
+   		tp.id id,tp.text text,tp.create_at createAt,tp.user_id userId,tp.post_type postType,tu.avatar avatar,tu.`name` name,tu.location location,tu.description description,tu.screen_name screenName 
+    FROM twitter_post tp left join twitter_post_search tps on tps.post_id=tp.id left join twitter_user tu on tu.id=tp.user_id
+    WHERE 1=1 
+	      <if test="twitterSearchHistory.id !=null ">   
+	     	 and tps.search_id=#{twitterSearchHistory.id} 
+	      </if>
+	 ORDER BY tp.create_at desc 
+     LIMIT #{offset}, #{pagesize} 
+  </select>
+  
+   <select id="getCount" resultType="java.lang.Integer">
+  	SELECT count(tps.id) FROM twitter_post_search tps  WHERE 1=1
+  		  <if test="twitterSearchHistory.id !=null ">   
+	     	 and tps.search_id=#{twitterSearchHistory.id} 
+	      </if>
+  </select>
+</mapper>

@@ -87,7 +87,7 @@
 				                <option value="1">按内容</option>  
 				            </select> 
                         </span>
-                        <input type="text" class="form-control" id="searchKey" autocomplete="off" name="searchKey" value="" placeholder="">
+                        <input type="text" class="form-control" id="searchKey" autocomplete="off" name="searchKey" value="${tsh.searchKey}" placeholder="">
                         <span class="input-group-btn">
                             <button class="btn btn-info" type="button" onclick="search()" ><span class="glyphicon glyphicon-search">搜索</span></button>
                         </span>
@@ -100,14 +100,14 @@
                 </div>
  </div>
   </br>          
-<form action="<%=path%>/twitter/index" method="post" id="listform" name="listform">
+<form action="<%=path%>/twitter/search" method="post" id="listform" name="listform">
+<input type="hidden" name="searchId" value="${tsh.id}"></input>
 <div class ="container">
    		<div class="u-account-box undis">
        		<div id="tabCont">
            		<section>
                		<section class="ukindeditor of">
                    		<section class="clearfix">
-                   		
                    		
                    		<c:forEach items="${pageView.voList}" var="twitterPost">
 							<div class="panel panel-default">
@@ -130,9 +130,7 @@
 					</section>
                  </section>
              </div>
-             <input type="button" class="commBtn bgGreen w80 ml50" id="deleImage" style="display: none">
    		</div>
-    	<!--修改头像，结束-->
 	</div>
 	
 	<div id="page">

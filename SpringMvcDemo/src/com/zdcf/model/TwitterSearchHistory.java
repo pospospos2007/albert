@@ -3,21 +3,19 @@ package com.zdcf.model;
 import java.util.Date;
 
 public class TwitterSearchHistory {
-    private Integer id;
+    private Long id;
 
     private Date searchDate;
 
     private String searchKey;
 
-    private Integer searcherType;
+    private Integer searchType;
 
-    private String searchResult;
-
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -37,19 +35,11 @@ public class TwitterSearchHistory {
         this.searchKey = searchKey == null ? null : searchKey.trim();
     }
 
-    public Integer getSearcherType() {
-        return searcherType;
+    public Integer getSearchType() {
+        return searchType;
     }
 
-    public void setSearcherType(Integer searcherType) {
-        this.searcherType = searcherType;
-    }
-
-    public String getSearchResult() {
-        return searchResult;
-    }
-
-    public void setSearchResult(String searchResult) {
-        this.searchResult = searchResult == null ? null : searchResult.trim();
+    public void setSearchType(Integer searchType) {
+        this.searchType = searchType;
     }
 }

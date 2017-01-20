@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zdcf.dao.TwitterSearchHistoryMapper" >
-  <resultMap id="BaseResultMap" type="com.zdcf.model.TwitterSearchHistory" >
+<mapper namespace="com.zdcf.dao.TwitterPostSearchMapper" >
+  <resultMap id="BaseResultMap" type="com.zdcf.model.TwitterPostSearch" >
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="search_date" property="searchDate" jdbcType="DATE" />
-    <result column="search_key" property="searchKey" jdbcType="VARCHAR" />
-    <result column="search_type" property="searchType" jdbcType="INTEGER" />
+    <result column="search_id" property="searchId" jdbcType="BIGINT" />
+    <result column="post_id" property="postId" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -66,15 +65,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, search_date, search_key, search_type
+    id, search_id, post_id
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zdcf.model.TwitterSearchHistoryExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zdcf.model.TwitterPostSearchExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from twitter_search_history
+    from twitter_post_search
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -85,76 +84,65 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from twitter_search_history
+    from twitter_post_search
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from twitter_search_history
+    delete from twitter_post_search
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.zdcf.model.TwitterSearchHistoryExample" >
-    delete from twitter_search_history
+  <delete id="deleteByExample" parameterType="com.zdcf.model.TwitterPostSearchExample" >
+    delete from twitter_post_search
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.zdcf.model.TwitterSearchHistory" >
+  <insert id="insert" parameterType="com.zdcf.model.TwitterPostSearch" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into twitter_search_history (search_date, search_key, search_type
-      )
-    values (#{searchDate,jdbcType=DATE}, #{searchKey,jdbcType=VARCHAR}, #{searchType,jdbcType=INTEGER}
-      )
+    insert into twitter_post_search (search_id, post_id)
+    values (#{searchId,jdbcType=BIGINT}, #{postId,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.zdcf.model.TwitterSearchHistory" >
+  <insert id="insertSelective" parameterType="com.zdcf.model.TwitterPostSearch" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into twitter_search_history
+    insert into twitter_post_search
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="searchDate != null" >
-        search_date,
+      <if test="searchId != null" >
+        search_id,
       </if>
-      <if test="searchKey != null" >
-        search_key,
-      </if>
-      <if test="searchType != null" >
-        search_type,
+      <if test="postId != null" >
+        post_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="searchDate != null" >
-        #{searchDate,jdbcType=DATE},
+      <if test="searchId != null" >
+        #{searchId,jdbcType=BIGINT},
       </if>
-      <if test="searchKey != null" >
-        #{searchKey,jdbcType=VARCHAR},
-      </if>
-      <if test="searchType != null" >
-        #{searchType,jdbcType=INTEGER},
+      <if test="postId != null" >
+        #{postId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.zdcf.model.TwitterSearchHistoryExample" resultType="java.lang.Integer" >
-    select count(*) from twitter_search_history
+  <select id="countByExample" parameterType="com.zdcf.model.TwitterPostSearchExample" resultType="java.lang.Integer" >
+    select count(*) from twitter_post_search
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update twitter_search_history
+    update twitter_post_search
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.searchDate != null" >
-        search_date = #{record.searchDate,jdbcType=DATE},
+      <if test="record.searchId != null" >
+        search_id = #{record.searchId,jdbcType=BIGINT},
       </if>
-      <if test="record.searchKey != null" >
-        search_key = #{record.searchKey,jdbcType=VARCHAR},
-      </if>
-      <if test="record.searchType != null" >
-        search_type = #{record.searchType,jdbcType=INTEGER},
+      <if test="record.postId != null" >
+        post_id = #{record.postId,jdbcType=BIGINT},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -162,35 +150,30 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update twitter_search_history
+    update twitter_post_search
     set id = #{record.id,jdbcType=BIGINT},
-      search_date = #{record.searchDate,jdbcType=DATE},
-      search_key = #{record.searchKey,jdbcType=VARCHAR},
-      search_type = #{record.searchType,jdbcType=INTEGER}
+      search_id = #{record.searchId,jdbcType=BIGINT},
+      post_id = #{record.postId,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zdcf.model.TwitterSearchHistory" >
-    update twitter_search_history
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdcf.model.TwitterPostSearch" >
+    update twitter_post_search
     <set >
-      <if test="searchDate != null" >
-        search_date = #{searchDate,jdbcType=DATE},
+      <if test="searchId != null" >
+        search_id = #{searchId,jdbcType=BIGINT},
       </if>
-      <if test="searchKey != null" >
-        search_key = #{searchKey,jdbcType=VARCHAR},
-      </if>
-      <if test="searchType != null" >
-        search_type = #{searchType,jdbcType=INTEGER},
+      <if test="postId != null" >
+        post_id = #{postId,jdbcType=BIGINT},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zdcf.model.TwitterSearchHistory" >
-    update twitter_search_history
-    set search_date = #{searchDate,jdbcType=DATE},
-      search_key = #{searchKey,jdbcType=VARCHAR},
-      search_type = #{searchType,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.zdcf.model.TwitterPostSearch" >
+    update twitter_post_search
+    set search_id = #{searchId,jdbcType=BIGINT},
+      post_id = #{postId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

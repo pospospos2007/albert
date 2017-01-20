@@ -59,5 +59,10 @@ public interface Constants {
 		Integer MY_POST=0;
 		Integer SEARCH_RESULT=1;
 	}
+	
+	interface TWITTER_SEARCH_TYPE{
+		Integer SEARCH_USER=0;
+		Integer SEARCH_TEXT=1;
+	}
 		
 }

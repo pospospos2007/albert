@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50529
 File Encoding         : 65001
 
-Date: 2017-01-18 15:01:32
+Date: 2017-01-20 11:24:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -207,8 +207,32 @@ CREATE TABLE `twitter_post` (
   `text` varchar(255) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
+  `post_type` int(11) NOT NULL DEFAULT '0' COMMENT '0:我的时间线的帖子;1:搜索结果的帖子；如果都是，保留前者',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=822017049136394241 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Table structure for twitter_post_search
+-- ----------------------------
+DROP TABLE IF EXISTS `twitter_post_search`;
+CREATE TABLE `twitter_post_search` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `search_id` bigint(20) NOT NULL,
+  `post_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Table structure for twitter_search_history
+-- ----------------------------
+DROP TABLE IF EXISTS `twitter_search_history`;
+CREATE TABLE `twitter_search_history` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `search_date` date NOT NULL COMMENT '根据日期决定要不要重新调用推特接口来更新结果集',
+  `search_key` varchar(255) NOT NULL COMMENT '搜索关键字',
+  `search_type` int(11) NOT NULL DEFAULT '0' COMMENT '0:按照用户名搜索；1：按照内容搜索',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for twitter_user
@@ -216,7 +240,11 @@ CREATE TABLE `twitter_post` (
 DROP TABLE IF EXISTS `twitter_user`;
 CREATE TABLE `twitter_user` (
   `id` bigint(20) NOT NULL,
-  `screen_name` varchar(255) DEFAULT NULL,
+  `screen_name` varchar(255) NOT NULL,
+  `avatar` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 

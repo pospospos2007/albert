@@ -10,27 +10,21 @@ public interface TwitterSearchHistoryMapper {
 
     int deleteByExample(TwitterSearchHistoryExample example);
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Long id);
 
     int insert(TwitterSearchHistory record);
 
     int insertSelective(TwitterSearchHistory record);
 
-    List<TwitterSearchHistory> selectByExampleWithBLOBs(TwitterSearchHistoryExample example);
-
     List<TwitterSearchHistory> selectByExample(TwitterSearchHistoryExample example);
 
-    TwitterSearchHistory selectByPrimaryKey(Integer id);
+    TwitterSearchHistory selectByPrimaryKey(Long id);
 
     int updateByExampleSelective(@Param("record") TwitterSearchHistory record, @Param("example") TwitterSearchHistoryExample example);
-
-    int updateByExampleWithBLOBs(@Param("record") TwitterSearchHistory record, @Param("example") TwitterSearchHistoryExample example);
 
     int updateByExample(@Param("record") TwitterSearchHistory record, @Param("example") TwitterSearchHistoryExample example);
 
     int updateByPrimaryKeySelective(TwitterSearchHistory record);
-
-    int updateByPrimaryKeyWithBLOBs(TwitterSearchHistory record);
 
     int updateByPrimaryKey(TwitterSearchHistory record);
 }

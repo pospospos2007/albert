@@ -145,7 +145,7 @@ public class Job {
 //	@Scheduled(cron = "1 0/1 * * * ? ")
 	@Test
 	public void addTwitter() throws OAuthMessageSignerException, OAuthExpectationFailedException, OAuthCommunicationException, ClientProtocolException, IOException{
-		OAuthConsumer consumer = new CommonsHttpOAuthConsumer(
+	  OAuthConsumer consumer = new CommonsHttpOAuthConsumer(
 				Constants.ConsumerKey,
 				Constants.ConsumerSecret);
 	  consumer.setTokenWithSecret(Constants.AccessToken, Constants.AccessSecret);
@@ -158,7 +158,8 @@ public class Job {
 //	  HttpGet httpGet = new HttpGet(Constants.TWITTER_MY_TIME_LINE+"?cursor=-1&count=200");
 //	  HttpGet httpGet = new HttpGet(Constants.TWITTER_USER_TIME_LINE+"?cursor=-1&count=200&screen_name=YouTube");
 //	  https://api.twitter.com/1.1/statuses/user_timeline.json?count=200&screen_name=YouTube
-	  HttpGet httpGet = new HttpGet(Constants.TWITTER_SEARCH_TWEETS+"?cursor=-1&q=pospospos2007&count=10");
+	  HttpGet httpGet = new HttpGet(Constants.TWITTER_SEARCH_TWEETS+"?q=pospospos2007&cursor=-1&count=100");
+//	  HttpGet httpGet = new HttpGet("https://api.twitter.com/1.1/statuses/user_timeline.json?cursor=-1&count=200&screen_name=pospsopos200");
 	  consumer.sign(httpGet);
 		 
 	  HttpResponse response = client.execute(httpGet);
