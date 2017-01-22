@@ -363,6 +363,126 @@ public class TwitterMediaExample {
             addCriterion("video_info_url not between", value1, value2, "videoInfoUrl");
             return (Criteria) this;
         }
+
+        public Criteria andWidthIsNull() {
+            addCriterion("width is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWidthIsNotNull() {
+            addCriterion("width is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWidthEqualTo(Integer value) {
+            addCriterion("width =", value, "width");
+            return (Criteria) this;
+        }
+
+        public Criteria andWidthNotEqualTo(Integer value) {
+            addCriterion("width <>", value, "width");
+            return (Criteria) this;
+        }
+
+        public Criteria andWidthGreaterThan(Integer value) {
+            addCriterion("width >", value, "width");
+            return (Criteria) this;
+        }
+
+        public Criteria andWidthGreaterThanOrEqualTo(Integer value) {
+            addCriterion("width >=", value, "width");
+            return (Criteria) this;
+        }
+
+        public Criteria andWidthLessThan(Integer value) {
+            addCriterion("width <", value, "width");
+            return (Criteria) this;
+        }
+
+        public Criteria andWidthLessThanOrEqualTo(Integer value) {
+            addCriterion("width <=", value, "width");
+            return (Criteria) this;
+        }
+
+        public Criteria andWidthIn(List<Integer> values) {
+            addCriterion("width in", values, "width");
+            return (Criteria) this;
+        }
+
+        public Criteria andWidthNotIn(List<Integer> values) {
+            addCriterion("width not in", values, "width");
+            return (Criteria) this;
+        }
+
+        public Criteria andWidthBetween(Integer value1, Integer value2) {
+            addCriterion("width between", value1, value2, "width");
+            return (Criteria) this;
+        }
+
+        public Criteria andWidthNotBetween(Integer value1, Integer value2) {
+            addCriterion("width not between", value1, value2, "width");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeightIsNull() {
+            addCriterion("height is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeightIsNotNull() {
+            addCriterion("height is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeightEqualTo(Integer value) {
+            addCriterion("height =", value, "height");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeightNotEqualTo(Integer value) {
+            addCriterion("height <>", value, "height");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeightGreaterThan(Integer value) {
+            addCriterion("height >", value, "height");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeightGreaterThanOrEqualTo(Integer value) {
+            addCriterion("height >=", value, "height");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeightLessThan(Integer value) {
+            addCriterion("height <", value, "height");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeightLessThanOrEqualTo(Integer value) {
+            addCriterion("height <=", value, "height");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeightIn(List<Integer> values) {
+            addCriterion("height in", values, "height");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeightNotIn(List<Integer> values) {
+            addCriterion("height not in", values, "height");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeightBetween(Integer value1, Integer value2) {
+            addCriterion("height between", value1, value2, "height");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeightNotBetween(Integer value1, Integer value2) {
+            addCriterion("height not between", value1, value2, "height");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

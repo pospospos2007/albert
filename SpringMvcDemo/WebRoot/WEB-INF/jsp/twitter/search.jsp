@@ -1,8 +1,13 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ include file="/include/head.jsp"%>
-<%@ taglib uri="/WEB-INF/tld/pager.tld" prefix="pager" %> 
+<%@ taglib uri="/WEB-INF/tld/pager.tld" prefix="pager" %>
+<!-- <link href="http://vjs.zencdn.net/5.8.8/video-js.css" rel="stylesheet"> -->
+<!-- If you'd like to support IE8 -->
+<!-- <script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>  -->
+<!-- <script src="http://vjs.zencdn.net/5.8.8/video.js"></script> -->
+
     <title>
-    	Twitter-Discovery
+    	推特-搜索
     </title>
 
 
@@ -76,6 +81,24 @@
 	border-radius:2px;
 }
 
+/*     图片展览css样式 */
+    #fixImg{
+	width:100%;
+	height:100%;
+ 	background:url(<%=path%>/images/personb.png); 
+	text-align:center;
+	position:fixed;
+	top:0px;
+	display:none;
+	}
+	#fixImg img{
+		position:relative;
+		top:70px;
+		max-width:700px;
+		max-height:700px;
+	}
+/* 	End */
+
   </style>
   
  <div class="row head">
@@ -83,13 +106,13 @@
                     <div class="input-group">
                     	<span class="input-group-btn">
 	                    	<select id="searchType" name="searchType" class="form-control" style="width: auto;">  
-				                <option value="0">按用户</option>  
-				                <option value="1">按内容</option>  
+				                <option value="0" >按用户</option>  
+				                <option value="1" <c:if test="${!empty tsh&&tsh.searchType eq 1}">selected="selected"</c:if> >按内容</option>  
 				            </select> 
                         </span>
                         <input type="text" class="form-control" id="searchKey" autocomplete="off" name="searchKey" value="${tsh.searchKey}" placeholder="">
                         <span class="input-group-btn">
-                            <button class="btn btn-info" type="button" onclick="search()" ><span class="glyphicon glyphicon-search">搜索</span></button>
+                            <button class="btn btn-info" id="searchButton" type="button" onclick="search()" ><span class="glyphicon glyphicon-search">搜索</span></button>
                         </span>
                         
                     </div>
@@ -102,31 +125,48 @@
   </br>          
 <form action="<%=path%>/twitter/search" method="post" id="listform" name="listform">
 <input type="hidden" name="searchId" value="${tsh.id}"></input>
+<input type="hidden" name="searchType" value="${tsh.searchType}"></input>
+<input type="hidden" name="searchKey" value="${tsh.searchKey}"></input>
 <div class ="container">
-   		<div class="u-account-box undis">
+   		<div class="u-account-box undis" id="twitterMedia">
        		<div id="tabCont">
            		<section>
                		<section class="ukindeditor of">
-                   		<section class="clearfix">
+                   		<section class="clearfix" >
                    		
                    		<c:forEach items="${pageView.voList}" var="twitterPost">
 							<div class="panel panel-default">
 							  <div class="panel-heading">
-							    <h3 class="panel-title"><a href="#" class="bind_hover_card" data-toggle="popover" data-placement="bottom" data-trigger="hover">${twitterPost.name}</a></h3>
+							    <h3 class="panel-title">
+							    <a href="#" data-content="<form><ul><li><span aria-hidden='true' class='icon_globe'></span>&nbsp;<font>用户名:</font>${twitterPost.screenName}</li>
+		             <li><span aria-hidden='true' class='icon_piechart'></span>&nbsp;<font>名字:</font>${twitterPost.name}</li>
+		             <li><span aria-hidden='true' class='icon_search_alt'></span>&nbsp;<font>位置:</font>${twitterPost.location}</li>
+		             <li><span aria-hidden='true' class='icon_pens_alt'></span>&nbsp;<font>介绍:</font>${twitterPost.description}</li>
+		             </form>"
+							     onclick="searchUser(this)" screenName="${twitterPost.screenName}" title="${twitterPost.screenName}" class="bind_hover_card" data-toggle="popover" data-placement="bottom" data-trigger="hover">
+							    <b>${twitterPost.name}</b> (@${twitterPost.screenName})
+							    </a>
+							    </h3>
 							  </div>
 							  <div class="panel-body">
 							   <p>
-							   <img src="${twitterPost.avatar}"  width="40px" height="40px" class="img-circle"></img>
+							   <img src="${twitterPost.avatar}"  width="40px" height="40px" class="img-rounded twitterMedia"></img>
 							   ${twitterPost.text}
  								</p>
-                               
+                               <c:if test="${!empty twitterPost.mediaUrl&&!empty twitterPost.videoInfoUrl}">
+ 									<video width="${twitterPost.width}" height="${twitterPost.height}" controls >
+									<source src="${twitterPost.videoInfoUrl}" class="twitterMedia" type="video/mp4">
+										您的浏览器不支持html5标签，请使用chrome或者firefox浏览器！
+									</video>
+ 								</c:if>
+ 								<c:if test="${!empty twitterPost.mediaUrl&&empty twitterPost.videoInfoUrl}">
+ 									<img src="${twitterPost.mediaUrl}" class="twitterMedia StarConP" width="${twitterPost.width}" height="${twitterPost.height}"></img>
+ 								</c:if>
 							  </div>
 							</div>
 						</c:forEach>
-
-                       
                              	<section class="clear"></section>
-                         </section>
+                         		</section>
 					</section>
                  </section>
              </div>
@@ -138,25 +178,28 @@
      </div>
 		     
  </form>
- 
+ 		<div id="fixImg"><img src=""></img></div> 
+ 		
+ 		<div class="modal fade" id="loadingModal">
+		    <div style="width: 200px;height:20px; z-index: 20000; position: absolute; text-align: center; left: 50%; top: 50%;margin-left:-100px;margin-top:-10px">
+		        <div class="progress progress-striped active" style="margin-bottom: 0;">
+		            <div class="progress-bar" style="width: 100%;"></div>
+		        </div>
+		        <h5>正在加载...</h5>
+		    </div>
+		</div>
   
 		<script>
 		$(function() {  
 		    $("[data-toggle='popover']").popover({  
 		        html : true,    
-		        title: title(),    
-		        delay:{show:200, hide:100},  
-		        content: function() {  
-		          return content();    
-		        }   
+		        delay:{show:200, hide:500}
+// 		        content: function() {  
+// 		          return content();    
+// 		        }   
 		    });  
 		});  
 		
-		//模拟动态加载标题(真实情况可能会跟后台进行ajax交互)
-		function title() {
-		    return '田喜碧Hebe(节制的人生)';
-		}
-
 		//模拟动态加载内容(真实情况可能会跟后台进行ajax交互)
 		function content() {
 		    var data = $("<form><ul><li><span aria-hidden='true' class='icon_globe'></span>&nbsp;<font>粉丝数:</font>7389223</li>" +
@@ -171,7 +214,11 @@
 		function test() {
 		    alert('关注成功');
 		}
+		function showModal(){
+			$("#loadingModal").modal('show');
+		}
 		function search(){
+			showModal();
 			var searchKey=$("#searchKey").val().trim();
 			var searchType=$("#searchType").val();
 			if(null==searchKey||""==searchKey){
@@ -179,9 +226,14 @@
 				return;
 			}
 			if(isChinese(searchKey)&&searchType==0){
-				alert("推特用户名不能为中文！");
+				alert("推特用户名不能含有中文！");
 				return ;
 			}
+			if(containSpecial(searchKey)){
+				alert("不能包含特殊字符！");
+				return;
+			}
+			
 			$.ajax({
 				url : "<%=path%>/twitter/check",
 				type : "GET",
@@ -192,6 +244,7 @@
 					if(result.status){
 						window.location.href ="<%=path%>/twitter/search?searchId="+result.searchId+"&searchType="+searchType+"&searchKey="+searchKey;
 					}else{
+						$("#loadingModal").modal('hide');
 						alert(result.msg);
 					}
 				}
@@ -210,5 +263,63 @@
             	return true;
             }
          }
+		
+		 $( document ).ready(function() {
+			 	$("#twitterMedia").find(".twitterMedia").each(function(){
+			 		var str = $(this).attr("src");
+			 		var newUrl="";
+			 		if(null!=str){
+				 		$.ajax({
+							url : "<%=path%>/twitter/fileExchange",
+							type : "GET",
+							data:{"url":str}, 
+							async:false,
+							dataType : "json",
+							success : function(data) {
+								newUrl = data.url;
+							}
+						});
+			 		
+			 		}
+			 		$(this).attr("src","<%=path%>/uploadfile/"+newUrl);
+			 	});
+				
+			});
+//	     图片展览js
+		    $(".StarConP").click(function(){
+				var src = $(this).attr("src");
+				$('#fixImg').css("display","block");
+				$('#fixImg').children("img").attr("src",src);
+			});
+			
+			$("#fixImg").click(function(){
+				$(this).css("display","none");
+			});
+//			 	end
+
+			//判断字符中是否包含有特殊字符：  
+			function containSpecial( s )      
+			{      
+			    var containSpecial = RegExp(/[(\ )(\~)(\!)(\@)(\#)(\$)(\%)(\^)(\&)(\*)(\()(\))(\-)(\_)(\+)(\=)(\[)(\])(\{)(\})(\|)(\\)(\;)(\:)(\')(\")(\,)(\.)(\/)  (\<)(\>)(\?)(\)]+/);      
+			    return ( containSpecial.test(s) );      
+			}
+			function searchUser(obj){
+				var searchKey = $(obj).attr("screenName");
+				var searchType  = 0;
+				$.ajax({
+					url : "<%=path%>/twitter/check",
+					type : "GET",
+					async:false,
+					data:{"searchKey":searchKey,"searchType":searchType}, 
+					dataType : "json",
+					success : function(result) {
+						if(result.status){
+							window.location.href ="<%=path%>/twitter/search?searchId="+result.searchId+"&searchType="+searchType+"&searchKey="+searchKey;
+						}else{
+							alert(result.msg);
+						}
+					}
+				});
+			}
 		</script>
 <%@ include file="/include/footer.jsp"%>

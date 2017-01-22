@@ -9,6 +9,10 @@ public class TwitterMedia {
 
     private String videoInfoUrl;
 
+    private Integer width;
+
+    private Integer height;
+
     public Long getId() {
         return id;
     }
@@ -39,5 +43,21 @@ public class TwitterMedia {
 
     public void setVideoInfoUrl(String videoInfoUrl) {
         this.videoInfoUrl = videoInfoUrl == null ? null : videoInfoUrl.trim();
+    }
+
+    public Integer getWidth() {
+        return width;
+    }
+
+    public void setWidth(Integer width) {
+        this.width = width;
+    }
+
+    public Integer getHeight() {
+        return height;
+    }
+
+    public void setHeight(Integer height) {
+        this.height = height;
     }
 }

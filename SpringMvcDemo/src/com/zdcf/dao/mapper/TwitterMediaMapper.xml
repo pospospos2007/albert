@@ -6,6 +6,8 @@
     <result column="media_url" property="mediaUrl" jdbcType="VARCHAR" />
     <result column="post_id" property="postId" jdbcType="BIGINT" />
     <result column="video_info_url" property="videoInfoUrl" jdbcType="VARCHAR" />
+    <result column="width" property="width" jdbcType="INTEGER" />
+    <result column="height" property="height" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -66,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, media_url, post_id, video_info_url
+    id, media_url, post_id, video_info_url, width, height
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zdcf.model.TwitterMediaExample" >
     select
@@ -100,9 +102,11 @@
   </delete>
   <insert id="insert" parameterType="com.zdcf.model.TwitterMedia" >
     insert into twitter_media (id, media_url, post_id, 
-      video_info_url)
+      video_info_url, width, height
+      )
     values (#{id,jdbcType=BIGINT}, #{mediaUrl,jdbcType=VARCHAR}, #{postId,jdbcType=BIGINT}, 
-      #{videoInfoUrl,jdbcType=VARCHAR})
+      #{videoInfoUrl,jdbcType=VARCHAR}, #{width,jdbcType=INTEGER}, #{height,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.zdcf.model.TwitterMedia" >
     insert into twitter_media
@@ -119,6 +123,12 @@
       <if test="videoInfoUrl != null" >
         video_info_url,
       </if>
+      <if test="width != null" >
+        width,
+      </if>
+      <if test="height != null" >
+        height,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -132,6 +142,12 @@
       </if>
       <if test="videoInfoUrl != null" >
         #{videoInfoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="width != null" >
+        #{width,jdbcType=INTEGER},
+      </if>
+      <if test="height != null" >
+        #{height,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -156,6 +172,12 @@
       <if test="record.videoInfoUrl != null" >
         video_info_url = #{record.videoInfoUrl,jdbcType=VARCHAR},
       </if>
+      <if test="record.width != null" >
+        width = #{record.width,jdbcType=INTEGER},
+      </if>
+      <if test="record.height != null" >
+        height = #{record.height,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -166,7 +188,9 @@
     set id = #{record.id,jdbcType=BIGINT},
       media_url = #{record.mediaUrl,jdbcType=VARCHAR},
       post_id = #{record.postId,jdbcType=BIGINT},
-      video_info_url = #{record.videoInfoUrl,jdbcType=VARCHAR}
+      video_info_url = #{record.videoInfoUrl,jdbcType=VARCHAR},
+      width = #{record.width,jdbcType=INTEGER},
+      height = #{record.height,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -183,6 +207,12 @@
       <if test="videoInfoUrl != null" >
         video_info_url = #{videoInfoUrl,jdbcType=VARCHAR},
       </if>
+      <if test="width != null" >
+        width = #{width,jdbcType=INTEGER},
+      </if>
+      <if test="height != null" >
+        height = #{height,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -190,7 +220,9 @@
     update twitter_media
     set media_url = #{mediaUrl,jdbcType=VARCHAR},
       post_id = #{postId,jdbcType=BIGINT},
-      video_info_url = #{videoInfoUrl,jdbcType=VARCHAR}
+      video_info_url = #{videoInfoUrl,jdbcType=VARCHAR},
+      width = #{width,jdbcType=INTEGER},
+      height = #{height,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

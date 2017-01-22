@@ -66,6 +66,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
 <!--             <li onclick="active(this)" ><a href="<%=path%>/getAllAirticle">博客</a></li> -->
+			<li onclick="active(this)"><a  href="<%=path%>/twitter/index"><s:message code='twitter.index'/></a></li>
 			<li onclick="active(this)"><a  href="<%=path%>/movie/toMovieList"><s:message code='movie.list'/></a></li>
 			<li onclick="active(this)"><a  href="<%=path%>/message/getAllTheme"><s:message code='forum.list'/></a></li>
             <li onclick="active(this)"><a  href="<%=path%>/file/faceList"><s:message code='portrait.recognition.list'/></a></li>

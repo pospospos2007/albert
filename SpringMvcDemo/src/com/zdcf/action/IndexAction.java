@@ -72,7 +72,7 @@ public class IndexAction extends BaseAction{
 		
 		Map<String, Object> map = this.initMapStatus();
 		
-		if(null==username||null==pwd){
+		if(StringUtil.isEmpty(username)||StringUtil.isEmpty(pwd)){
 			map.put("status", Boolean.FALSE);
 			return map;
 		}

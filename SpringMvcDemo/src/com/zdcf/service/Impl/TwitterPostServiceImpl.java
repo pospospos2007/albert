@@ -57,16 +57,6 @@ public class TwitterPostServiceImpl implements  TwitterPostService {
 				.getListPage( offset * pageVo.getPageSize(),
 						pageVo.getPageSize(),tp);
 		int count = customizeTwitterPostMapper.getCount(tp);
-		
-		Long postId;
-		List<TwitterMedia> mediaList =null;
-		for(int i=0;i<list.size();i++){
-			TwitterPostDTO obj =(TwitterPostDTO) list.get(i);
-			postId = StringUtil.ObjectToLongUtil(obj.getId());
-			mediaList =this.getMediaListByPostId(postId);
-			list.get(i).put("mediaList", mediaList);
-		}
-		
 		pageVo.setVoList(list);
 		pageVo.setRecordCount(count);
 		

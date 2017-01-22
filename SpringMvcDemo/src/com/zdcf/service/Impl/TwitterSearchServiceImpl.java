@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -103,13 +104,6 @@ public class TwitterSearchServiceImpl implements  TwitterSearchService {
 				.getListPage( offset * pageVo.getPageSize(),
 						pageVo.getPageSize(),tsh);
 		int count = customizeTwitterSearchHistoryMapper.getCount(tsh);
-		Long postId;
-		List<TwitterMedia> mediaList =null;
-		for(int i=0;i<list.size();i++){
-			postId = StringUtil.ObjectToLongUtil(list.get(i).get("id"));
-			mediaList =this.getMediaListByPostId(postId);
-			list.get(i).put("mediaList", mediaList);
-		}
 		pageVo.setVoList(list);
 		pageVo.setRecordCount(count);
 		
@@ -126,8 +120,10 @@ public class TwitterSearchServiceImpl implements  TwitterSearchService {
 								.andSearchTypeEqualTo(tsh.getSearchType());
 		List<TwitterSearchHistory> list =twitterSearchHistoryMapper.selectByExample(example);
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd"); 
-		if(null!=list&&list.size()>0&&sdf.format(list.get(0).getSearchDate()).compareTo(sdf.format(new Date()))==0){
+		if(null!=list&&list.size()>0){
 			tsh =list.get(0);
+		}
+		if(null!=list&&list.size()>0&&sdf.format(list.get(0).getSearchDate()).compareTo(sdf.format(new Date()))==0){
 			map.put("searchId", tsh.getId());
 			map.put("status", Boolean.TRUE);
 		}else{
@@ -242,10 +238,13 @@ public class TwitterSearchServiceImpl implements  TwitterSearchService {
 					  twitterMedia.setId(mediaArray.getJSONObject(j).getLong("id"));
 					  twitterMedia.setMediaUrl(mediaArray.getJSONObject(j).getString("media_url"));
 					  twitterMedia.setPostId(jsonObject.getLong("id"));
+					  twitterMedia.setWidth(mediaArray.getJSONObject(j).getJSONObject("sizes").getJSONObject("small").getInt("w"));
+					  twitterMedia.setHeight(mediaArray.getJSONObject(j).getJSONObject("sizes").getJSONObject("small").getInt("h"));
 					  if(jsonArray.getJSONObject(i).containsKey("extended_entities")
 							  &&jsonArray.getJSONObject(i).getJSONObject("extended_entities").containsKey("media")
 							  &&jsonArray.getJSONObject(i).getJSONObject("extended_entities").getJSONArray("media").getJSONObject(0).containsKey("video_info")
-							  &&jsonArray.getJSONObject(i).getJSONObject("extended_entities").getJSONArray("media").getJSONObject(0).getJSONObject("video_info").getJSONArray("variants").getJSONObject(0).containsKey("url")){
+							  &&jsonArray.getJSONObject(i).getJSONObject("extended_entities").getJSONArray("media").getJSONObject(0).getJSONObject("video_info").getJSONArray("variants").getJSONObject(0).containsKey("url")
+							  &&FilenameUtils.getExtension(jsonArray.getJSONObject(i).getJSONObject("extended_entities").getJSONArray("media").getJSONObject(0).getJSONObject("video_info").getJSONArray("variants").getJSONObject(0).getString("url")).equals("mp4")){
 						  twitterMedia.setVideoInfoUrl(jsonArray.getJSONObject(i).getJSONObject("extended_entities").getJSONArray("media").getJSONObject(0).getJSONObject("video_info").getJSONArray("variants").getJSONObject(0).getString("url"));
 					  }
 					  twitterMediaMapper.insert(twitterMedia);

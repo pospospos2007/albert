@@ -1,7 +1,5 @@
 package com.zdcf.dto;
 
-import java.util.Date;
-
 import com.zdcf.model.TwitterPost;
 
 public class TwitterPostDTO extends TwitterPost {
@@ -14,6 +12,14 @@ public class TwitterPostDTO extends TwitterPost {
     private String location;
 
     private String description;
+    
+    private String mediaUrl;
+    
+    private String videoInfoUrl;
+    
+    private Integer width;
+    
+    private Integer height;
 
 	public String getScreenName() {
 		return screenName;
@@ -54,5 +60,37 @@ public class TwitterPostDTO extends TwitterPost {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-    
+
+	public String getMediaUrl() {
+		return mediaUrl;
+	}
+
+	public void setMediaUrl(String mediaUrl) {
+		this.mediaUrl = mediaUrl;
+	}
+
+	public String getVideoInfoUrl() {
+		return videoInfoUrl;
+	}
+
+	public void setVideoInfoUrl(String videoInfoUrl) {
+		this.videoInfoUrl = videoInfoUrl;
+	}
+
+	public Integer getWidth() {
+		return width;
+	}
+
+	public void setWidth(Integer width) {
+		this.width = width;
+	}
+
+	public Integer getHeight() {
+		return height;
+	}
+
+	public void setHeight(Integer height) {
+		this.height = height;
+	}
+	
 }

@@ -5,8 +5,9 @@
 
     <title>${movie.name }</title>
     <meta name="keywords" content="${movie.name}" />
-  
+  		<div id="movieDetial">
         ${movie.metadata}
+        </div>
 <script type="text/javascript">
 function backtoHome(){
 	history.go(-1);
@@ -14,7 +15,7 @@ function backtoHome(){
 // var curUrl = location.href.toLowerCase();
 // baseUrl =curUrl.indexOf("SpringMvcDemo") > -1 ? "/SpringMvcDemo/" : "";
 $( document ).ready(function() {
- 	$("body").find("img").each(function(){
+ 	$("#movieDetial").find("img").each(function(){
 //  		var tempPointer =$(this);
  		var str = $(this).attr("src");
  		var newUrl="";

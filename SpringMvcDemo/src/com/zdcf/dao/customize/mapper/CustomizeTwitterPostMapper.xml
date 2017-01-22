@@ -11,8 +11,12 @@
   	
   	<select id="getListPage" resultType="com.zdcf.dto.TwitterPostDTO">
     SELECT 
-   		tp.id id,tp.text text,tp.create_at createAt,tp.user_id userId,tp.post_type postType,tu.avatar avatar,tu.`name` name,tu.location location,tu.description description,tu.screen_name screenName 
+   		tp.id id,tp.text text,tp.create_at createAt,tp.user_id userId,
+   		tp.post_type postType,tu.avatar avatar,tu.`name` name,tu.location location,
+   		tu.description description,tu.screen_name screenName ,
+   			tm.media_url mediaUrl,tm.video_info_url videoInfoUrl,tm.width width,tm.height height 
     FROM twitter_post tp left join twitter_user tu on tu.id=tp.user_id 
+    left join twitter_media tm on tm.post_id=tp.id
     WHERE 1=1 
 	      <if test="twitterPost.postType !=null ">   
 	     	 AND tp.post_type = ${twitterPost.postType}

@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.Header;
@@ -142,8 +143,8 @@ public class Job {
 //		ctx.close();
 	}
 	
-//	@Scheduled(cron = "1 0/1 * * * ? ")
-	@Test
+	@Scheduled(cron = "1 0/5 * * * ? ")
+//	@Test
 	public void addTwitter() throws OAuthMessageSignerException, OAuthExpectationFailedException, OAuthCommunicationException, ClientProtocolException, IOException{
 	  OAuthConsumer consumer = new CommonsHttpOAuthConsumer(
 				Constants.ConsumerKey,
@@ -155,10 +156,10 @@ public class Job {
 //	  https://api.twitter.com/1.1/statuses/user_timeline.json?count=200&screen_name=YouTube  //某个用户时间线
 //	  https://api.twitter.com/1.1/statuses/mentions_timeline.json?count=10  //我的回复
 //	  https://api.twitter.com/1.1/search/tweets.json?q=pospospos2007&count=100  //搜索
-//	  HttpGet httpGet = new HttpGet(Constants.TWITTER_MY_TIME_LINE+"?cursor=-1&count=200");
+	  HttpGet httpGet = new HttpGet(Constants.TWITTER_MY_TIME_LINE+"?cursor=-1&count=200");
 //	  HttpGet httpGet = new HttpGet(Constants.TWITTER_USER_TIME_LINE+"?cursor=-1&count=200&screen_name=YouTube");
 //	  https://api.twitter.com/1.1/statuses/user_timeline.json?count=200&screen_name=YouTube
-	  HttpGet httpGet = new HttpGet(Constants.TWITTER_SEARCH_TWEETS+"?q=pospospos2007&cursor=-1&count=100");
+//	  HttpGet httpGet = new HttpGet(Constants.TWITTER_SEARCH_TWEETS+"?q=pospospos2007&cursor=-1&count=100");
 //	  HttpGet httpGet = new HttpGet("https://api.twitter.com/1.1/statuses/user_timeline.json?cursor=-1&count=200&screen_name=pospsopos200");
 	  consumer.sign(httpGet);
 		 
@@ -187,7 +188,7 @@ public class Job {
 	    }
 	    br.close();
 	  }
-	  System.out.println(sb.toString());
+//	  System.out.println(sb.toString());
 	  
 	  plugin.setNamesUtf8mb4();//允许插入emoji
 	  JSONArray jsonArray = null;
@@ -230,10 +231,13 @@ public class Job {
 					  twitterMedia.setId(mediaArray.getJSONObject(j).getLong("id"));
 					  twitterMedia.setMediaUrl(mediaArray.getJSONObject(j).getString("media_url"));
 					  twitterMedia.setPostId(jsonObject.getLong("id"));
+					  twitterMedia.setWidth(mediaArray.getJSONObject(j).getJSONObject("sizes").getJSONObject("small").getInt("w"));
+					  twitterMedia.setHeight(mediaArray.getJSONObject(j).getJSONObject("sizes").getJSONObject("small").getInt("h"));
 					  if(jsonArray.getJSONObject(i).containsKey("extended_entities")
 							  &&jsonArray.getJSONObject(i).getJSONObject("extended_entities").containsKey("media")
 							  &&jsonArray.getJSONObject(i).getJSONObject("extended_entities").getJSONArray("media").getJSONObject(0).containsKey("video_info")
-							  &&jsonArray.getJSONObject(i).getJSONObject("extended_entities").getJSONArray("media").getJSONObject(0).getJSONObject("video_info").getJSONArray("variants").getJSONObject(0).containsKey("url")){
+							  &&jsonArray.getJSONObject(i).getJSONObject("extended_entities").getJSONArray("media").getJSONObject(0).getJSONObject("video_info").getJSONArray("variants").getJSONObject(0).containsKey("url")
+							  &&FilenameUtils.getExtension(jsonArray.getJSONObject(i).getJSONObject("extended_entities").getJSONArray("media").getJSONObject(0).getJSONObject("video_info").getJSONArray("variants").getJSONObject(0).getString("url")).equals("mp4")){
 						  twitterMedia.setVideoInfoUrl(jsonArray.getJSONObject(i).getJSONObject("extended_entities").getJSONArray("media").getJSONObject(0).getJSONObject("video_info").getJSONArray("variants").getJSONObject(0).getString("url"));
 					  }
 					  twitterMediaService.insert(twitterMedia);

@@ -573,9 +573,12 @@ public class UnitTest extends BaseService {
 		System.out.println(Math.abs(betweenDays));
 	}
 	
+	/**
+	 * 测试文件类型
+	 */
 	@Test
 	public void testFileUtil(){
-		String url = "https://avatar.csdn.net/7/E/1/1_zndxlxm.jpg";
+		String url = "https://avatar.csdn.net/7/E/1/1_zndxlxm.MP4";
 		System.out.println(FilenameUtils.getExtension(url));
 	}
 	

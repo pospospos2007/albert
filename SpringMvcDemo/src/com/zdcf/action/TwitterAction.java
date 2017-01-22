@@ -1,11 +1,26 @@
 package com.zdcf.action;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,14 +30,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zdcf.base.Constants;
+import com.zdcf.model.FileExchange;
 import com.zdcf.model.TwitterPost;
 import com.zdcf.model.TwitterSearchHistory;
 import com.zdcf.model.User;
+import com.zdcf.service.FileService;
 import com.zdcf.service.TwitterMediaService;
 import com.zdcf.service.TwitterPostService;
 import com.zdcf.service.TwitterSearchService;
 import com.zdcf.service.TwitterUserService;
 import com.zdcf.tool.PageVo;
+import com.zdcf.tool.ProxyUtil;
 import com.zdcf.tool.StringUtil;
 import com.zdcf.tool.Tools;
 import com.zdcf.tool.UserSessionUtil;
@@ -47,6 +65,9 @@ public class TwitterAction {
 	
 	@Autowired
 	private TwitterSearchService twitterSearchService;
+	
+	@Autowired
+	private FileService fileService;
 	
 	@RequestMapping("/index")
 	public String toGameList(HttpServletRequest request,ModelMap model){
@@ -84,12 +105,12 @@ public class TwitterAction {
 		Map<String, Object> map =this.initMapStatus();
 		String ip = Tools.getNoHTMLString(getIpAddr(request));
 		logger.info("ip:"+ip+"搜索了"+(Constants.TWITTER_SEARCH_TYPE.SEARCH_USER.equals(searchType) ? "用户：":"内容：")+searchKey);
-		User u = UserSessionUtil.currentUser();
-		if(null==u){
-			map.put("status", Boolean.FALSE);
-			map.put("msg", "请登录后搜索！");
-			return map;
-		}
+//		User u = UserSessionUtil.currentUser();
+//		if(null==u){
+//			map.put("status", Boolean.FALSE);
+//			map.put("msg", "请登录后搜索！");
+//			return map;
+//		}
 		if(StringUtil.isEmpty(searchKey)){
 			map.put("status", Boolean.FALSE);
 			map.put("msg", "请输入搜索内容！");
@@ -116,6 +137,11 @@ public class TwitterAction {
 	
 	@RequestMapping("/search")
 	public String search(HttpServletRequest request,ModelMap model,Long searchId,String searchKey,Integer searchType){
+		
+//		User u = UserSessionUtil.currentUser();
+//		if(null==u){
+//			return "index/login";
+//		}
 		
 		TwitterSearchHistory tsh = new TwitterSearchHistory();
 		tsh.setId(searchId);
@@ -162,6 +188,72 @@ public class TwitterAction {
 		map.put("status", Boolean.TRUE);
 		map.put("msg", "");
 		return map;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/fileExchange")
+	public Map<String, Object> fileExchange(String url,HttpServletRequest request) throws IOException{
+		Map<String, Object> map = new HashMap<String, Object>();
+		FileExchange fileExchange =fileService.getFileExchange(url);
+		if(null==fileExchange){
+			FileExchange newfileExchange = new FileExchange();
+			DefaultHttpClient httpClient = (DefaultHttpClient) ProxyUtil.getHttpClient();
+	        OutputStream out = null;
+	        InputStream in = null;
+			
+			String fileExt = FilenameUtils.getExtension(url);
+			String newUrl = UUID.randomUUID().toString().replaceAll("-", "")+"."+fileExt;
+			newfileExchange.setOldUrl(url);
+			newfileExchange.setNewUrl(newUrl);
+			
+			HttpGet httpGet = new HttpGet(url);
+
+            HttpResponse httpResponse = httpClient.execute(httpGet);
+            HttpEntity entity = httpResponse.getEntity();
+            in = entity.getContent();
+
+            long length = entity.getContentLength();
+            if (length <= 0) {
+                System.out.println("下载文件不存在！");
+            }
+
+            File file = new File(request.getSession().getServletContext().getRealPath("/")+"uploadfile/"+newUrl);
+            if(!file.exists()){
+                file.createNewFile();
+            }
+            
+           
+            
+            out = new FileOutputStream(file);  
+            
+            IOUtils.copy(in, out);
+            
+//            byte[] buffer = new byte[10240];
+//            int readLength = 0;
+//            while ((readLength=in.read(buffer)) > 0) {
+//                byte[] bytes = new byte[readLength];
+//                System.arraycopy(buffer, 0, bytes, 0, readLength);
+//                out.write(bytes);
+//            }
+            
+            out.flush();
+            
+            if(in != null){
+                in.close();
+            }
+            
+            if(out != null){
+                out.close();
+            }
+            
+			
+			fileService.addFileExchange(newfileExchange);
+			map.put("url", newfileExchange.getNewUrl());
+		}else{
+			map.put("url", fileExchange.getNewUrl());
+		}
+		return map;
+		
 	}
 	
 }
