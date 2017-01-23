@@ -201,7 +201,7 @@ public class TwitterSearchServiceImpl implements  TwitterSearchService {
 	  
 	  TwitterPostSearch twitterPostSearch =new TwitterPostSearch();
 	  
-	  for(int i=0;i<jsonArray.size();i++){
+	  for(int i=0,length=jsonArray.size();i<length;i++){
 		  jsonObject = jsonArray.getJSONObject(i);
 		  userObject = jsonObject.getJSONObject("user");
 		  if(jsonArray.getJSONObject(i).getJSONObject("entities").containsKey("media"))

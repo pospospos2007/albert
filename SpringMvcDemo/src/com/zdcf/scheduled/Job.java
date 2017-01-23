@@ -199,7 +199,7 @@ public class Job {
 	  TwitterUser twitteruser =new TwitterUser();
 	  TwitterMedia twitterMedia =new TwitterMedia();
 	  jsonArray = JSONArray.fromObject(sb.toString());
-	  for(int i=0;i<jsonArray.size();i++){
+	  for(int i=0, length=jsonArray.size();i<length;i++){
 		  jsonObject = jsonArray.getJSONObject(i);
 		  userObject = jsonObject.getJSONObject("user");
 		  if(jsonArray.getJSONObject(i).getJSONObject("entities").containsKey("media"))

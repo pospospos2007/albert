@@ -238,13 +238,23 @@ public class TwitterAction {
             
             out.flush();
             
-            if(in != null){
-                in.close();
+            //避免资源泄露,分开关闭
+            try{
+	            if(in != null){
+	                in.close();
+	            }
+            }catch(Exception e){
+            	e.printStackTrace();
             }
             
-            if(out != null){
-                out.close();
+            try{
+            	if(out != null){
+                    out.close();
+                }
+            }catch(Exception e){
+            	e.printStackTrace();
             }
+            
             
 			
 			fileService.addFileExchange(newfileExchange);
