@@ -25,6 +25,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import org.apache.commons.io.FilenameUtils;
@@ -623,6 +625,53 @@ public class UnitTest extends BaseService {
 	}
 	@Test
 	public void testJsonObject(){
+	}
+	
+	/**
+	 * 获取备案号
+	 */
+	@Test
+	public void testGetNumber(){
+		
+		 HttpClient client = new DefaultHttpClient();
+		 
+		 HttpGet get = new HttpGet("http://yinhechuangxiang.com/solution/show.do");
+		 
+		 HttpResponse httpResponse;  
+		 
+		 try {
+			httpResponse = client.execute(get);
+			
+			Document doc = Jsoup.parse(httpResponse.getEntity().getContent(), "utf8", "http://yinhechuangxiang.com/solution/show.do");
+
+			Elements elemnt = doc.getElementsByClass("footer").select("p").eq(1);
+			
+//			System.out.println(elemnt.html());
+			
+			String regEx="[^0-9]";   
+			Pattern p = Pattern.compile(regEx);   
+			Matcher m = p.matcher(elemnt.html());   
+			System.out.println( m.replaceAll("").trim());
+           
+//			String codeValue = elemnt.attr("placeholder");
+//            
+//			String code = codeValue.substring(5);
+//			
+//			System.out.println("code:"+code);
+			
+			
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 
+		
+		
+		
+		
 	}
 	
 	
