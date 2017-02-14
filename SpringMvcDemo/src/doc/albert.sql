@@ -1,17 +1,4 @@
-/*
-Navicat MySQL Data Transfer
 
-Source Server         : 本地
-Source Server Version : 50529
-Source Host           : localhost:3306
-Source Database       : albert
-
-Target Server Type    : MYSQL
-Target Server Version : 50529
-File Encoding         : 65001
-
-Date: 2017-01-20 11:24:13
-*/
 
 SET FOREIGN_KEY_CHECKS=0;
 
@@ -26,37 +13,7 @@ CREATE TABLE `airticle` (
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `insert_time` datetime DEFAULT NULL,
   PRIMARY KEY (`airticle_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for chat_record
--- ----------------------------
-DROP TABLE IF EXISTS `chat_record`;
-CREATE TABLE `chat_record` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `sender` varchar(1000) DEFAULT NULL,
-  `receiver` varchar(1000) DEFAULT NULL,
-  `time` datetime DEFAULT NULL,
-  `message` text,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for hdwan_res
--- ----------------------------
-DROP TABLE IF EXISTS `hdwan_res`;
-CREATE TABLE `hdwan_res` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `torrent` varchar(255) DEFAULT NULL,
-  `desc` longtext,
-  `metadata` longtext,
-  `img` varchar(1000) DEFAULT NULL,
-  `add_time` datetime DEFAULT NULL,
-  `update_time` timestamp NULL DEFAULT NULL,
-  `review_num` int(11) DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17907 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for t_face
@@ -68,7 +25,7 @@ CREATE TABLE `t_face` (
   `add_time` datetime DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=240 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for t_face_attribute
@@ -82,7 +39,7 @@ CREATE TABLE `t_face_attribute` (
   `race` varchar(20) DEFAULT NULL,
   `face_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=185 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for t_file_exchange
@@ -94,7 +51,7 @@ CREATE TABLE `t_file_exchange` (
   `old_url` varchar(1000) DEFAULT NULL,
   `add_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4908 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for t_files
@@ -109,7 +66,7 @@ CREATE TABLE `t_files` (
   `add_time` datetime NOT NULL,
   `file_format` varchar(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for t_images
@@ -123,7 +80,7 @@ CREATE TABLE `t_images` (
   `user_id` int(11) DEFAULT NULL,
   `image_format` varchar(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for t_message
@@ -135,8 +92,9 @@ CREATE TABLE `t_message` (
   `theme_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `add_time` datetime NOT NULL,
+  `via` varchar(1000) DEFAULT NULL COMMENT '来源',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25547 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25594 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for t_theme
@@ -150,8 +108,9 @@ CREATE TABLE `t_theme` (
   `add_time` datetime NOT NULL,
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `review_num` int(11) DEFAULT '0',
+  `via` varchar(1000) DEFAULT NULL COMMENT '来源',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=62845 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=62854 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for t_user
@@ -159,15 +118,15 @@ CREATE TABLE `t_theme` (
 DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE `t_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) DEFAULT NULL,
-  `password` varchar(100) DEFAULT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(100) NOT NULL,
   `ip` varchar(1000) DEFAULT NULL COMMENT '注册ip',
   `register_time` datetime DEFAULT NULL COMMENT '注册时间',
   `email` varchar(1000) DEFAULT NULL COMMENT '邮箱',
   `avatar` varchar(1000) DEFAULT NULL COMMENT '头像',
   `auto_login_code` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10678 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10823 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for t_zhihu
@@ -184,7 +143,7 @@ CREATE TABLE `t_zhihu` (
   `review_num` int(11) DEFAULT '0',
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9141093 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9220326 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for twitter_media
@@ -195,7 +154,10 @@ CREATE TABLE `twitter_media` (
   `media_url` varchar(255) DEFAULT NULL,
   `post_id` bigint(20) NOT NULL,
   `video_info_url` varchar(255) DEFAULT NULL COMMENT '如果没有说明只有图片，一张图片对应一个mp4',
-  PRIMARY KEY (`id`)
+  `width` int(11) DEFAULT NULL,
+  `height` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_twittermedia_postid` (`post_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
@@ -208,8 +170,9 @@ CREATE TABLE `twitter_post` (
   `user_id` bigint(20) DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
   `post_type` int(11) NOT NULL DEFAULT '0' COMMENT '0:我的时间线的帖子;1:搜索结果的帖子；如果都是，保留前者',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=822017049136394241 DEFAULT CHARSET=utf8mb4;
+  PRIMARY KEY (`id`),
+  KEY `idx_twitterpost_userid` (`user_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=831312865235763202 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for twitter_post_search
@@ -220,7 +183,7 @@ CREATE TABLE `twitter_post_search` (
   `search_id` bigint(20) NOT NULL,
   `post_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=14559 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for twitter_search_history
@@ -232,7 +195,7 @@ CREATE TABLE `twitter_search_history` (
   `search_key` varchar(255) NOT NULL COMMENT '搜索关键字',
   `search_type` int(11) NOT NULL DEFAULT '0' COMMENT '0:按照用户名搜索；1：按照内容搜索',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=104 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for twitter_user
