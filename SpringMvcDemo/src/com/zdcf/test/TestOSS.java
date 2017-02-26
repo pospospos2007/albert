@@ -47,28 +47,32 @@ public class TestOSS {
     /**
      * 阿里云ACCESS_ID
      */
+//	p1XuLXBpDNQ40SGI
     private static String ACCESS_ID = "p1XuLXBpDNQ40SGI";
     /**
      * 阿里云ACCESS_KEY
      */
-    private  static String ACCESS_KEY = "epwi7dXVtDkv1Qxk9dIUNeXa9194p3 ";
+//    epwi7dXVtDkv1Qxk9dIUNeXa9194p3
+    private  static String ACCESS_KEY = "epwi7dXVtDkv1Qxk9dIUNeXa9194p3";
     /**
      * 阿里云OSS_ENDPOINT  青岛Url
      */
-    private static String OSS_ENDPOINT = "http://barlolo.img-cn-hongkong.aliyuncs.com";
+//    http://yhcx.oss-cn-beijing.aliyuncs.com
+//    http://barlolo.img-cn-hongkong.aliyuncs.com
+    private static String OSS_ENDPOINT = "http://yhcx.oss-cn-beijing.aliyuncs.com";
      
     /**
      * 阿里云BUCKET_NAME  OSS
      */
-    private static String BUCKET_NAME = "demo10";
+    private static String BUCKET_NAME = "yhcx";
      
      
     public static void main(String[] args) {
         //String bucketName = "demo10";
         String Objectkey = "photo1.jpg";
          
-        String uploadFilePath = "D:\\photo.jpg";
-        String downloadFilePath = "D:\\photo1.jpg";
+        String uploadFilePath = "D:\\test.jpg";
+        String downloadFilePath = "D:\\test1.jpg";
          
         // 使用默认的OSS服务器地址创建OSSClient对象,不叫OSS_ENDPOINT代表使用杭州节点，青岛节点要加上不然包异常
         OSSClient client = new OSSClient(OSS_ENDPOINT, ACCESS_ID, ACCESS_KEY);
@@ -87,8 +91,8 @@ public class TestOSS {
             System.out.println("正在上传...");
             uploadFile(client, BUCKET_NAME, Objectkey, uploadFilePath);
  
-            System.out.println("正在下载...");
-            downloadFile(client, BUCKET_NAME, Objectkey, downloadFilePath);
+//            System.out.println("正在下载...");
+//            downloadFile(client, BUCKET_NAME, Objectkey, downloadFilePath);
         }catch(Exception e){
             e.printStackTrace();
         } finally {

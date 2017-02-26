@@ -143,7 +143,8 @@ public class Job {
 //		ctx.close();
 	}
 	
-	@Scheduled(cron = "1 0/5 * * * ? ")
+//	@Scheduled(cron = "1 0/5 * * * ? ")
+	@Scheduled(cron = "1 0/0 * * * ?  ")
 //	@Test
 	public void addTwitter() throws OAuthMessageSignerException, OAuthExpectationFailedException, OAuthCommunicationException, ClientProtocolException, IOException{
 	  OAuthConsumer consumer = new CommonsHttpOAuthConsumer(
