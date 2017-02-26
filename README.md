@@ -51,4 +51,9 @@ my personal website
 
 17.druid连接池
 
-18.某个系统运维工具（在web.xml里面注释掉了,很强大）
+18.twitter api
+
+19.google api
+
+20.shawnsocks,polipo
+
