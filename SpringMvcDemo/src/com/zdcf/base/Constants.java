@@ -3,10 +3,10 @@ package com.zdcf.base;
 public interface Constants {
 
 	//推特验证信息
-	static String AccessToken = "";
-	static String AccessSecret = "";
-	static String ConsumerKey = "";
-	static String ConsumerSecret = "";
+	static final  String AccessToken = "";
+	static final  String AccessSecret = "";
+	static final  String ConsumerKey = "";
+	static final  String ConsumerSecret = "";
 	
 	static final  String TWITTER_MY_TIME_LINE="https://api.twitter.com/1.1/statuses/home_timeline.json";
 	
@@ -27,8 +27,6 @@ public interface Constants {
 	static final  String COOKIE_REMEMBER_USER__PASSWORD__NAME = "COOKIE_REMEMBER_USER__PASSWORD__NAME";
 	
 	static final  String SESSION_IMAGE_CODE = "SESSION_IMAGE_CODE";//图形验证码
-	
-	static final String GOOGLE_SEARCH_URL="https://www.googleapis.com/customsearch/v1?cx=007821717631179546661:42aw6xv7bxe&key=AIzaSyD440A4WVC9ozZgcM518QJJfxAhoq9U8zY&q=";
 	
 	// 系统中的主要频道编码
 	interface Chnl {
