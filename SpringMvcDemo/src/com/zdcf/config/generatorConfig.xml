@@ -18,32 +18,29 @@
     
        <!-- 数据库  -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-            connectionURL="jdbc:mysql://localhost:3306/yhcx?useUnicode=true&amp;characterEncoding=UTF-8"
+            connectionURL="jdbc:mysql://localhost:3306/albert?useUnicode=true&amp;characterEncoding=UTF-8"
             userId="root" password="123456" />
         
            <!-- 生成模型的包名和位置-->  
-        <javaModelGenerator targetPackage="com.yhcx.pojo" targetProject="SpringMvcDemo">  
+        <javaModelGenerator targetPackage="com.zdcf.model" targetProject="SpringMvcDemo">  
             <property name="enableSubPackages" value="true"/>  
             <property name="trimStrings" value="true"/>  
         </javaModelGenerator>    
             
          <!-- 生成映射文件的包名和位置-->  
-       <sqlMapGenerator targetPackage="com.yhcx.mapper" targetProject="SpringMvcDemo">  
+       <sqlMapGenerator targetPackage="com.zdcf.dao.mapper" targetProject="SpringMvcDemo">  
             <property name="enableSubPackages" value="true"/>  
         </sqlMapGenerator> 
         
         <!-- 生成DAO的包名和位置-->  
-       <javaClientGenerator type="XMLMAPPER" targetPackage="com.yhcx.mapper" targetProject="SpringMvcDemo">  
+       <javaClientGenerator type="XMLMAPPER" targetPackage="com.zdcf.dao" targetProject="SpringMvcDemo">  
             <property name="enableSubPackages" value="true"/>  
         </javaClientGenerator>
-        <table tableName="t_service_product"  domainObjectName="ServiceProduct" ><generatedKey column="id" sqlStatement="MySql" identity="true"/></table> 
-<!--         <table tableName="t_businessneeds"  domainObjectName="Businessneeds" ><generatedKey column="id" sqlStatement="MySql" identity="true"/></table>  -->
-<!--         <table tableName="t_service_product"  domainObjectName="ServiceProduct" ><generatedKey column="id" sqlStatement="MySql" identity="true"/></table>  -->
 <!--          <table tableName="twitter_user"  domainObjectName="TwitterUser" ></table>   -->
 <!--          <table tableName="twitter_search_history"  domainObjectName="TwitterSearchHistory" ><generatedKey column="id" sqlStatement="MySql" identity="true"/></table>  -->
 <!--          <table tableName="twitter_post_search"  domainObjectName="TwitterPostSearch" ><generatedKey column="id" sqlStatement="MySql" identity="true"/></table>  -->
 <!--          <table tableName="twitter_post"  domainObjectName="TwitterPost" ></table>   -->
-<!--          <table tableName="twitter_media"  domainObjectName="TwitterMedia" ></table>   -->
+         <table tableName="twitter_media"  domainObjectName="TwitterMedia" ></table>  
 <!--          <table tableName="t_adm_admin"  domainObjectName="AdmAdmin" ><generatedKey column="id" sqlStatement="MySql" identity="true"/></table> -->
          <!--  <table tableName="t_adm_admin_role"  domainObjectName="AdmAdminRole" ><generatedKey column="id" sqlStatement="MySql" identity="true"/></table>  
           <table tableName="t_adm_cntry"  domainObjectName="AdmCntry" ></table>  

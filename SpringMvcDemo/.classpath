@@ -8,7 +8,7 @@
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_91"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/activation.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/activemq-core-5.7.0.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/activemq-jms-pool-5.13.3.jar"/>
@@ -101,7 +101,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/securesm-1.0.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/slf4j-api-1.7.6.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/slf4j-log4j12-1.7.5.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/slf4j-log4j12-1.7.6.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/snakeyaml-1.15.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spatial4j-0.5.jar"/>

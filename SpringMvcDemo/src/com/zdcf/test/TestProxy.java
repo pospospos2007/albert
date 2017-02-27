@@ -22,12 +22,7 @@ public class TestProxy {
 	 //创建HttpClient实例
 	 HttpClient client = getHttpClient();
 	 //创建httpGet
-//	 https://developers.google.com/custom-search/
-//	 https://cse.google.com/cse/publicurl?cx=007821717631179546661:42aw6xv7bxe&q=%queryExpression%&searchType=image&start=%start%&num=%num%
-//	 https://www.googleapis.com/customsearch/v1?cx={APP
-//		 ID}&key={API Key}&q={key word}
-	 HttpGet httpGet = new HttpGet("https://www.googleapis.com/customsearch/v1?cx=007821717631179546661:42aw6xv7bxe&key=AIzaSyD440A4WVC9ozZgcM518QJJfxAhoq9U8zY&q=人");
-	 
+	 HttpGet httpGet = new HttpGet("https://www.google.com");
 	 //执行
 	 try {
 	  HttpResponse response = client.execute(httpGet);
