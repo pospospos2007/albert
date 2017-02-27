@@ -13,7 +13,7 @@ my personal website
 
 5.运行albert.sql文件 (mysql 5.5+) ，在spring-common-xml 修改sql配置
 
-6.jdk1.7即可，注意lib下的包要引入，项目部署到tomcat8容器启动
+6.jdk1.8，注意lib下的包要引入，项目部署到tomcat8容器启动
 
 
 # 开发环境和工具
