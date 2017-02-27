@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zdcf.base.Constants;
 import com.zdcf.model.GoogleSearchResult;
-import com.zdcf.service.BaseService;
 import com.zdcf.service.GoogleService;
 import com.zdcf.tool.ProxyUtil;
 
@@ -26,7 +25,7 @@ import net.sf.json.JSONObject;
 
 @Service
 @Transactional
-public class GoogleServiceImpl extends BaseService implements GoogleService {
+public class GoogleServiceImpl  implements GoogleService {
 
 
 	public List<GoogleSearchResult> search(String searchKey) throws ClientProtocolException, IOException{
