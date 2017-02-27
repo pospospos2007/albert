@@ -3,8 +3,7 @@ my personal website
 
 # 部署方法（过段时间编写一下详细的部署文档）
 
-首先下载4个服务，https://pan.baidu.com/s/1jH72wDo
-
+首先下载4个服务，不下载启动也可以正常部署项目，但是一些功能无法使用，https://pan.baidu.com/s/1jH72wDo
 1.部署启动 redis3.0.1  windows或者linux版本
 
 2.修改zoo.cfg配置文件，使日志目录和你的环境一致，部署启动 zookeeper-3.4.8  windows或者linux
