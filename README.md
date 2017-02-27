@@ -3,13 +3,15 @@ my personal website
 
 # 部署方法（过段时间编写一下详细的部署文档）
 
+首先下载4个服务，不下载也可以正常部署项目，但是一些功能无法使用，https://pan.baidu.com/s/1jH72wDo
+
 1.部署启动 redis3.0.1  windows或者linux版本
 
-2.部署启动 zookeeper-3.4.8  windows或者linux
+2.修改zoo.cfg配置文件，使日志目录和你的环境一致，部署启动 zookeeper-3.4.8  windows或者linux
 
 3.部署启动apache-activemq-5.9.0  windows或者linux
 
-4.部署启动elasticsearch 2.3.3  windows或者linux，注意yml文件的cluster-name设置为albert-es
+4.删除es目录下的data目录下所有缓存数据，部署启动elasticsearch 2.3.3  windows或者linux，注意yml文件的cluster-name设置为albert-es
 
 5.运行albert.sql文件 (mysql 5.5+) ，在spring-common-xml 修改sql配置
 
