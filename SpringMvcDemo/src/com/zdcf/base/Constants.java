@@ -28,6 +28,9 @@ public interface Constants {
 	
 	static final  String SESSION_IMAGE_CODE = "SESSION_IMAGE_CODE";//图形验证码
 	
+	
+	static final String GOOGLE_SEARCH_URL="https://www.googleapis.com/customsearch/v1?cx=007821717631179546661:42aw6xv7bxe&key=AIzaSyD440A4WVC9ozZgcM518QJJfxAhoq9U8zY&q=";
+	
 	// 系统中的主要频道编码
 	interface Chnl {
 		static final  int House = 100; // 租房
