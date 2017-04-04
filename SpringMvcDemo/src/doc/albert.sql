@@ -281,3 +281,17 @@ CREATE TABLE `weibo_user` (
   `weihao` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `hdwan_res`;
+CREATE TABLE `hdwan_res` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `torrent` varchar(255) DEFAULT NULL,
+  `desc` longtext,
+  `metadata` longtext,
+  `img` varchar(1000) DEFAULT NULL,
+  `add_time` datetime DEFAULT NULL,
+  `update_time` timestamp NULL DEFAULT NULL,
+  `review_num` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4559 DEFAULT CHARSET=utf8;
