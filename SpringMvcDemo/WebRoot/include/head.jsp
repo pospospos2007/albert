@@ -36,6 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   ga('create', 'UA-79653638-1', 'auto');
   ga('send', 'pageview');
 
+
   function toLogin(){
 	  window.location.href ="<%=path%>/login";
   }
