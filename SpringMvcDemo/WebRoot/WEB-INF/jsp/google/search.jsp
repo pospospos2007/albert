@@ -171,9 +171,6 @@
    		</div>
 	</div>
 	
-	<div id="page">
-      <pager:pager pageSize="${pageView.pageSize}"  currentPageId="currentPage"  pageNo="${pageView.currentPage}"   fromId="listform" recordCount="${pageView.recordCount}"/>
-     </div>
 		     
  </form>
  		<div id="fixImg"><img src=""></img></div> 

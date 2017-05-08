@@ -674,5 +674,38 @@ public class UnitTest extends BaseService {
 		
 	}
 	
+	@Test
+	public void rongliangTest(){
+		System.out.println("TotalMemory :::: " + (Runtime.getRuntime().
+				totalMemory()/(1024*1024) + "M")); 
+	}
+	
+	/**
+	 * 测试某年某月得最后一天
+	 */
+	@Test
+	public void MonetDayTest(){
+	  Calendar cal = Calendar.getInstance();
+	  //下面可以设置月份，注：月份设置要减1，所以设置1月就是1-1，设置2月就是2-1，如此类推
+	  cal.set(Calendar.MONTH, 4-1);
+	  cal.set(Calendar.YEAR,2015);
+	  //调到上个月
+	  cal.add(Calendar.MONTH, -1);
+	  //得到一个月最最后一天日期(31/30/29/28)
+	  int MaxDay=cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+	  //按你的要求设置时间
+	  cal.set( cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), MaxDay, 23, 59, 59);
+	  //按格式输出
+	  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss");
+	  System.out.println(sdf.format(cal.getTime())); 
+	}
+	
+	@Test
+	public void testStr(){
+		String a = null;
+		String b = "null";
+		String c = a+b;
+		System.out.println(c);
+	}
 	
 }

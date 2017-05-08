@@ -43,8 +43,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  window.location.href ="<%=path%>/toRegister";
   }
   
+  
+//   var ua = navigator.userAgent.toLowerCase();
+//   var isStrict = document.compatMode == "CSS1Compat", // 是否定义DOCUMENT类型
+//       isOpera = ua.indexOf("opera")>-1, // 是Opera
+//       isChrome = ua.indexOf("chrome")>-1, //是Chrome
+//       isSafari = !isChrome&&(/webkit|khtml/).test(ua), //是Safari
+//       isSafari3 = isSafari&&ua.indexOf("webkit/5")! = -1, // Safari3
+//       isIE = !isOpera&&ua.indexOf("msie")>-1, //IE6
+//       isIE7 = !isOpera&&ua.indexOf("msie 7")>-1, // IE7
+//       isIE8 = !isOpera&&ua.indexOf("msie 8")>-1, //IE8
+//       isGecko = !isSafari&&!isChrome&&ua.indexOf("gecko")>-1, // Gecko内核
+//       isGecko3 = isGecko&&ua.indexOf("rv:1.9")>-1, // Gecko3内核
+//       isBorderBox = isIE&&!isStrict, // 使用盒模型
+//       isWindows = (ua.indexOf("windows")! = -1||ua.indexOf("win32")! = -1), // 是Windows系统
+//       isMac = (ua.indexOf("macintosh")! = -1||ua.indexOf("mac os x")! = -1), // 是MacOS系统
+//       isAir = (ua.indexOf("adobeair")! = -1), // 是用Adobe Air浏览
+//       isLinux = (ua.indexOf("linux")! = -1), // 是Linux系统
+//       isSecure = window.location.href.toLowerCase().indexOf("https") === 0;  // 是SSL浏览
+//       var u = navigator.userAgent;
+//       var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+//       var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+//       var iPad = u.indexOf('iPad') > -1 //iPad
+  
 </script>
 <link rel="shortcut icon" href="<%=path%>/images/favicon.ico">
+
 
 
 </head>
