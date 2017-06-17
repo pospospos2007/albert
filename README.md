@@ -1,4 +1,4 @@
-# <a href="http://123.56.164.113:9999/">Albert</a>
+# <a href="http://albert6.com:9999/">Albert</a>
 my personal website 
 
 # 部署方法（过段时间编写一下详细的部署文档）
