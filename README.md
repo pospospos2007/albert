@@ -17,7 +17,7 @@ my personal website
 
 6.jdk1.8，注意lib下的包要引入，项目部署到tomcat8容器启动
 
-7.(附加)近期使用了lombok简化代码，如需在此项目上开发，请在自己的ide上安装lombok，如：eclipse 或myeclipse的话，下载lombok.jar后，当前目录执行java -jar lombok.jar 然后安装提示安装，重启ide即可
+7.(附加)近期使用了lombok简化代码，如需在此项目上开发，请在自己的ide上安装lombok，如：eclipse 或myeclipse的话，下载lombok.jar后，当前目录执行java -jar lombok.jar 然后按照提示安装，重启ide即可
 
 
 # 开发环境和工具
