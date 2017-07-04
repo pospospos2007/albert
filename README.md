@@ -1,4 +1,4 @@
-# <a href="http://123.56.164.113:9999/">Albert</a>
+# <a href="http://albert6.com:9999/">Albert</a>
 my personal website 
 
 # 部署方法（过段时间编写一下详细的部署文档）
@@ -16,6 +16,8 @@ my personal website
 5.运行albert.sql文件 (mysql 5.5+) ，在spring-common-xml 修改sql配置
 
 6.jdk1.8，注意lib下的包要引入，项目部署到tomcat8容器启动
+
+7.(附加)近期使用了lombok简化代码，如需在此项目上开发，请在自己的ide上安装lombok，如：eclipse 或myeclipse的话，下载lombok.jar后，当前目录执行java -jar lombok.jar 然后按照提示安装，重启ide即可
 
 
 # 开发环境和工具
@@ -60,4 +62,8 @@ my personal website
 20.shadownsocks,polipo
 
 21.dubbo
+
+22.lombok
+
+23.Guava
 
