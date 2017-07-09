@@ -139,16 +139,16 @@
 							<div class="panel panel-default">
 							  <div class="panel-heading">
 							    <h3 class="panel-title">
-							    <a href="#" data-content=""
-							     onclick="searchUser(this)" screenName="${result.htmlTitle}" title="${result.htmlTitle}" class="bind_hover_card" data-toggle="popover" data-placement="bottom" data-trigger="hover">
-							    <b>${result.htmlTitle}</b> (@${result.htmlTitle})
+							    <a href="${result.formattedUrl }" data-content="" target="_blank"
+							     screenName="${result.htmlTitle}" title="${result.htmlTitle}" class="bind_hover_card" data-toggle="popover" data-placement="bottom" data-trigger="hover">
+							    <b>${result.htmlTitle}</b> 
 							    </a>
 							    </h3>
 							  </div>
 							  <div class="panel-body">
 							   <p>
 							   <img src="${result.src}"  width="${result.width}" height="${result.height}" class="img-rounded twitterMedia"></img>
-							   ${result.link}
+							   ${result.htmlSnippet}
  								</p>
 							  </div>
 							</div>
@@ -161,9 +161,9 @@
    		</div>
 	</div>
 	<c:if test="${start ne 1 }">
-	<button type="button"  class="btn btn-default pull-right" onclick="jumpPage(${wd},${start-10})">上一页</button>
+	<button type="button"  class="btn btn-default pull-right" onclick="jumpPage('${wd}',${start-10})">上一页</button>
 	</c:if>
-    <button type="button"  class="btn btn-success pull-right" onclick="jumpPage(${wd},${start+10})">下一页</button>
+    <button type="button"  class="btn btn-success pull-right" onclick="jumpPage('${wd}',${start+10})">下一页</button>
           
 	
 		     
@@ -245,27 +245,27 @@
             }
          }
 		
-// 		 $( document ).ready(function() {
-// 			 	$("#twitterMedia").find(".twitterMedia").each(function(){
-// 			 		var str = $(this).attr("src");
-// 			 		var newUrl="";
-// 			 		if(null!=str){
-// 				 		$.ajax({
-<%-- 							url : "<%=path%>/twitter/fileExchange", --%>
-// 							type : "GET",
-// 							data:{"url":str}, 
-// 							async:false,
-// 							dataType : "json",
-// 							success : function(data) {
-// 								newUrl = data.url;
-// 							}
-// 						});
+		 $( document ).ready(function() {
+			 	$("#twitterMedia").find(".twitterMedia").each(function(){
+			 		var str = $(this).attr("src");
+			 		var newUrl="";
+			 		if(null!=str){
+				 		$.ajax({
+							url : "<%=path%>/twitter/fileExchange",
+							type : "GET",
+							data:{"url":str}, 
+							async:false,
+							dataType : "json",
+							success : function(data) {
+								newUrl = data.url;
+							}
+						});
 			 		
-// 			 		}
-<%-- 			 		$(this).attr("src","<%=path%>/uploadfile/"+newUrl); --%>
-// 			 	});
+			 		}
+			 		$(this).attr("src","<%=path%>/uploadfile/"+newUrl);
+			 	});
 				
-// 			});
+			});
 //	     图片展览js
 		    $(".StarConP").click(function(){
 				var src = $(this).attr("src");

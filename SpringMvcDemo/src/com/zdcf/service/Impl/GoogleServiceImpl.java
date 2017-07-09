@@ -75,9 +75,10 @@ public class GoogleServiceImpl  implements GoogleService {
 			  for(int i=0,length=jsonArray.size();i<length;i++){
 				  googleSearchResult =new GoogleSearchResult();
 				  jsonObject = jsonArray.getJSONObject(i);
+				  googleSearchResult.setFormattedUrl(jsonObject.getString("formattedUrl"));
 				  googleSearchResult.setHtmlTitle(jsonObject.getString("htmlTitle"));
 				  googleSearchResult.setLink(jsonObject.getString("link"));
-				  googleSearchResult.setLink(jsonObject.getString("htmlSnippet"));
+				  googleSearchResult.setHtmlSnippet(jsonObject.getString("htmlSnippet"));
 				  if(jsonObject.containsKey("pagemap")&&jsonObject.getJSONObject("pagemap").containsKey("cse_thumbnail")){
 					  googleSearchResult.setSrc(jsonObject.getJSONObject("pagemap").getJSONArray("cse_thumbnail").getJSONObject(0).getString("src"));
 					  googleSearchResult.setWidth(jsonObject.getJSONObject("pagemap").getJSONArray("cse_thumbnail").getJSONObject(0).getString("width"));

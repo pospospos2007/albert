@@ -18,6 +18,9 @@ public class GoogleSearchResult {
     private String height;
 	   
     private String src;
+    
+    //链接
+    private String formattedUrl;
 
    
    

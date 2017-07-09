@@ -17,8 +17,8 @@ public class ProxyUtil {
 //				 httpClient.getCredentialsProvider().setCredentials(
 //				   new AuthScope(proxyHost, proxyPort),
 //				   new UsernamePasswordCredentials(userName, password));
-		HttpHost proxy = new HttpHost(proxyHost,proxyPort);
-		httpClient.getParams().setParameter(ConnRouteParams.DEFAULT_PROXY, proxy);
+//		HttpHost proxy = new HttpHost(proxyHost,proxyPort);
+//		httpClient.getParams().setParameter(ConnRouteParams.DEFAULT_PROXY, proxy);
 		return httpClient;
 	}
 }

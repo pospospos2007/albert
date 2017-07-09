@@ -61,7 +61,7 @@ public class FileServiceImpl implements  FileService {
 	public int addFileExchange(FileExchange file) {
 		fileMapper.addFileExchange(file);
 		FileExchange fileExchange = fileMapper.getFileExchangeByOldUrl(file.getOldUrl());
-		redisCacheService.process(fileExchange, Constants.Cache.Type.save);
+//		redisCacheService.process(fileExchange, Constants.Cache.Type.save);
 		return 1;
 	}
 	

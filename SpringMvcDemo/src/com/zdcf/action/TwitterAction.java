@@ -210,6 +210,9 @@ public class TwitterAction {
 	        InputStream in = null;
 			
 			String fileExt = FilenameUtils.getExtension(url);
+			if(StringUtil.isEmpty(fileExt)){
+				fileExt ="png";
+			}
 			String newUrl = UUID.randomUUID().toString().replaceAll("-", "")+"."+fileExt;
 			newfileExchange.setOldUrl(url);
 			newfileExchange.setNewUrl(newUrl);
