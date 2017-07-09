@@ -6,28 +6,23 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.math.BigInteger;
-import java.net.HttpURLConnection;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.MalformedURLException;
-import java.net.NetworkInterface;
-import java.net.Proxy;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 import java.util.Vector;
+import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.http.HttpEntity;
@@ -41,14 +36,22 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.junit.Test;
+
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
+import com.google.common.cache.RemovalListener;
+import com.google.common.cache.RemovalNotification;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+import com.zdcf.base.Constants;
 import com.zdcf.dto.ZhihuDTO;
 import com.zdcf.service.BaseService;
 import com.zdcf.tool.DateUtil;
 import com.zdcf.weibo.Config;
 
 import net.sf.json.JSONObject;
-
-import com.zdcf.base.Constants;
 
 
 public class UnitTest extends BaseService {
@@ -707,5 +710,138 @@ public class UnitTest extends BaseService {
 		String c = a+b;
 		System.out.println(c);
 	}
+	
+	//测试可以重复key的集合
+	@Test
+	public void testColeection(){
+		Multimap<Integer, String> keyValues = ArrayListMultimap.create();
+        keyValues.put(1, "a");
+        keyValues.put(1, "b");
+        keyValues.put(2, "c");
+        System.out.println(keyValues.toString());
+	}
+	
+	@Test
+	public void testCheckNull(){
+//		String inputName = "null";
+//		String name = Preconditions.checkNotNull(inputName);
+//		System.out.println(name);
+		
+//		List<String> names = Lists.newArrayList();
+//        names.add("iamzhongyong");
+//        names.add("bixiao.zy");
+//        StringBuilder sb = new StringBuilder();
+//        String rs = Joiner.on(",").appendTo(sb, names).toString();
+//        System.out.println(rs);
+		
+	}
+	
+	public void getNameFromLocalCache() throws Exception{
+        //new一个cache的对象出来
+        Cache<String/*name*/,String/*nick*/> cache = CacheBuilder.newBuilder().maximumSize(10).build();
+        //在get的时候，如果缓存里面没有，则通过实现一个callback的方法去获取
+        String name = cache.get("bixiao", new Callable<String>() {
+            public String call() throws Exception {
+                return "bixiao.zy"+"-"+"iamzhongyong";
+            }
+        });
+        System.out.println(name);
+        System.out.println(cache.toString());
+    }
+	
+	
+	public void getNameLoadingCache(String name) throws Exception{
+        LoadingCache<String, String> cache = CacheBuilder.newBuilder()
+            //设置大小，条目数
+            .maximumSize(20)
+            //设置失效时间，创建时间
+            .expireAfterWrite(20, TimeUnit.SECONDS)
+            //设置时效时间，最后一次被访问
+            .expireAfterAccess(20, TimeUnit.HOURS)
+            //移除缓存的监听器
+            .removalListener(new RemovalListener<String, String>() {
+                public void onRemoval(RemovalNotification<String, String> notification) {
+                    System.out.println("有缓存数据被移除了");
+                }})
+            //缓存构建的回调
+            .build(new CacheLoader<String, String>(){//加载缓存
+                @Override
+                public String load(String key) throws Exception {
+                    return key + "-" + "iamzhongyong";
+                }
+        });
+ 
+        System.out.println(cache.get(name));
+        cache.invalidateAll();
+    }
+	
+	@Test
+	public void testCache(){
+		
+	}
+	
+	@Test
+	public void testCal(){
+		System.out.println(3*4);
+		System.out.println(3<<2);
+	}
+	
+	@Test
+	public void testNullKeyHashMap(){
+		Map<String, String> map = new HashMap<String,String>(16);
+		map.put(null, "11");
+		System.out.println(map.get(null));
+	}
+	
+	
+	@Test
+    public void TestLoadingCache() throws Exception{
+        LoadingCache<String,String> cahceBuilder=CacheBuilder
+        .newBuilder()
+        .build(new CacheLoader<String, String>(){
+            @Override
+            public String load(String key) throws Exception {        
+                String strProValue="hello "+key+"!";                
+                return strProValue;
+            }
+            
+        });        
+         
+        System.out.println("jerry value:"+cahceBuilder.apply("jerry"));
+        System.out.println("jerry value:"+cahceBuilder.get("jerry"));
+        System.out.println("peida value:"+cahceBuilder.get("peida"));
+        System.out.println("peida value:"+cahceBuilder.apply("peida"));
+        System.out.println("lisa value:"+cahceBuilder.apply("lisa"));
+        cahceBuilder.put("harry", "ssdded");
+        System.out.println("harry value:"+cahceBuilder.get("harry"));
+    }
+	
+	@Test
+    public void testcallableCache()throws Exception{
+        Cache<String, String> cache = CacheBuilder.newBuilder().maximumSize(1000).build();  
+        String resultVal = cache.get("jerry", new Callable<String>() {  
+            public String call() {  
+                String strProValue="hello "+"jerry"+"!";                
+                return strProValue;
+            }  
+        });  
+        System.out.println("jerry value : " + resultVal);
+        
+        resultVal = cache.get("peida", new Callable<String>() {  
+            public String call() {  
+                String strProValue="hello "+"peida"+"!";                
+                return strProValue;
+            }  
+        });  
+        System.out.println("peida value : " + resultVal);  
+    }
+	
+
+	
+
+
+	
+	
+	
 	
 }

@@ -3,10 +3,11 @@ package com.zdcf.base;
 public interface Constants {
 
 	//推特验证信息
-	static final  String AccessToken = "";
-	static final  String AccessSecret = "";
-	static final  String ConsumerKey = "";
-	static final  String ConsumerSecret = "";
+	//推特验证信息
+	static String AccessToken = "959746950-ifkHxIgWxgodhDeLYeGeFHf6Vle3gzHpwJnTmIvW";
+	static String AccessSecret = "Y9c4Aad4qCC3sbJJ16avGCVvqvAJuvE1ivbZ3oLemVFsv";
+	static String ConsumerKey = "aWgjz4QU7vm6cITrJ1Ff9Ve49";
+	static String ConsumerSecret = "FrBakfTEvCVop4BxD3ttrE3fFojp62IqweqA9dTl9Uu2undD9y";
 	
 	static final  String TWITTER_MY_TIME_LINE="https://api.twitter.com/1.1/statuses/home_timeline.json";
 	

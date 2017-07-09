@@ -31,6 +31,7 @@ import com.zdcf.model.GoogleSearchResult;
 import com.zdcf.service.FileService;
 import com.zdcf.service.GoogleService;
 import com.zdcf.tool.ProxyUtil;
+import com.zdcf.tool.StringUtil;
 import com.zdcf.tool.Tools;
 
 @Controller
@@ -60,15 +61,25 @@ public class GoogleAction {
 	
 	
 	@RequestMapping("/search")
-	public String search(HttpServletRequest request,ModelMap model,String wd) throws ClientProtocolException, IOException{
+	public String search(HttpServletRequest request,ModelMap model,String wd,Integer start) throws ClientProtocolException, IOException{
 		
 		String ip = Tools.getNoHTMLString(getIpAddr(request));
+		String temp =wd;
+		
+		if(null==start){
+			wd = wd+"&start="+1+"&num=10";
+			start =1;
+		}else{
+			wd = wd+"&start="+start+"&num=10";
+		}
 		
 		List<GoogleSearchResult>  list = googleService.search(wd);
 		
-		logger.info("ip:"+ip+"搜索了"+wd);
+		logger.info("ip:"+ip+"搜索了"+temp);
 		
 		model.addAttribute("list", list);
+		model.addAttribute("wd", temp);
+		model.addAttribute("start", start);
 		
 		return "google/search";
 	}

@@ -1,8 +1,9 @@
 package com.zdcf.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
+
+import lombok.Data;
 
 /**
  * 文章
@@ -10,6 +11,7 @@ import java.util.Date;
  *
  */
 
+@Data
 public class Airticle implements Serializable{
 
 	/**
@@ -23,8 +25,6 @@ public class Airticle implements Serializable{
 	 * 文章id
 	 */
 	private Integer airticleId;
-
-	
 
 	/**
 	 * 标题
@@ -41,55 +41,6 @@ public class Airticle implements Serializable{
 	
 	private Date insertTime;
 	
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
-
-
-	public Date getInsertTime() {
-		return insertTime;
-	}
-
-
-	public void setInsertTime(Date insertTime) {
-		this.insertTime = insertTime;
-	}
-
-
-	public Integer getAirticleId() {
-		return airticleId;
-	}
-
-
-	public void setAirticleId(Integer airticleId) {
-		this.airticleId = airticleId;
-	}
-
-
-	public String getTitle() {
-		return title;
-	}
-
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-
-	public String getContent() {
-		return content;
-	}
-
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
 
 	
 

@@ -2,8 +2,10 @@ package com.zdcf.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
+import lombok.Data;
+
+@Data
 public abstract class Cacheable implements Serializable{
 	
 	/**
@@ -23,37 +25,6 @@ public abstract class Cacheable implements Serializable{
 	
 	public abstract String getCacheKey();
 	
-	public Date getUpdateTime() {
-		return updateTime;
-	}
 
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
-
-	public Date getAddTime() {
-		return addTime;
-	}
-
-	public void setAddTime(Date addTime) {
-		this.addTime = addTime;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public Integer getReviewNum() {
-		return reviewNum;
-	}
-
-	public void setReviewNum(Integer reviewNum) {
-		this.reviewNum = reviewNum;
-	}
-	
 }
 

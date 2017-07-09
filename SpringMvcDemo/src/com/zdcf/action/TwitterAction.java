@@ -190,11 +190,19 @@ public class TwitterAction {
 		return map;
 	}
 	
+	
 	@ResponseBody
 	@RequestMapping("/fileExchange")
 	public Map<String, Object> fileExchange(String url,HttpServletRequest request) throws IOException{
 		Map<String, Object> map = new HashMap<String, Object>();
-		FileExchange fileExchange =fileService.getFileExchange(url);
+		FileExchange fileExchange =null;
+		try{
+			fileExchange =fileService.getFileExchange(url);
+		}catch(Exception e){
+			logger.error(e.getMessage());
+			e.printStackTrace();
+		}
+		 
 		if(null==fileExchange){
 			FileExchange newfileExchange = new FileExchange();
 			DefaultHttpClient httpClient = (DefaultHttpClient) ProxyUtil.getHttpClient();
@@ -222,19 +230,9 @@ public class TwitterAction {
                 file.createNewFile();
             }
             
-           
-            
             out = new FileOutputStream(file);  
             
             IOUtils.copy(in, out);
-            
-//            byte[] buffer = new byte[10240];
-//            int readLength = 0;
-//            while ((readLength=in.read(buffer)) > 0) {
-//                byte[] bytes = new byte[readLength];
-//                System.arraycopy(buffer, 0, bytes, 0, readLength);
-//                out.write(bytes);
-//            }
             
             out.flush();
             
@@ -262,6 +260,7 @@ public class TwitterAction {
 		}else{
 			map.put("url", fileExchange.getNewUrl());
 		}
+		logger.info(map.get("url"));
 		return map;
 		
 	}

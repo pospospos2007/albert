@@ -22,7 +22,7 @@ public class TestGoogleSearch {
 	public static void main(String[] args) throws ClientProtocolException, IOException {
 		StringBuffer sb = new StringBuffer(); 
 		HttpClient client = ProxyUtil.getHttpClient();
-		 HttpGet httpGet = new HttpGet(Constants.GOOGLE_SEARCH_URL+"454");
+		 HttpGet httpGet = new HttpGet(Constants.GOOGLE_SEARCH_URL+"哈哈"+"&start=1&num=10");
 		 HttpResponse response = client.execute(httpGet);
 		 
 		 Header[] headers = response.getAllHeaders();

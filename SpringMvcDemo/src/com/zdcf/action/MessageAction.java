@@ -306,8 +306,9 @@ public class MessageAction extends BaseAction{
 	 * 该方法是用来生成图形验证的.
 	 */
 	@RequestMapping(value = "/tuXingYanZhengMa")
-	public void getImg(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public void tuXingYanZhengMa(HttpServletRequest request, HttpServletResponse response){
+		try{
+			System.out.println("1-----------------------------");
 	       // 告知浏览当作图片处理
 	       response.setContentType("image/jpeg");
 	       // 告诉浏览器不缓存
@@ -321,6 +322,7 @@ public class MessageAction extends BaseAction{
 	       for(int i=0; i<length; i++)
 	           valcode+=rd.nextInt(10);
 	       // 把产生的验证码存入到Session中
+	       System.out.println("2-----------------------------");
 	       HttpSession  session = request.getSession();
 	       session.setAttribute(Constants.SESSION_IMAGE_CODE, valcode);
 	       // 产生图片
@@ -341,15 +343,28 @@ public class MessageAction extends BaseAction{
 	       g.setColor(Color.GRAY);
 	       g.drawRect(0, 0, width-1, height-1);
 	       // 绘制验证码
-	       Font[] fonts = {new Font("隶书",Font.BOLD,28),new Font("楷体",Font.BOLD,28),new Font("宋体",Font.BOLD,28),new Font("幼圆",Font.BOLD,18)};
+	       System.out.println("3-----------------------------");
+	       Font[] fonts = {new Font("Serif",Font.BOLD,28),new Font("Serif",Font.BOLD,28),new Font("Serif",Font.BOLD,28),new Font("Serif",Font.BOLD,18)};
+	       System.out.println("4-----------------------------");
 	       for(int i=0; i<length; i++){
+	    	   System.out.println("a-----------------------------");
 	           g.setColor(new Color(rd.nextInt(150),rd.nextInt(150),rd.nextInt(150)));
+	           System.out.println("b-----------------------------");
 	           g.setFont(fonts[rd.nextInt(fonts.length)]);
+	           System.out.println("c-----------------------------"+valcode.charAt(i));
 	           g.drawString(valcode.charAt(i)+"", width/valcode.length()*i+2, 28);
+	           System.out.println("d-----------------------------");
 	       }
+	       System.out.println("5-----------------------------");
 	       // 输出图像
 	       g.dispose();
+	       System.out.println("6-----------------------------");
 	       ImageIO.write(img, "jpeg", response.getOutputStream());
+	       System.out.println("7--------------------");
+		}catch(Exception e ){
+			System.out.println("8--------------------"+e.getMessage());
+			e.printStackTrace();
+		}
 
 	}
 

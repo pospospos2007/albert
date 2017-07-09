@@ -79,6 +79,7 @@ public class Job {
 	
 //	@Scheduled(cron = "1 0/1 * * * ? ")
 	@Scheduled(cron = "0 0 8,20 * * ? ")
+//	@Scheduled(cron = "* 0/1 * * * ? ")
 	public void execute() {
 		
 		JSONObject jsonObject = null;

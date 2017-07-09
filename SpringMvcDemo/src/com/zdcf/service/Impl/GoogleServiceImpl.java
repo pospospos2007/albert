@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.extern.java.Log;
+
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -23,6 +25,7 @@ import com.zdcf.tool.ProxyUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+@Log
 @Service
 @Transactional
 public class GoogleServiceImpl  implements GoogleService {
@@ -32,6 +35,7 @@ public class GoogleServiceImpl  implements GoogleService {
 			List<GoogleSearchResult> list= new ArrayList<>();
 			StringBuffer sb = new StringBuffer(); 
 			HttpClient client = ProxyUtil.getHttpClient();
+//			client.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
 			 HttpGet httpGet = new HttpGet(Constants.GOOGLE_SEARCH_URL+searchKey);
 			 HttpResponse response = client.execute(httpGet);
 			 
@@ -45,7 +49,7 @@ public class GoogleServiceImpl  implements GoogleService {
 			 
 			 if(entry != null)
 			  {
-			    InputStreamReader is = new InputStreamReader(entry.getContent());
+			    InputStreamReader is = new InputStreamReader(entry.getContent(),"UTF-8");
 			    BufferedReader br = new BufferedReader(is);
 			    String str = null;
 			    while((str = br.readLine()) != null)
@@ -57,11 +61,19 @@ public class GoogleServiceImpl  implements GoogleService {
 			 
 			  JSONArray jsonArray = null;
 			  JSONObject jsonObject=null;
-			  jsonArray = JSONObject.fromObject(sb.toString()).getJSONArray("items");
+			  JSONObject itemsObject = null;
+//			  log.info(sb.toString());
+			  itemsObject = JSONObject.fromObject(sb.toString());
+			  if(!itemsObject.containsKey("items")){
+				  log.info("没有查询结果");
+				  return null;
+			  }
+			  jsonArray = itemsObject.getJSONArray("items");
 			  
-			  GoogleSearchResult googleSearchResult =new GoogleSearchResult();
+			  GoogleSearchResult googleSearchResult =null;
 			  
 			  for(int i=0,length=jsonArray.size();i<length;i++){
+				  googleSearchResult =new GoogleSearchResult();
 				  jsonObject = jsonArray.getJSONObject(i);
 				  googleSearchResult.setHtmlTitle(jsonObject.getString("htmlTitle"));
 				  googleSearchResult.setLink(jsonObject.getString("link"));
@@ -72,7 +84,6 @@ public class GoogleServiceImpl  implements GoogleService {
 					  googleSearchResult.setHeight(jsonObject.getJSONObject("pagemap").getJSONArray("cse_thumbnail").getJSONObject(0).getString("height"));
 				  }
 				  list.add(googleSearchResult);
-//				  System.out.println(googleSearchResult.toString());
 			  }
 			  return list;
 	}

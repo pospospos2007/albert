@@ -7,7 +7,7 @@
 <!-- <script src="http://vjs.zencdn.net/5.8.8/video.js"></script> -->
 
     <title>
-    	推特-搜索
+    	谷歌-搜索
     </title>
 
 
@@ -98,68 +98,58 @@
 	}
 /* 	End */
   </style>
-  
- <div class="row head">
-                <div class="col-lg-12">
-                    <div class="input-group">
-                    	<span class="input-group-btn">
-	                    	<select id="searchType" name="searchType" class="form-control" style="width: auto;">  
-				                <option value="0" >按用户</option>  
-				                <option value="1" <c:if test="${!empty tsh&&tsh.searchType eq 1}">selected="selected"</c:if> >按内容</option>  
-				            </select> 
-                        </span>
-                        <input type="text" class="form-control" id="searchKey" autocomplete="off" name="searchKey" value="${tsh.searchKey}" placeholder="">
-                        <span class="input-group-btn">
-                            <button class="btn btn-info" id="searchButton" type="button" onclick="search()" ><span class="glyphicon glyphicon-search">搜索</span></button>
-                        </span>
-                        
-                    </div>
-                    
-                   		<div id="list" class="input-group" align="left">
-						</div>
-					
-                </div>
- </div>
+  	<form action="" method="post" id="searchForm"  >
+	 <div class="row head">
+	 
+	                <div class="col-lg-12">
+	                    <div class="input-group">
+	<!--                     	<span class="input-group-btn"> -->
+	<!-- 	                    	<select id="searchType" name="searchType" class="form-control" style="width: auto;">   -->
+	<!-- 				                <option value="0" >按用户</option>   -->
+	<%-- 				                <option value="1" <c:if test="${!empty tsh&&tsh.searchType eq 1}">selected="selected"</c:if> >按内容</option>   --%>
+	<!-- 				            </select>  -->
+	<!--                         </span> -->
+	                         <input type="text" class="form-control" id="wd" autocomplete="off" name="wd" value="${wd}" placeholder="">
+	                         <input type="hidden"  id="start"  value="${start}" >
+	                        <span class="input-group-btn">
+	                            <button class="btn btn-info" id="searchButton" type="button" onclick="searchByKey()"  ><span class="glyphicon glyphicon-search">搜索</span></button>
+	                        </span>
+	                        
+	                    </div>
+	                    
+	                   		<div id="list" class="input-group" align="left">
+							</div>
+						
+	                </div>
+	 </div>
+ 	</form>
   </br>          
-<form action="<%=path%>/twitter/search" method="post" id="listform" name="listform">
+<form action="<%=path%>/google/search" method="post" id="listform" name="listform">
 <input type="hidden" name="searchId" value="${tsh.id}"></input>
 <input type="hidden" name="searchType" value="${tsh.searchType}"></input>
 <input type="hidden" name="searchKey" value="${tsh.searchKey}"></input>
-<div class ="container">
+	<div class ="container">
    		<div class="u-account-box undis" id="twitterMedia">
        		<div id="tabCont">
            		<section>
                		<section class="ukindeditor of">
                    		<section class="clearfix" >
                    		
-                   		<c:forEach items="${pageView.voList}" var="twitterPost">
+                   		<c:forEach items="${list}" var="result" varStatus="status">
 							<div class="panel panel-default">
 							  <div class="panel-heading">
 							    <h3 class="panel-title">
-							    <a href="#" data-content="<form><ul><li><span aria-hidden='true' class='icon_globe'></span>&nbsp;<font>用户名:</font>${twitterPost.screenName}</li>
-		             <li><span aria-hidden='true' class='icon_piechart'></span>&nbsp;<font>名字:</font>${twitterPost.name}</li>
-		             <li><span aria-hidden='true' class='icon_search_alt'></span>&nbsp;<font>位置:</font>${twitterPost.location}</li>
-		             <li><span aria-hidden='true' class='icon_pens_alt'></span>&nbsp;<font>介绍:</font>${twitterPost.description}</li>
-		             </form>"
-							     onclick="searchUser(this)" screenName="${twitterPost.screenName}" title="${twitterPost.screenName}" class="bind_hover_card" data-toggle="popover" data-placement="bottom" data-trigger="hover">
-							    <b>${twitterPost.name}</b> (@${twitterPost.screenName})
+							    <a href="#" data-content=""
+							     onclick="searchUser(this)" screenName="${result.htmlTitle}" title="${result.htmlTitle}" class="bind_hover_card" data-toggle="popover" data-placement="bottom" data-trigger="hover">
+							    <b>${result.htmlTitle}</b> (@${result.htmlTitle})
 							    </a>
 							    </h3>
 							  </div>
 							  <div class="panel-body">
 							   <p>
-							   <img src="${twitterPost.avatar}"  width="40px" height="40px" class="img-rounded twitterMedia"></img>
-							   ${twitterPost.text}
+							   <img src="${result.src}"  width="${result.width}" height="${result.height}" class="img-rounded twitterMedia"></img>
+							   ${result.link}
  								</p>
-                               <c:if test="${!empty twitterPost.mediaUrl&&!empty twitterPost.videoInfoUrl}">
- 									<video width="${twitterPost.width}" height="${twitterPost.height}" controls >
-									<source src="${twitterPost.videoInfoUrl}" class="twitterMedia" type="video/mp4">
-										您的浏览器不支持html5标签，请使用chrome或者firefox浏览器！
-									</video>
- 								</c:if>
- 								<c:if test="${!empty twitterPost.mediaUrl&&empty twitterPost.videoInfoUrl}">
- 									<img src="${twitterPost.mediaUrl}" class="twitterMedia StarConP" width="${twitterPost.width}" height="${twitterPost.height}"></img>
- 								</c:if>
 							  </div>
 							</div>
 						</c:forEach>
@@ -170,6 +160,11 @@
              </div>
    		</div>
 	</div>
+	<c:if test="${start ne 1 }">
+	<button type="button"  class="btn btn-default pull-right" onclick="jumpPage(${wd},${start-10})">上一页</button>
+	</c:if>
+    <button type="button"  class="btn btn-success pull-right" onclick="jumpPage(${wd},${start+10})">下一页</button>
+          
 	
 		     
  </form>
@@ -185,6 +180,16 @@
 		</div>
   
 		<script>
+		
+		function jumpPage(wd,start){
+			window.location.href =$("#listform").val()+"?wd=" +wd+ "&start="+start;
+		}
+		
+		function searchByKey(){
+			var wd=$("#wd").val();
+			window.location.href =$("#listform").val()+"?wd=" +wd;
+		}
+		
 		$(function() {  
 		    $("[data-toggle='popover']").popover({  
 		        html : true,    
@@ -214,36 +219,17 @@
 		}
 		function search(){
 			showModal();
-			var searchKey=$("#searchKey").val().trim();
-			var searchType=$("#searchType").val();
-			if(null==searchKey||""==searchKey){
+			var wd=$("#wd").val().trim();
+// 			var searchType=$("#searchType").val();
+			if(null==wd||""==wd){
 				alert("请输入内容！");
 				return;
 			}
-			if(isChinese(searchKey)&&searchType==0){
-				alert("推特用户名不能含有中文！");
-				return ;
-			}
-			if(containSpecial(searchKey)){
+			if(containSpecial(wd)){
 				alert("不能包含特殊字符！");
 				return;
 			}
-			
-			$.ajax({
-				url : "<%=path%>/twitter/check",
-				type : "GET",
-				async:false,
-				data:{"searchKey":searchKey,"searchType":searchType}, 
-				dataType : "json",
-				success : function(result) {
-					if(result.status){
-						window.location.href ="<%=path%>/twitter/search?searchId="+result.searchId+"&searchType="+searchType+"&searchKey="+searchKey;
-					}else{
-						$("#loadingModal").modal('hide');
-						alert(result.msg);
-					}
-				}
-			});
+			window.location.href ='<%=path%>/google/search?wd='+wd;
 		}
 		/** 
 		 * 判断是否含有汉字 
@@ -259,27 +245,27 @@
             }
          }
 		
-		 $( document ).ready(function() {
-			 	$("#twitterMedia").find(".twitterMedia").each(function(){
-			 		var str = $(this).attr("src");
-			 		var newUrl="";
-			 		if(null!=str){
-				 		$.ajax({
-							url : "<%=path%>/twitter/fileExchange",
-							type : "GET",
-							data:{"url":str}, 
-							async:false,
-							dataType : "json",
-							success : function(data) {
-								newUrl = data.url;
-							}
-						});
+// 		 $( document ).ready(function() {
+// 			 	$("#twitterMedia").find(".twitterMedia").each(function(){
+// 			 		var str = $(this).attr("src");
+// 			 		var newUrl="";
+// 			 		if(null!=str){
+// 				 		$.ajax({
+<%-- 							url : "<%=path%>/twitter/fileExchange", --%>
+// 							type : "GET",
+// 							data:{"url":str}, 
+// 							async:false,
+// 							dataType : "json",
+// 							success : function(data) {
+// 								newUrl = data.url;
+// 							}
+// 						});
 			 		
-			 		}
-			 		$(this).attr("src","<%=path%>/uploadfile/"+newUrl);
-			 	});
+// 			 		}
+<%-- 			 		$(this).attr("src","<%=path%>/uploadfile/"+newUrl); --%>
+// 			 	});
 				
-			});
+// 			});
 //	     图片展览js
 		    $(".StarConP").click(function(){
 				var src = $(this).attr("src");

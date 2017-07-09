@@ -57,7 +57,7 @@ public class ChatroomAction {
 		Map<Integer, WebSocketSession> map=MyWebSocketHandler.userSocketSessionMap;
 		Set<Integer> set=map.keySet();
 		Iterator<Integer> it = set.iterator();
-		List<User> list=new ArrayList<>();
+		List<User> list=new ArrayList<User>();
 		while(it.hasNext()){
 			Integer entry = it.next();
 			User u=userService.getUserById(entry);

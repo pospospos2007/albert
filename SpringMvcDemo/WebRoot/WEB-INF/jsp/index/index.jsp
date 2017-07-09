@@ -23,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <div id="container">
     <div id="header">
 	<h1>Welcome<p>不忘初心，方得始终</p></h1>
-        <a href="<%=path%>/movie/toMovieList">&nbsp;&nbsp;前往|Go for fun&nbsp;&nbsp;</a>
+        <a href="<%=path%>/google/index">&nbsp;&nbsp;前往|Go for fun&nbsp;&nbsp;</a>
 	<%--<a href="javascript:return" onclick="alert('Daddy is here!')" >关于|About me</a>
 	--%><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=497603778&amp;site=qq&amp;menu=yes" target="_blank">联系我|Contact me</a>
     </div>
