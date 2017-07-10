@@ -20,7 +20,6 @@ import java.util.regex.PatternSyntaxException;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -29,7 +28,6 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -61,13 +59,14 @@ import com.zdcf.tool.Tools;
 import com.zdcf.tool.UserSessionUtil;
 import com.zdcf.tool.WebUtil;
 
+import lombok.extern.log4j.Log4j;
 import net.sf.json.JSONObject;
 
+@Log4j
 @Controller
 @RequestMapping("/message")
 public class MessageAction extends BaseAction{
 
-	private static Logger logger = Logger.getLogger(MessageAction.class);
 	private static final int pageSize = 15;
 
 	@Resource
@@ -185,7 +184,7 @@ public class MessageAction extends BaseAction{
 		
 		th.setContent(content);
 		
-		logger.info("ip:"+ip+" 发表了一个主题");
+		log.info("ip:"+ip+" 发表了一个主题");
 		
 		messageService.addTheme(th);
 		
@@ -199,7 +198,7 @@ public class MessageAction extends BaseAction{
 		
 		ThemeDTO theme = messageService.getThemeById(id);
 		
-		logger.info("ip:"+ip+" 查看了主题:"+theme.getTheme());
+		log.info("ip:"+ip+" 查看了主题:"+theme.getTheme());
 		
 		model.addAttribute("theme", theme);
 		
@@ -269,7 +268,7 @@ public class MessageAction extends BaseAction{
 		
 		me.setThemeId(themeId);
 		
-		logger.info("ip:"+ip+" 回复了一个帖子");
+		log.info("ip:"+ip+" 回复了一个帖子");
 		
 		messageService.addMessage(me);
 		
@@ -293,7 +292,7 @@ public class MessageAction extends BaseAction{
 			
 			robotMe.setUserId(11);
 			
-			logger.info("robot回复了一个帖子:"+answer);
+			log.info("robot回复了一个帖子:"+answer);
 			
 			messageService.addMessage(robotMe);
 		}
@@ -441,7 +440,7 @@ public class MessageAction extends BaseAction{
 		
 		ZhihuDTO zhihu = messageService.getZhihuDetailById(id);
 		
-		logger.info("ip:"+ip+" 查看了知乎日报的文章：《"+zhihu.getTitle()+"》");
+		log.info("ip:"+ip+" 查看了知乎日报的文章：《"+zhihu.getTitle()+"》");
 		
 		model.addAttribute("zhihu", zhihu);
 		

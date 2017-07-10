@@ -5,21 +5,18 @@ import java.io.UnsupportedEncodingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.zdcf.tool.Tools;
 
+import lombok.extern.java.Log;
+
+@Log
 @Controller
 @RequestMapping("/")
 public class GameAction {
 
-	private static Logger logger = Logger.getLogger(GameAction.class);
-	
-
-	
-	
 	@RequestMapping("/toGameList")
 	public String toGameList(String code){
 		
@@ -52,7 +49,7 @@ public class GameAction {
 		String ip = Tools.getNoHTMLString(getIpAddr(request));
 		
 		
-		logger.info("ip:"+ip+" 在玩拳皇Wing");
+		log.info("ip:"+ip+" 在玩拳皇Wing");
 		
 		
 		return "/game/kofWing";
@@ -63,7 +60,7 @@ public class GameAction {
 		
 		String ip = Tools.getNoHTMLString(getIpAddr(request));
 		
-		logger.info("ip:"+ip+" 在玩Q版泡泡堂");
+		log.info("ip:"+ip+" 在玩Q版泡泡堂");
 		
 		return "/game/QBNB";
 	}
@@ -73,7 +70,7 @@ public class GameAction {
 		
 		String ip = Tools.getNoHTMLString(getIpAddr(request));
 		
-		logger.info("ip:"+ip+" 在玩斗地主游戏");
+		log.info("ip:"+ip+" 在玩斗地主游戏");
 		
 		
 		return "/game/Landlords";
@@ -84,7 +81,7 @@ public class GameAction {
 		
 		String ip = Tools.getNoHTMLString(getIpAddr(request));
 		
-		logger.info("ip:"+ip+" 在玩暗翻军旗（联机）游戏");
+		log.info("ip:"+ip+" 在玩暗翻军旗（联机）游戏");
 		
 		return "/game/Ensign";
 	}
@@ -95,7 +92,7 @@ public class GameAction {
 		String ip = Tools.getNoHTMLString(getIpAddr(request));
 		
 		
-		logger.info("ip:"+ip+" 在玩果冻大逃亡游戏");
+		log.info("ip:"+ip+" 在玩果冻大逃亡游戏");
 		
 		return "/game/JellyDrips";
 	}

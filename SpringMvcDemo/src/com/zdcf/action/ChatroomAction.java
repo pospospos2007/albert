@@ -3,8 +3,6 @@ package com.zdcf.action;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +10,6 @@ import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,8 +30,6 @@ import com.zdcf.websocket.MyWebSocketHandler;
 @RequestMapping("/chatroom")
 public class ChatroomAction {
 
-	private static Logger logger = Logger.getLogger(ChatroomAction.class);
-	
 	@Autowired
 	MyWebSocketHandler handler;
 	

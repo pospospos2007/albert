@@ -5,35 +5,28 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zdcf.base.Constants;
 import com.zdcf.model.FileExchange;
 import com.zdcf.model.TwitterPost;
 import com.zdcf.model.TwitterSearchHistory;
-import com.zdcf.model.User;
 import com.zdcf.service.FileService;
 import com.zdcf.service.TwitterMediaService;
 import com.zdcf.service.TwitterPostService;
@@ -43,15 +36,15 @@ import com.zdcf.tool.PageVo;
 import com.zdcf.tool.ProxyUtil;
 import com.zdcf.tool.StringUtil;
 import com.zdcf.tool.Tools;
-import com.zdcf.tool.UserSessionUtil;
 import com.zdcf.tool.WebUtil;
 
+import lombok.extern.log4j.Log4j;
+
+@Log4j
 @Controller
 @RequestMapping("/twitter")
 public class TwitterAction {
 
-	private static Logger logger = Logger.getLogger(TwitterAction.class);
-	
 	private static final int pageSize = 10;
 	
 	@Autowired
@@ -74,7 +67,7 @@ public class TwitterAction {
 		
 		String ip = Tools.getNoHTMLString(getIpAddr(request));
 		
-		logger.info("ip:"+ip+"进入推特网页端主页");
+		log.info("ip:"+ip+"进入推特网页端主页");
 		TwitterPost tp =new TwitterPost();
 		tp.setPostType(Constants.TWITTER_POST_TYPE.MY_POST);
 		
@@ -104,7 +97,7 @@ public class TwitterAction {
 	public Map<String, Object> check(HttpServletRequest request,ModelMap model,String searchKey,Integer searchType){
 		Map<String, Object> map =this.initMapStatus();
 		String ip = Tools.getNoHTMLString(getIpAddr(request));
-		logger.info("ip:"+ip+"搜索了"+(Constants.TWITTER_SEARCH_TYPE.SEARCH_USER.equals(searchType) ? "用户：":"内容：")+searchKey);
+		log.info("ip:"+ip+"搜索了"+(Constants.TWITTER_SEARCH_TYPE.SEARCH_USER.equals(searchType) ? "用户：":"内容：")+searchKey);
 //		User u = UserSessionUtil.currentUser();
 //		if(null==u){
 //			map.put("status", Boolean.FALSE);
@@ -131,7 +124,7 @@ public class TwitterAction {
 			e.printStackTrace();
 		}
 		long endTime = System.currentTimeMillis();
-		logger.info("程序运行时间："+(endTime-startTime)+"ms");
+		log.info("程序运行时间："+(endTime-startTime)+"ms");
 	    return map;  
 	}
 	
@@ -199,7 +192,7 @@ public class TwitterAction {
 		try{
 			fileExchange =fileService.getFileExchange(url);
 		}catch(Exception e){
-			logger.error(e.getMessage());
+			log.error(e.getMessage());
 			e.printStackTrace();
 		}
 		 
@@ -263,7 +256,7 @@ public class TwitterAction {
 		}else{
 			map.put("url", fileExchange.getNewUrl());
 		}
-		logger.info(map.get("url"));
+		log.info(map.get("url"));
 		return map;
 		
 	}

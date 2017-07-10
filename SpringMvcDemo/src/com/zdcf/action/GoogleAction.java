@@ -19,7 +19,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -31,14 +30,15 @@ import com.zdcf.model.GoogleSearchResult;
 import com.zdcf.service.FileService;
 import com.zdcf.service.GoogleService;
 import com.zdcf.tool.ProxyUtil;
-import com.zdcf.tool.StringUtil;
 import com.zdcf.tool.Tools;
 
+import lombok.extern.java.Log;
+
+@Log
 @Controller
 @RequestMapping("/google")
 public class GoogleAction {
 
-	private static Logger logger = Logger.getLogger(GoogleAction.class);
 	
 	private static final int pageSize = 10;
 	
@@ -54,7 +54,7 @@ public class GoogleAction {
 		
 		String ip = Tools.getNoHTMLString(getIpAddr(request));
 		
-		logger.info("ip:"+ip+"进入google搜索");
+		log.info("ip:"+ip+"进入google搜索");
 		
 		return "google/index";
 	}
@@ -75,7 +75,7 @@ public class GoogleAction {
 		
 		List<GoogleSearchResult>  list = googleService.search(wd);
 		
-		logger.info("ip:"+ip+"搜索了"+temp);
+		log.info("ip:"+ip+"搜索了"+temp);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("wd", temp);

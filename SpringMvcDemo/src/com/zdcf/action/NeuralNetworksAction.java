@@ -1,40 +1,22 @@
 package com.zdcf.action;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.zdcf.mapper.AirticleMapper;
-import com.zdcf.mapper.UserMapper;
-import com.zdcf.model.Airticle;
-import com.zdcf.model.User;
-import com.zdcf.service.AirticleService;
 import com.zdcf.tool.AddressUtils;
-import com.zdcf.tool.EncodingTool;
 import com.zdcf.tool.Tools;
 
+import lombok.extern.log4j.Log4j;
+
+@Log4j
 @Controller
 @RequestMapping("/")
 public class NeuralNetworksAction {
-
-	private static Logger logger = Logger.getLogger(NeuralNetworksAction.class);
 
 	@RequestMapping("/kofWing2")
 	public String kofWing2(HttpServletRequest request,HttpServletResponse respons) throws UnsupportedEncodingException{
@@ -43,7 +25,7 @@ public class NeuralNetworksAction {
 		
 		String address = AddressUtils.getAddresses("ip="+ip, "utf-8");
 		
-		logger.info("ip:"+ip+"("+address+")"+" 在玩拳皇Wing");
+		log.info("ip:"+ip+"("+address+")"+" 在玩拳皇Wing");
 		
 		
 		return "/game/kofWing";

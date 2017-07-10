@@ -139,7 +139,7 @@
 							<div class="panel panel-default">
 							  <div class="panel-heading">
 							    <h3 class="panel-title">
-							    <a href="${result.formattedUrl }" data-content="" target="_blank"
+							    <a href="${result.formattedUrl }"  data-content="" target="_blank"
 							     screenName="${result.htmlTitle}" title="${result.htmlTitle}" class="bind_hover_card" data-toggle="popover" data-placement="bottom" data-trigger="hover">
 							    <b>${result.htmlTitle}</b> 
 							    </a>
