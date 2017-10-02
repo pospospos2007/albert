@@ -1,44 +1,22 @@
 package com.zdcf.action;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
-import oauth.signpost.OAuthConsumer;
-import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
-import oauth.signpost.exception.OAuthCommunicationException;
-import oauth.signpost.exception.OAuthExpectationFailedException;
-import oauth.signpost.exception.OAuthMessageSignerException;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.zdcf.base.Constants;
-import com.zdcf.tool.AddressUtils;
-import com.zdcf.tool.ProxyUtil;
 import com.zdcf.tool.Tools;
 
+import lombok.extern.java.Log;
+
+@Log
 @Controller
 @RequestMapping("/")
 public class GameAction {
 
-	private static Logger logger = Logger.getLogger(GameAction.class);
-	
-
-	
-	
 	@RequestMapping("/toGameList")
 	public String toGameList(String code){
 		
@@ -70,9 +48,8 @@ public class GameAction {
 		
 		String ip = Tools.getNoHTMLString(getIpAddr(request));
 		
-		String address = AddressUtils.getAddresses("ip="+ip, "utf-8");
 		
-		logger.info("ip:"+ip+"("+address+")"+" 在玩拳皇Wing");
+		log.info("ip:"+ip+" 在玩拳皇Wing");
 		
 		
 		return "/game/kofWing";
@@ -83,9 +60,7 @@ public class GameAction {
 		
 		String ip = Tools.getNoHTMLString(getIpAddr(request));
 		
-		String address = AddressUtils.getAddresses("ip="+ip, "utf-8");
-		
-		logger.info("ip:"+ip+"("+address+")"+" 在玩Q版泡泡堂");
+		log.info("ip:"+ip+" 在玩Q版泡泡堂");
 		
 		return "/game/QBNB";
 	}
@@ -95,7 +70,7 @@ public class GameAction {
 		
 		String ip = Tools.getNoHTMLString(getIpAddr(request));
 		
-		logger.info("ip:"+ip+" 在玩斗地主游戏");
+		log.info("ip:"+ip+" 在玩斗地主游戏");
 		
 		
 		return "/game/Landlords";
@@ -106,9 +81,7 @@ public class GameAction {
 		
 		String ip = Tools.getNoHTMLString(getIpAddr(request));
 		
-		String address = AddressUtils.getAddresses("ip="+ip, "utf-8");
-		
-		logger.info("ip:"+ip+"("+address+")"+" 在玩暗翻军旗（联机）游戏");
+		log.info("ip:"+ip+" 在玩暗翻军旗（联机）游戏");
 		
 		return "/game/Ensign";
 	}
@@ -118,9 +91,8 @@ public class GameAction {
 		
 		String ip = Tools.getNoHTMLString(getIpAddr(request));
 		
-		String address = AddressUtils.getAddresses("ip="+ip, "utf-8");
 		
-		logger.info("ip:"+ip+"("+address+")"+" 在玩果冻大逃亡游戏");
+		log.info("ip:"+ip+" 在玩果冻大逃亡游戏");
 		
 		return "/game/JellyDrips";
 	}

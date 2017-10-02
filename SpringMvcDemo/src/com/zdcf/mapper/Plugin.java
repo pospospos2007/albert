@@ -30,4 +30,7 @@ public interface Plugin {
 	
 	@Select("select id from weibo_user where id=#{id}")
     public Long getWeiboUserById(@Param("id")Long id);
+	
+	@Insert("set names utf8mb4")
+    public void setNamesUtf8mb4();
 }

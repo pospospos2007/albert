@@ -32,7 +32,7 @@ public interface FileMapper {
     public FileExchange getFileExchangeByOldUrl(String oldUrl);
     
     @Delete("delete from t_file_exchange f where f.old_url=#{oldUrl}")
-    public FileExchange deleteFileExchangeByOldUrl(String oldUrl);
+    public void deleteFileExchangeByOldUrl(String oldUrl);
     
     @Select("select f.id id,f.url url,f.user_id userId,f.add_time addTime from t_face f where f.id=#{id}")
     public FaceDTO getFaceById(int id);

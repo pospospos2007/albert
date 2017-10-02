@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.LocaleEditor;
 import org.springframework.stereotype.Controller;
@@ -32,11 +31,14 @@ import com.zdcf.tool.StringUtil;
 import com.zdcf.tool.Tools;
 import com.zdcf.tool.UserSessionUtil;
 
+import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j;
+
+@Log4j
 @Controller
 @RequestMapping("/")
 public class IndexAction extends BaseAction{
 
-	private static Logger logger = Logger.getLogger(IndexAction.class);
 	
 	private static final int pageSize = 10;
 
@@ -72,7 +74,7 @@ public class IndexAction extends BaseAction{
 		
 		Map<String, Object> map = this.initMapStatus();
 		
-		if(null==username||null==pwd){
+		if(StringUtil.isEmpty(username)||StringUtil.isEmpty(pwd)){
 			map.put("status", Boolean.FALSE);
 			return map;
 		}
@@ -117,7 +119,7 @@ public class IndexAction extends BaseAction{
 	public String logout(HttpSession httpSession){
 		httpSession.removeAttribute(Constants.USER_SESSION_KEY);
 		//TODO 删除在登陆后放入的浏览器的cookie
-		return "redirect:/movie/toMovieList";
+		return "redirect:/google/index";
 	}
 	
 	
@@ -143,7 +145,7 @@ public class IndexAction extends BaseAction{
 			request.getSession().setAttribute(Constants.SYS_LANGUAGE_SESSION_KEY, language);
 			LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 			if (localeResolver == null) {
-				logger.debug("No LocaleResolver found: not in a DispatcherServlet request?");
+				log.debug("No LocaleResolver found: not in a DispatcherServlet request?");
 			}
 			LocaleEditor localeEditor = new LocaleEditor();
 			localeEditor.setAsText(language);
@@ -151,7 +153,7 @@ public class IndexAction extends BaseAction{
 			map.put("res", "true");
 		}
 		catch(Exception e){
-			logger.debug("修改系统语言 /changeLanguage.do", e); 
+			log.debug("修改系统语言 /changeLanguage.do", e); 
 		}
 		return map;  
 	}
@@ -189,7 +191,7 @@ public class IndexAction extends BaseAction{
 		user.setAvatar("defaultAvatar.jpg");
 		user.setIp(ip);
 		userService.register(user);
-		logger.info("ip:"+ip+" 注册了"+username);
+		log.info("ip:"+ip+" 注册了"+username);
 		UserSessionUtil.setUser(user);
 		return "index/userInfo";
 	}

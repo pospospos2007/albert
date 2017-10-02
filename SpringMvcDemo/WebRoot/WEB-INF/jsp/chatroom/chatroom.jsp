@@ -85,13 +85,13 @@
         var websocket;
         if ('WebSocket' in window) {
 // 			websocket = new WebSocket("ws://localhost:8080/SpringMvcDemo/ws?uid="+${USER_SESSION_KEY.id});
-			websocket = new WebSocket("ws://huiwupay.com:9999/ws?uid="+${USER_SESSION_KEY.id});
+			websocket = new WebSocket("ws://albert6.com:9999/ws?uid="+${USER_SESSION_KEY.id});
 		}else if('MozWebSocket' in window) {
 // 			websocket = new MozWebSocket("ws://localhost:8080/SpringMvcDemo/ws"+${USER_SESSION_KEY.id});
-			websocket = new MozWebSocket("ws://huiwupay.com:9999/ws"+${USER_SESSION_KEY.id});
+			websocket = new MozWebSocket("ws://albert6.com:9999/ws"+${USER_SESSION_KEY.id});
 		}else{
 // 			websocket = new SockJS("http://localhost:8080/SpringMvcDemo/ws/sockjs"+${USER_SESSION_KEY.id});
-			websocket = new SockJS("http://huiwupay.com:9999/ws/sockjs"+${USER_SESSION_KEY.id});
+			websocket = new SockJS("http://albert6.com:9999/ws/sockjs"+${USER_SESSION_KEY.id});
 		}
         
         //var websocket = new WebSocket('ws://localhost:8080/SpringMvcDemo/ws');

@@ -20,7 +20,6 @@ import java.util.regex.PatternSyntaxException;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -29,7 +28,6 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -61,13 +59,14 @@ import com.zdcf.tool.Tools;
 import com.zdcf.tool.UserSessionUtil;
 import com.zdcf.tool.WebUtil;
 
+import lombok.extern.log4j.Log4j;
 import net.sf.json.JSONObject;
 
+@Log4j
 @Controller
 @RequestMapping("/message")
 public class MessageAction extends BaseAction{
 
-	private static Logger logger = Logger.getLogger(MessageAction.class);
 	private static final int pageSize = 15;
 
 	@Resource
@@ -185,7 +184,7 @@ public class MessageAction extends BaseAction{
 		
 		th.setContent(content);
 		
-		logger.info("ip:"+ip+" 发表了一个主题");
+		log.info("ip:"+ip+" 发表了一个主题");
 		
 		messageService.addTheme(th);
 		
@@ -199,7 +198,7 @@ public class MessageAction extends BaseAction{
 		
 		ThemeDTO theme = messageService.getThemeById(id);
 		
-		logger.info("ip:"+ip+" 查看了主题:"+theme.getTheme());
+		log.info("ip:"+ip+" 查看了主题:"+theme.getTheme());
 		
 		model.addAttribute("theme", theme);
 		
@@ -269,7 +268,7 @@ public class MessageAction extends BaseAction{
 		
 		me.setThemeId(themeId);
 		
-		logger.info("ip:"+ip+" 回复了一个帖子");
+		log.info("ip:"+ip+" 回复了一个帖子");
 		
 		messageService.addMessage(me);
 		
@@ -293,7 +292,7 @@ public class MessageAction extends BaseAction{
 			
 			robotMe.setUserId(11);
 			
-			logger.info("robot回复了一个帖子:"+answer);
+			log.info("robot回复了一个帖子:"+answer);
 			
 			messageService.addMessage(robotMe);
 		}
@@ -306,8 +305,9 @@ public class MessageAction extends BaseAction{
 	 * 该方法是用来生成图形验证的.
 	 */
 	@RequestMapping(value = "/tuXingYanZhengMa")
-	public void getImg(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public void tuXingYanZhengMa(HttpServletRequest request, HttpServletResponse response){
+		try{
+			System.out.println("1-----------------------------");
 	       // 告知浏览当作图片处理
 	       response.setContentType("image/jpeg");
 	       // 告诉浏览器不缓存
@@ -321,6 +321,7 @@ public class MessageAction extends BaseAction{
 	       for(int i=0; i<length; i++)
 	           valcode+=rd.nextInt(10);
 	       // 把产生的验证码存入到Session中
+	       System.out.println("2-----------------------------");
 	       HttpSession  session = request.getSession();
 	       session.setAttribute(Constants.SESSION_IMAGE_CODE, valcode);
 	       // 产生图片
@@ -341,15 +342,28 @@ public class MessageAction extends BaseAction{
 	       g.setColor(Color.GRAY);
 	       g.drawRect(0, 0, width-1, height-1);
 	       // 绘制验证码
-	       Font[] fonts = {new Font("隶书",Font.BOLD,28),new Font("楷体",Font.BOLD,28),new Font("宋体",Font.BOLD,28),new Font("幼圆",Font.BOLD,18)};
+	       System.out.println("3-----------------------------");
+	       Font[] fonts = {new Font("Serif",Font.BOLD,28),new Font("Serif",Font.BOLD,28),new Font("Serif",Font.BOLD,28),new Font("Serif",Font.BOLD,18)};
+	       System.out.println("4-----------------------------");
 	       for(int i=0; i<length; i++){
+	    	   System.out.println("a-----------------------------");
 	           g.setColor(new Color(rd.nextInt(150),rd.nextInt(150),rd.nextInt(150)));
+	           System.out.println("b-----------------------------");
 	           g.setFont(fonts[rd.nextInt(fonts.length)]);
+	           System.out.println("c-----------------------------"+valcode.charAt(i));
 	           g.drawString(valcode.charAt(i)+"", width/valcode.length()*i+2, 28);
+	           System.out.println("d-----------------------------");
 	       }
+	       System.out.println("5-----------------------------");
 	       // 输出图像
 	       g.dispose();
+	       System.out.println("6-----------------------------");
 	       ImageIO.write(img, "jpeg", response.getOutputStream());
+	       System.out.println("7--------------------");
+		}catch(Exception e ){
+			System.out.println("8--------------------"+e.getMessage());
+			e.printStackTrace();
+		}
 
 	}
 
@@ -426,7 +440,7 @@ public class MessageAction extends BaseAction{
 		
 		ZhihuDTO zhihu = messageService.getZhihuDetailById(id);
 		
-		logger.info("ip:"+ip+" 查看了知乎日报的文章：《"+zhihu.getTitle()+"》");
+		log.info("ip:"+ip+" 查看了知乎日报的文章：《"+zhihu.getTitle()+"》");
 		
 		model.addAttribute("zhihu", zhihu);
 		

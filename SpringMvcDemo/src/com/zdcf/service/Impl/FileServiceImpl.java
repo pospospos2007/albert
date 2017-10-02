@@ -11,6 +11,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import lombok.SneakyThrows;
+
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
@@ -59,7 +61,7 @@ public class FileServiceImpl implements  FileService {
 	public int addFileExchange(FileExchange file) {
 		fileMapper.addFileExchange(file);
 		FileExchange fileExchange = fileMapper.getFileExchangeByOldUrl(file.getOldUrl());
-		redisCacheService.process(fileExchange, Constants.Cache.Type.save);
+//		redisCacheService.process(fileExchange, Constants.Cache.Type.save);
 		return 1;
 	}
 	
@@ -271,32 +273,38 @@ public class FileServiceImpl implements  FileService {
 		return fileMapper.getFaceById(id);
 	}
 	
+	@SneakyThrows
 	@Override
 	public FileExchange getFileExchange(String url){
 		//查询redis和数据库是否有此文件
 		FileExchange temp = new FileExchange();
 		temp.setOldUrl(url);
-		FileExchange fileExchange = redisCacheService.get(temp.getCacheKey(), FileExchange.class);
+		
+		FileExchange fileExchange = null;
+//		FileExchange fileExchange = redisCacheService.get(temp.getCacheKey(), FileExchange.class);
 		
 		//不在缓存中，去数据库中查询
-		if(fileExchange == null){
-			fileExchange = fileMapper.getFileExchangeByOldUrl(url);
-			if(fileExchange !=null){
-				File tempFile = new File(request.getSession().getServletContext().getRealPath("/")+"uploadfile/"+fileExchange.getNewUrl());
-				if(tempFile.exists()){
-					redisCacheService.process(fileExchange, Constants.Cache.Type.save);
-				}else{
-					fileMapper.deleteFileExchangeByOldUrl(url);
-					fileExchange =null ;
-				}
-			}
-		}else{
-			File file = new File(request.getSession().getServletContext().getRealPath("/")+"uploadfile/"+fileExchange.getNewUrl());
-			if(!file.exists()){
-				redisCacheService.del(temp.getCacheKey());
-				fileExchange =null ;
-			}
-		}
+//		if(fileExchange == null){
+//			fileExchange = fileMapper.getFileExchangeByOldUrl(url);
+//			if(fileExchange !=null){
+//				File tempFile = new File(request.getSession().getServletContext().getRealPath("/")+"uploadfile/"+fileExchange.getNewUrl());
+//				if(tempFile.exists()){
+//					redisCacheService.process(fileExchange, Constants.Cache.Type.save);
+//				}else{
+//					System.out.println("----------------------------url="+url);
+//					fileMapper.deleteFileExchangeByOldUrl(url);
+//					fileExchange =null ;
+//				}
+//			}
+//		}else{
+//			File file = new File(request.getSession().getServletContext().getRealPath("/")+"uploadfile/"+fileExchange.getNewUrl());
+//			if(!file.exists()){
+//				redisCacheService.del(temp.getCacheKey());
+//				fileExchange =null ;
+//			}
+//		}
+		
+		fileExchange = fileMapper.getFileExchangeByOldUrl(url);
 		
 		
 		return fileExchange;

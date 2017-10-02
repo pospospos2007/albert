@@ -165,24 +165,6 @@ public class MessageServiceImpl  extends BaseService implements  MessageService 
 		pageVo.setVoList(commonNewsList);
 		pageVo.setRecordCount(count);
 		
-//		try{
-//			ZhihuDTO zhihu = new ZhihuDTO();
-//			zhihu.setContent("this is s test2");
-//			zhihu.setId(2);
-//			zhihu.setCss("11");
-//			zhihu.setImages("22");
-//			zhihu.setTitle("11");
-//			zhihu.setJs("1");
-//			this.sendMessage(zhihu, Constants.Cache.Type.save);
-//		}catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		int  zhihu1  =redisCacheService.getInt("zhihu:1");
-//		
-//		System.out.println("count:"+zhihu1);
-		
-		
 		return pageVo;
 		
 	}

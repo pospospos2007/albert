@@ -21,9 +21,9 @@
 <link rel="apple-touch-icon" href="<%=request.getContextPath() %>/mobile/images/logo_zd.jpg" />
 <title>Albert</title>
 <meta name="keywords"
-	content="Albert｜huiwupay.com:9999｜论坛｜人工智能｜智能识别｜ 博客｜ 影音娱乐" />
+	content="Albert｜albert6.com:9999｜论坛｜人工智能｜智能识别｜ 博客｜ 影音娱乐" />
 <meta name="description"
-	content="Albert huiwupay.com:9999 play for fun" />
+	content="Albert albert6.com:9999 play for fun" />
 
 <link href="<%=request.getContextPath() %>/mobile/style/style.css" rel="stylesheet" type="text/css"
 	media="all" />

@@ -15,7 +15,6 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -32,12 +31,13 @@ import com.zdcf.service.FileService;
 import com.zdcf.service.MovieService;
 import com.zdcf.tool.Tools;
 
+import lombok.extern.log4j.Log4j;
+
+@Log4j
 @Controller
 @RequestMapping("/movie")
 public class MovieAction {
 
-	private static Logger logger = Logger.getLogger(MovieAction.class);
-	
 	@Autowired
 	private IChnlMovieSearchService movieSearchService;
 	
@@ -52,7 +52,7 @@ public class MovieAction {
 		
 		String ip = Tools.getNoHTMLString(getIpAddr(request));
 		
-		logger.info("ip:"+ip+" 进入电影列表");
+		log.info("ip:"+ip+" 进入电影列表");
 		
 		String currentPage =  "1";
 		if(null!=request.getParameter("currentPage")){
@@ -107,7 +107,7 @@ public class MovieAction {
 		
 		Movie movie = movieService.getMovieById(id);
 		
-		logger.info("ip:"+ip+" 查看了电影：《"+movie.getName()+"》");
+		log.info("ip:"+ip+" 查看了电影：《"+movie.getName()+"》");
 		
 		model.addAttribute("movie", movie);
 		

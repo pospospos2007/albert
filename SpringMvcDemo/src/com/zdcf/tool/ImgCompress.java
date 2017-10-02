@@ -77,8 +77,8 @@ public class ImgCompress {
 		File destFile = new File("C:\\1.jpg");
 		FileOutputStream out = new FileOutputStream(destFile); // 输出到文件流
 		// 可以正常实现bmp、png、gif转jpg
-		JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-		encoder.encode(image); // JPEG编码
+//		JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
+//		encoder.encode(image); // JPEG编码
 		out.close();
 	}
 }

@@ -16,9 +16,9 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;   
   
 
-import com.sun.image.codec.jpeg.JPEGCodec;   
-import com.sun.image.codec.jpeg.JPEGImageDecoder;   
-import com.sun.image.codec.jpeg.JPEGImageEncoder;   
+//import com.sun.image.codec.jpeg.JPEGCodec;   
+//import com.sun.image.codec.jpeg.JPEGImageDecoder;   
+//import com.sun.image.codec.jpeg.JPEGImageEncoder;   
   
 /**  
  * 给图片加水印  

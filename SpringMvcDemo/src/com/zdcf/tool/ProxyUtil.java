@@ -11,15 +11,14 @@ public class ProxyUtil {
 
 		DefaultHttpClient httpClient = new DefaultHttpClient();
 		String proxyHost = "127.0.0.1";
-//		10.172.19.130
-		int proxyPort = 8123;
+		int proxyPort = 1080;
 //				 String userName = "111";
 //				 String password = "111";
 //				 httpClient.getCredentialsProvider().setCredentials(
 //				   new AuthScope(proxyHost, proxyPort),
 //				   new UsernamePasswordCredentials(userName, password));
-		HttpHost proxy = new HttpHost(proxyHost,proxyPort);
-		httpClient.getParams().setParameter(ConnRouteParams.DEFAULT_PROXY, proxy);
+//		HttpHost proxy = new HttpHost(proxyHost,proxyPort);
+//		httpClient.getParams().setParameter(ConnRouteParams.DEFAULT_PROXY, proxy);
 		return httpClient;
 	}
 }

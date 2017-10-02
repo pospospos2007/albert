@@ -57,7 +57,7 @@ public class JavaMail {
             this.sender_username = "497603778@qq.com";
             this.sender_password ="cxksiyvwxerubicf";
             
-            Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+//            Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
 //            properties.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketF");
             properties.put("mail.smtp.socketFactory.fallback", "false");
             properties.put("mail.smtp.starttls.enable", "true");

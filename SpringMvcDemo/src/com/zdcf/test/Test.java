@@ -25,7 +25,7 @@ public class Test {
 		
 			PostParameters params = new PostParameters();
 			params.setAttribute("glass,pose,gender,age,race,smiling");
-			params.setUrl("http://123.56.164.113:9999/uploadface/images/1606/25/15/25/1466839506881.jpg");
+			params.setUrl("http://120.76.44.191:9999/uploadface/images/1606/25/15/25/1466839506881.jpg");
 			result = httpRequests.detectionDetect(params);
 //			result = httpRequests.detectionDetect(new PostParameters().setUrl("http://nanshengtouxiang.cicer.cn/uploads/2016/01/20160105145198219312.jpg"));
 //			System.out.println(result);
