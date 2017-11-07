@@ -1,5 +1,8 @@
 package com.zdcf.mum;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MumTest1 {
 
 	public static void main(String[] args) {
@@ -68,11 +71,37 @@ public class MumTest1 {
 			return isMadArray;
 		}
 		for(int j=1,i=1,rightSum=0,sum=a[0];j<a.length;j=j+i,i++){
-			
 		}
 		isMadArray =1;
 		return isMadArray;
 	}
+	
+	 public boolean isHappy(int n) {
+	        if(n<1) return false;
+	        Map<Integer,Integer> map = new HashMap<Integer,Integer>();
+	        int nextSum = n;
+	        while(1){
+	            nextSum = Sum(nextSum) ;
+	            if(map.containsKey(nextSum)){
+	                return false;
+	            }else if(nextSum==1){
+	                return true;
+	            }else{
+	                map.put(nextSum,1);
+	            }
+	           
+	        }
+	        
+	    }
+	    public static Integer Sum(n){
+	        int sum=0,temp;
+	        while(n){
+	            temp = n%10;
+	            sum += temp*temp;
+	            n = n/10;
+	        }
+	        return sum;
+	    }
 	
 	
 }
