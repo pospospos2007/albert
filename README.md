@@ -1,7 +1,7 @@
 # <a href="http://albert6.com:9999/">Albert</a>
 my personal website 
 
-# 部署方法（过段时间编写一下详细的部署文档）
+# 部署方法
 
 首先下载4个服务，不下载也可以正常部署项目，但是一些功能无法使用，https://pan.baidu.com/s/1jH72wDo
 
@@ -70,4 +70,6 @@ my personal website
 24.Live2D
 
 25.Leetcode
+
+#我目前在准备美国留学的事宜，所以暂时不会有心的功能和完善。但是会把自己的做的Leetcode更新上来
 
