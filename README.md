@@ -71,5 +71,3 @@ my personal website
 
 25.Leetcode
 
-#我目前在准备美国留学的事宜，所以暂时不会有新的功能和完善。但是会把自己的做的Leetcode更新上来
-
