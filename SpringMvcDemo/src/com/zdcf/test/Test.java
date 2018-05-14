@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.facepp.error.FaceppParseException;
-import com.facepp.http.HttpRequests;
-import com.facepp.http.PostParameters;
 import com.zdcf.dto.FaceAttributeDTO;
 
 

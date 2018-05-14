@@ -31,21 +31,21 @@
 						<textarea  name="content" id="contentID" editFlag='init' style="width:700px;height:300px;"></textarea>
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="" class="col-sm-2 control-label">via:</label>
-					<input name="via" type="text" id="via" value="" />
-				</div>
+<!-- 				<div class="form-group"> -->
+<!-- 					<label for="" class="col-sm-2 control-label">via:</label> -->
+<!-- 					<input name="via" type="text" id="via" value="" /> -->
+<!-- 				</div> -->
 
             </table>
-				<div class="form-group">
-				<h3><label for="user" class="input-tips2">验证码：</label>
-					<div class="inputOuter2">
-						<img src="<%=path%>/message/tuXingYanZhengMa" title="看不清，点击换一张"
-							onClick="this.src=this.src+'?'" />
-					</div>
-				</h3>
-                	<input name="code" type="text"  autofocus placeholder="请输入验证码" />
-                </div>
+<!-- 				<div class="form-group"> -->
+<!-- 				<h3><label for="user" class="input-tips2">验证码：</label> -->
+<!-- 					<div class="inputOuter2"> -->
+<%-- 						<img src="<%=path%>/message/tuXingYanZhengMa" title="看不清，点击换一张" --%>
+<!-- 							onClick="this.src=this.src+'?'" /> -->
+<!-- 					</div> -->
+<!-- 				</h3> -->
+<!--                 	<input name="code" type="text"  autofocus placeholder="请输入验证码" /> -->
+<!--                 </div> -->
                 
             <input type="submit" value="发表" />
             

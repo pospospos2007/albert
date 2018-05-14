@@ -26,7 +26,6 @@ import lombok.extern.log4j.Log4j;
 public class AirticleAction extends BaseAction {
 
 	
-
 	@Resource
 	private AirticleService airticleService;
 

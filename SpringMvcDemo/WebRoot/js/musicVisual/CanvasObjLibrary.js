@@ -1142,7 +1142,7 @@ function newCOL() {
 				1000 / linear.hz);
 				return linear;
 			},
-			continue: function(linear) {
+		 continue: function(linear) {
 				if (!linear.i) {
 					linear.i = setInterval(function() {
 						linear.c++;

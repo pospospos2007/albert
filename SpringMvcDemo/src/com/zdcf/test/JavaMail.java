@@ -52,10 +52,14 @@ public class JavaMail {
 //        InputStream in = JavaMail.class.getResourceAsStream("MailServer.properties");
        
 //            properties.load(in);
-            this.host = "smtp.qq.com";
+//            this.host = "smtp.qq.com";
+            this.host = "smtp.gmail.com";
+            
             this.port=587;
-            this.sender_username = "497603778@qq.com";
-            this.sender_password ="cxksiyvwxerubicf";
+//            this.sender_username = "497603778@qq.com";
+//            this.sender_password ="cxksiyvwxerubicf";
+            this.sender_username = "pospospos2007@gmail.com";
+            this.sender_password ="";
             
 //            Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
 //            properties.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketF");
@@ -126,7 +130,7 @@ public class JavaMail {
     public static void main(String[] args) {
 //    	for(int i=0;i<100;i++){
     		JavaMail se = new JavaMail(true);
-            se.doSendHtmlEmail("邮件主题", "邮件内容", "497603778@qq.com");
+            se.doSendHtmlEmail("邮件主题1", "邮件内容", "497603778@qq.com");
 //    	}
         
     }

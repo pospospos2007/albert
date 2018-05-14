@@ -11,6 +11,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -23,6 +24,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.http.HttpEntity;
@@ -44,6 +46,7 @@ import com.google.common.cache.LoadingCache;
 import com.google.common.cache.RemovalListener;
 import com.google.common.cache.RemovalNotification;
 import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import com.zdcf.base.Constants;
 import com.zdcf.dto.ZhihuDTO;
@@ -816,25 +819,30 @@ public class UnitTest extends BaseService {
         System.out.println("harry value:"+cahceBuilder.get("harry"));
     }
 	
-	@Test
-    public void testcallableCache()throws Exception{
-        Cache<String, String> cache = CacheBuilder.newBuilder().maximumSize(1000).build();  
-        String resultVal = cache.get("jerry", new Callable<String>() {  
-            public String call() {  
-                String strProValue="hello "+"jerry"+"!";                
-                return strProValue;
-            }  
-        });  
-        System.out.println("jerry value : " + resultVal);
+//	@Test
+//    public void testcallableCache()throws Exception{
+//        Cache<String, String> cache = CacheBuilder.newBuilder().maximumSize(1000).build();  
+//        String resultVal = cache.get("jerry", new Callable<String>() {  
+//            public String call() {  
+//                String strProValue="hello "+"jerry"+"!";                
+//                return strProValue;
+//            }  
+//        });  
+//        System.out.println("jerry value : " + resultVal);
+//        
+//        resultVal = cache.get("peida", new Callable<String>() {  
+//            public String call() {  
+//                String strProValue="hello "+"peida"+"!";                
+//                return strProValue;
+//            }  
+//        });  
+//        System.out.println("peida value : " + resultVal);
         
-        resultVal = cache.get("peida", new Callable<String>() {  
-            public String call() {  
-                String strProValue="hello "+"peida"+"!";                
-                return strProValue;
-            }  
-        });  
-        System.out.println("peida value : " + resultVal);  
-    }
+//        @Test
+//        public  void basd(){
+//        	 ArrayList<String> list = Lists.newArrayList("America", "ABC", "CNN", "OK", "ASYNC");
+//             List<String> strings = list.stream().filter(e -> e.startsWith("A")).map(e -> e + " nice").collect(Collectors.toList());
+//        }
 	
 
 	

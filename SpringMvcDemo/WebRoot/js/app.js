@@ -79,7 +79,7 @@
 +function($, app) { "use strict";
 //翻页
 	$.fn.extend({
-	　　appPagination:function(){
+		appPagination:function(){
 		var elem = this;
 		elem.find('.pagination [data-page-number]').each(function() {
 			$(this).click(function(){

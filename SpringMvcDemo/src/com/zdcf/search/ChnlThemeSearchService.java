@@ -2,8 +2,6 @@ package com.zdcf.search;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -25,13 +23,10 @@ public class ChnlThemeSearchService extends BaseSearchService implements IChnlTh
 	@Autowired
 	private ChnlThemeRepository chnlThemeRepository;
 	
-//	@Resource(name="elasticsearchTemplate") // run一下，好
-//	private ElasticsearchTemplate elasticsearchTemplate;
-	
 	@Autowired 
 	private ElasticsearchTemplate elasticsearchTemplate;
 	
-	//前台用户的搜索  我对这个编译器不怎么熟悉，平时用的idea，这个类在哪，定位一下。。。在哪什么？这个是eclipse啊
+	//前台用户的搜索  
 	public List<ChnlThemeSearch> search(ThemeSearchParam param) {
 		SearchQuery searchQuery = new NativeSearchQueryBuilder()
 			    .withQuery(createQuery(param))

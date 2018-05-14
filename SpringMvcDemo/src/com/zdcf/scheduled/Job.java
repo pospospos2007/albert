@@ -3,6 +3,9 @@ package com.zdcf.scheduled;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -35,9 +38,10 @@ import com.zdcf.service.RobotService;
 import com.zdcf.service.TwitterMediaService;
 import com.zdcf.service.TwitterPostService;
 import com.zdcf.service.TwitterUserService;
+import com.zdcf.test.JavaMail;
+import com.zdcf.tool.DateUtil;
 import com.zdcf.tool.PageInfo;
 import com.zdcf.tool.ProxyUtil;
-import com.zdcf.tool.StringUtil;
 import com.zdcf.weibo.Config;
 
 import net.sf.json.JSONArray;
@@ -79,7 +83,7 @@ public class Job {
 	
 //	@Scheduled(cron = "1 0/1 * * * ? ")
 	@Scheduled(cron = "0 0 8,20 * * ? ")
-//	@Scheduled(cron = "* 0/1 * * * ? ")
+//	@Scheduled(cron = "1 0/1 * * * ? ")
 	public void execute() {
 		
 		JSONObject jsonObject = null;
@@ -250,21 +254,21 @@ public class Job {
 	}
 	
 //	@Scheduled(cron = "1 22 0/1 * * ? ")
-	@Scheduled(cron = "0 0 0 * * ? ")
-	public void addNewMovie(){
-		
-		System.out.println("获取新电影：");
-		PageInfo page = movieService.buildPage(1);//max 192
-		movieService.getPage(page);
-		
-	}
+//	@Scheduled(cron = "0 0 0 * * ? ")
+//	public void addNewMovie(){
+//		
+//		System.out.println("获取新电影：");
+//		PageInfo page = movieService.buildPage(1);//max 192
+//		movieService.getPage(page);
+//		
+//	}
 	
-//	@Scheduled(cron = "1 37 0/1 * * ? ")
+//	@Scheduled(cron = "1 14 0/1 * * ? ")
 //	public void addMovie(){
 //		
 //		for(int i=1;i<192;i++){
 //			System.out.println("页数："+i);
-//			PageInfo page = movieService.buildPage(i);//max 192
+//			PageInfo page = movieService.buildPage(i);//max 219
 //			movieService.getPage(page);
 //		}
 //	}
@@ -275,14 +279,13 @@ public class Job {
 //		messageService.storeAllZhihu();
 //	}
 
-//	@Scheduled(cron = "1 17 0/1 * * ? ")
-//	public void execute() throws ParseException {
+//	@Scheduled(cron = "1 31 0/1 * * ? ")
+//	public void execute2() throws ParseException {
 //		
-//		for(int m=0;m<1;m--){
+//		for(int m=0;m>=0;m++){
 //		DateFormat dateFormat2 = new SimpleDateFormat("yyyyMMdd");
 //		Date dateIndex = dateFormat2.parse("20151208");
-//		--i;
-//		Date day = DateUtil.addDays(dateIndex, -1+i);
+//		Date day = DateUtil.addDays(dateIndex, m);
 //		String dateString = DateUtil.dateToStr(day, DateUtil.TIMEDATE);
 //		System.out.println("日报："+dateString+":");
 //		
@@ -339,5 +342,14 @@ public class Job {
 //		
 //	}
 //	}
+	
+	
+	
+	//每天发邮件给没给我送到watch的人，催他处理订单
+	public void  sendMail(){
+		JavaMail se = new JavaMail(true);
+        se.doSendHtmlEmail("邮件主题1", "邮件内容", "497603778@qq.com");
+	}
+	
 	
 }

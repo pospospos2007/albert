@@ -27,7 +27,7 @@ public class InfoChangeListener implements MessageListener {
         ObjectMessage objMessage = (ObjectMessage) message;
         
         try {
-//        	logger.info("接受到信息，开始存储cache");
+        	logger.info("接受到信息，开始存储cache");
         	InfoChangeEvent msg = (InfoChangeEvent)objMessage.getObject();
             Cacheable obj = (Cacheable)msg.getObject();
             

@@ -2,8 +2,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <%@ include file="/include/head.jsp"%>
     <title><s:message code='laboratory.index'/></title>
- 
-
+<img src="http://www.visitormap.org/map/m:xtllkvjpycspifsb/s:1/c:ffffff/p:dot/y:0.png" >
 
       <div class="content">
 	  <li>多线程测试 ：<button onclick="testMutiThreads()">按这个按钮</button></li>

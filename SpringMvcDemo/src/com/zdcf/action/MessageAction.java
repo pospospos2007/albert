@@ -45,10 +45,9 @@ import com.zdcf.model.FileExchange;
 import com.zdcf.model.Message;
 import com.zdcf.model.Theme;
 import com.zdcf.model.User;
+import com.zdcf.search.IChnlThemeSearchService;
 import com.zdcf.search.IChnlZhihuSearchService;
 import com.zdcf.search.entity.ChnlZhihuSearch;
-//import com.zdcf.search.IChnlZhihuSearchService;
-//import com.zdcf.search.entity.ChnlZhihuSearch;
 import com.zdcf.search.param.ZhihuSearchParam;
 import com.zdcf.service.FileService;
 import com.zdcf.service.MessageService;
@@ -81,8 +80,8 @@ public class MessageAction extends BaseAction{
 	@Resource
 	private FileService fileService;
 	
-//	@Autowired
-//	private IChnlThemeSearchService themeSearchService;
+	@Autowired
+	private IChnlThemeSearchService themeSearchService;
 	
 	@Autowired
 	private IChnlZhihuSearchService zhihuSearchService;
@@ -101,12 +100,7 @@ public class MessageAction extends BaseAction{
 		pageVo = (PageVo<Map<String, Object>>) messageService.getThemeListPage(pageVo);
 		model.addAttribute("pageView", pageVo);
 		
-//		if(!isMobile()){
-			return "/message/themeListNew";
-//		}else{
-//			return "mobile/index";
-//		}
-		
+		return "/message/themeListNew";
 	}
 	
 	//手机端论坛主题分页
@@ -154,23 +148,23 @@ public class MessageAction extends BaseAction{
 	
 	
 	@RequestMapping(value ="/addTheme", method = RequestMethod.POST)
-	public String addAirticle(HttpServletRequest request,HttpServletResponse response,@RequestParam("theme")String theme,@RequestParam("content") String content,ModelMap model,@RequestParam("code") String code) throws UnsupportedEncodingException{
+	public String addAirticle(HttpServletRequest request,HttpServletResponse response,@RequestParam("theme")String theme,@RequestParam("content") String content,ModelMap model,@RequestParam(value = "code", required = false) String code) throws UnsupportedEncodingException{
 		
-		String realcode = request.getSession().getAttribute(Constants.SESSION_IMAGE_CODE).toString();
+//		String realcode = request.getSession().getAttribute(Constants.SESSION_IMAGE_CODE).toString();
 		
-		if(null==code||"".equals(code)||!code.equals(realcode)){
-			return "redirect:/message/getAllTheme"; 
-		}else{
-			
-			//验证成功后将session的验证码更新，防止再次使用此验证码发送主题
-			String valcode  = "";
-		       Random rd =  new Random();
-		       for(int i=0; i<4; i++)
-		           valcode+=rd.nextInt(10);
-		       // 把产生的验证码存入到Session中
-		       HttpSession  session = request.getSession();
-		       session.setAttribute(Constants.SESSION_IMAGE_CODE, valcode);
-		}
+//		if(null==code||"".equals(code)||!code.equals(realcode)){
+//			return "redirect:/message/getAllTheme"; 
+//		}else{
+//			
+//			//验证成功后将session的验证码更新，防止再次使用此验证码发送主题
+//			String valcode  = "";
+//		       Random rd =  new Random();
+//		       for(int i=0; i<4; i++)
+//		           valcode+=rd.nextInt(10);
+//		       // 把产生的验证码存入到Session中
+//		       HttpSession  session = request.getSession();
+//		       session.setAttribute(Constants.SESSION_IMAGE_CODE, valcode);
+//		}
 		
 		String ip = Tools.getNoHTMLString(StringFilter(getIpAddr(request)));
 		
@@ -235,22 +229,22 @@ public class MessageAction extends BaseAction{
 	
 	
 	@RequestMapping("/addMessage")
-	public String addMessage(HttpServletRequest request,HttpServletResponse response,@RequestParam("message")String message,@RequestParam("themeId")int themeId,@RequestParam("messageCode")String messageCode) throws UnsupportedEncodingException{
+	public String addMessage(HttpServletRequest request,HttpServletResponse response,@RequestParam("message")String message,@RequestParam("themeId")int themeId,@RequestParam(value = "messageCode", required = false)String messageCode) throws UnsupportedEncodingException{
 		
-		String realcode = request.getSession().getAttribute(Constants.SESSION_IMAGE_CODE).toString();
-		
-		if(null==messageCode||"".equals(messageCode)||!messageCode.equals(realcode)){
-			return "redirect:/message/getThemeDetail?id="+themeId;
-		}else{
-			//验证成功后将session的验证码更新，防止再次使用此验证码发送主题
-			String valcode  = "";
-	       Random rd =  new Random();
-	       for(int i=0; i<4; i++)
-	           valcode+=rd.nextInt(10);
-	       // 把产生的验证码存入到Session中
-	       HttpSession  session = request.getSession();
-	       session.setAttribute(Constants.SESSION_IMAGE_CODE, valcode);
-		}
+//		String realcode = request.getSession().getAttribute(Constants.SESSION_IMAGE_CODE).toString();
+//		
+//		if(null==messageCode||"".equals(messageCode)||!messageCode.equals(realcode)){
+//			return "redirect:/message/getThemeDetail?id="+themeId;
+//		}else{
+//			//验证成功后将session的验证码更新，防止再次使用此验证码发送主题
+//			String valcode  = "";
+//	       Random rd =  new Random();
+//	       for(int i=0; i<4; i++)
+//	           valcode+=rd.nextInt(10);
+//	       // 把产生的验证码存入到Session中
+//	       HttpSession  session = request.getSession();
+//	       session.setAttribute(Constants.SESSION_IMAGE_CODE, valcode);
+//		}
 		
 		String ip = Tools.getNoHTMLString(getIpAddr(request));
 		
@@ -342,26 +336,16 @@ public class MessageAction extends BaseAction{
 	       g.setColor(Color.GRAY);
 	       g.drawRect(0, 0, width-1, height-1);
 	       // 绘制验证码
-	       System.out.println("3-----------------------------");
 	       Font[] fonts = {new Font("Serif",Font.BOLD,28),new Font("Serif",Font.BOLD,28),new Font("Serif",Font.BOLD,28),new Font("Serif",Font.BOLD,18)};
-	       System.out.println("4-----------------------------");
 	       for(int i=0; i<length; i++){
-	    	   System.out.println("a-----------------------------");
 	           g.setColor(new Color(rd.nextInt(150),rd.nextInt(150),rd.nextInt(150)));
-	           System.out.println("b-----------------------------");
 	           g.setFont(fonts[rd.nextInt(fonts.length)]);
-	           System.out.println("c-----------------------------"+valcode.charAt(i));
 	           g.drawString(valcode.charAt(i)+"", width/valcode.length()*i+2, 28);
-	           System.out.println("d-----------------------------");
 	       }
-	       System.out.println("5-----------------------------");
 	       // 输出图像
 	       g.dispose();
-	       System.out.println("6-----------------------------");
 	       ImageIO.write(img, "jpeg", response.getOutputStream());
-	       System.out.println("7--------------------");
 		}catch(Exception e ){
-			System.out.println("8--------------------"+e.getMessage());
 			e.printStackTrace();
 		}
 
@@ -387,13 +371,14 @@ public class MessageAction extends BaseAction{
 //		pageVo = (PageVo<Map<String, Object>>) messageService.getZhihuArticleListPage(pageVo);
 //		model.addAttribute("pageView", pageVo);
 		
+		//下面是用es方式搜索 start
 		String currentPage =  "1";
 		if(null!=request.getParameter("currentPage")){
 			currentPage =request.getParameter("currentPage");
 		}
 		
 		searchParam.setI(Integer.valueOf(currentPage));
-		
+//		List<ChnlZhihuSearch> list = null;
 		List<ChnlZhihuSearch> list = zhihuSearchService.search(searchParam);
 		for (ChnlZhihuSearch chnlZhihuSearch : list) {
 			FileExchange fileExchange =fileService.getFileExchange(chnlZhihuSearch.getImages());
@@ -424,6 +409,8 @@ public class MessageAction extends BaseAction{
 				chnlZhihuSearch.setImages( fileExchange.getNewUrl());
 			}
 		}
+		
+		//上面是用es方式搜索  end
 		
 		model.addAttribute("list", list);
 		
@@ -459,6 +446,7 @@ public class MessageAction extends BaseAction{
 			searchParam.setS(5);
 			Map<String, Object> map = new HashMap<String, Object>();
 			List<ChnlZhihuSearch> list = zhihuSearchService.search(searchParam);
+//			List<ChnlZhihuSearch> list = null;
 			
 			map.put("list", list);
 			
