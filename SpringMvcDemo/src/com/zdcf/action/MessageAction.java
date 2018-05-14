@@ -150,21 +150,21 @@ public class MessageAction extends BaseAction{
 	@RequestMapping(value ="/addTheme", method = RequestMethod.POST)
 	public String addAirticle(HttpServletRequest request,HttpServletResponse response,@RequestParam("theme")String theme,@RequestParam("content") String content,ModelMap model,@RequestParam(value = "code", required = false) String code) throws UnsupportedEncodingException{
 		
-//		String realcode = request.getSession().getAttribute(Constants.SESSION_IMAGE_CODE).toString();
+		String realcode = request.getSession().getAttribute(Constants.SESSION_IMAGE_CODE).toString();
 		
-//		if(null==code||"".equals(code)||!code.equals(realcode)){
-//			return "redirect:/message/getAllTheme"; 
-//		}else{
-//			
-//			//验证成功后将session的验证码更新，防止再次使用此验证码发送主题
-//			String valcode  = "";
-//		       Random rd =  new Random();
-//		       for(int i=0; i<4; i++)
-//		           valcode+=rd.nextInt(10);
-//		       // 把产生的验证码存入到Session中
-//		       HttpSession  session = request.getSession();
-//		       session.setAttribute(Constants.SESSION_IMAGE_CODE, valcode);
-//		}
+		if(null==code||"".equals(code)||!code.equals(realcode)){
+			return "redirect:/message/getAllTheme"; 
+		}else{
+			
+			//验证成功后将session的验证码更新，防止再次使用此验证码发送主题
+			String valcode  = "";
+		       Random rd =  new Random();
+		       for(int i=0; i<4; i++)
+		           valcode+=rd.nextInt(10);
+		       // 把产生的验证码存入到Session中
+		       HttpSession  session = request.getSession();
+		       session.setAttribute(Constants.SESSION_IMAGE_CODE, valcode);
+		}
 		
 		String ip = Tools.getNoHTMLString(StringFilter(getIpAddr(request)));
 		
@@ -231,20 +231,20 @@ public class MessageAction extends BaseAction{
 	@RequestMapping("/addMessage")
 	public String addMessage(HttpServletRequest request,HttpServletResponse response,@RequestParam("message")String message,@RequestParam("themeId")int themeId,@RequestParam(value = "messageCode", required = false)String messageCode) throws UnsupportedEncodingException{
 		
-//		String realcode = request.getSession().getAttribute(Constants.SESSION_IMAGE_CODE).toString();
-//		
-//		if(null==messageCode||"".equals(messageCode)||!messageCode.equals(realcode)){
-//			return "redirect:/message/getThemeDetail?id="+themeId;
-//		}else{
-//			//验证成功后将session的验证码更新，防止再次使用此验证码发送主题
-//			String valcode  = "";
-//	       Random rd =  new Random();
-//	       for(int i=0; i<4; i++)
-//	           valcode+=rd.nextInt(10);
-//	       // 把产生的验证码存入到Session中
-//	       HttpSession  session = request.getSession();
-//	       session.setAttribute(Constants.SESSION_IMAGE_CODE, valcode);
-//		}
+		String realcode = request.getSession().getAttribute(Constants.SESSION_IMAGE_CODE).toString();
+		
+		if(null==messageCode||"".equals(messageCode)||!messageCode.equals(realcode)){
+			return "redirect:/message/getThemeDetail?id="+themeId;
+		}else{
+			//验证成功后将session的验证码更新，防止再次使用此验证码发送主题
+			String valcode  = "";
+	       Random rd =  new Random();
+	       for(int i=0; i<4; i++)
+	           valcode+=rd.nextInt(10);
+	       // 把产生的验证码存入到Session中
+	       HttpSession  session = request.getSession();
+	       session.setAttribute(Constants.SESSION_IMAGE_CODE, valcode);
+		}
 		
 		String ip = Tools.getNoHTMLString(getIpAddr(request));
 		
