@@ -1,3 +1,237 @@
+linux 非root用户部署文档
+特别注意在部署之前你编译的代码在部署上去后有些功能会报错：
+ Name for argument type [java.lang.String] not available
+那是因为有些请求参数的在代码是debug级别的，linux中会忽略这些，导致找不到方法，这个巨坑(相信有经验的朋友都知道)，解决办法是
+在你的IDE，右击项目修改Java compiler——》选中Add variable attributes to generated class files(used by debugger)
+这样生成的字节码就不会有问题了
+1.jdk8
+tar xzfv jdk-8u161-linux-x64.tar.gz
+
+vi .bash_profile  或者 vim .bash_profile  (注： vi和vim指令基本一样)
+使用以下内容修改文件
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+
+# User specific environment and startup programs
+JAVA_HOME=/home/liwenqiang/jdk1.8.0_161
+CLASSPATH=$JAVA_HOME/lib:$JAVA_HOME/jre/lib
+PATH=$PATH:$JAVA_HOME/bin:$JAVA_HOME/jre/bin
+export PATH CLASSPATH JAVA_HOME
+
+
+使配置生效：
+source ~/.bash_profile
+java -version
+2.tomcat
+
+
+3安装mysql
+
+wget http://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.17.tar.gz
+
+3.1安装cmake（非root老老实实叫管理员安装，不然很麻烦，这里不作介绍了）
+3.2配置mysql
+mkdir -p ~/local/mysql
+
+
+cmake -DCMAKE_INSTALL_PREFIX=/home/liwenqiang/local/mysql
+ -DMYSQL_DATADIR=/home/liwenqiang/local/mysql/data
+  -DMYSQL_TCP_PORT=8501
+   -DMYSQL_UNIX_ADDR=/home/liwenqiang/local/mysql/data/mysqld.sock
+    -DMYSQL_USER=mysql
+     -DDEFAULT_CHARSET=utf8
+      -DDEFAULT_COLLATION=utf8_general_ci
+       -DEXTRA_CHARSETS=all -DWITH_READLINE=1 -DWITH_EMBEDDED_SERVER=1
+        -DENABLED_LOCAL_INFILE=1 -DWITH_INNOBASE_STORAGE_ENGINE=1
+        
+cmake  -DCMAKE_INSTALL_PREFIX=/home/liwenqiang/local/mysql -DMYSQL_DATADIR=/home/liwenqiang/local/mysql/data -DDEFAULT_CHARSET=utf8  -DDEFAULT_COLLATION=utf8_general_ci -DMYSQL_UNIX_ADDR=/home/liwenqiang/tmp/mysqld.sock -DWITH_INNOBASE_STORAGE_ENGINE=1
+
+
+
+在运行上面指令后，往往有可能会报错，如果有报：Curses library not found.  Please install appropriate package,
+则需要安装ncurses-devel，通过以下指令安装：
+yum install ncurses-devel
+
+（如果上面yum提示还没有yum指令的话，叫管理员装吧，我这里演示的都是没有root权限而且没有sudo权限的安装部署的流程）
+
+然后清理 CMakeCache.txt 重新cmake
+rm CMakeCache.txt
+
+再重新运行上面cmake的指令
+cmake  -DCMAKE_INSTALL_PREFIX=/home/liwenqiang/local/mysql -DMYSQL_DATADIR=/home/liwenqiang/local/mysql/data -DDEFAULT_CHARSET=utf8  -DDEFAULT_COLLATION=utf8_general_ci -DMYSQL_UNIX_ADDR=/home/liwenqiang/tmp/mysqld.sock -DWITH_INNOBASE_STORAGE_ENGINE=1
+
+接下来编译和安装，如果嫌弃编译时间太漫长，建议开启多核处理器编译，比如：make -j3  数字代表核心数量 cat /proc/cpuinfo可以查询核心数量
+make;make install
+
+3.3配置启动
+/home/liwenqiang/local/mysql/scripts/mysql_install_db --user=liwenqiang --basedir=/home/liwenqiang/local/mysql --datadir=/home/liwenqiang/local/mysql/data --no-defaults
+或者：
+/home/liwenqiang/local/mysql/scripts/mysql_install_db --defaults-file=/home/liwenqiang/local/mysql/my.cnf --datadir=/home/liwenqiang/local/mysql/data/ --basedir=/home/liwenqiang/local/mysql/
+启动：
+cd . ; /home/liwenqiang/local/mysql/bin/mysqld_safe
+登录：
+/home/liwenqiang/local/mysql/bin/mysqladmin -u root password '123456'
+或者
+cd /home/liwenqiang/local/mysql/bin/
+./mysql -uroot -p
+123456
+
+3.4新建用户并且允许外网访问
+show databases;
+use mysql;
+CREATE USER 'liwenqiang'@'%' IDENTIFIED BY '123456';
+CREATE USER 'liwenqiang'@'localhost' IDENTIFIED BY '123456';
+GRANT ALL ON *.* TO 'liwenqiang'@'%';
+GRANT ALL ON *.* TO 'liwenqiang'@'localhost';
+select host, user from user where user='liwenqiang';
+
+grant all privileges on *.* to liwenqiang@localhost identified by '123456' with grant option;
+flush privileges;
+
+3.5修改密码
+use mysql;
+UPDATE mysql.user SET password=PASSWORD('newPassword') WHERE User='root';
+UPDATE mysql.user SET password=PASSWORD('newPassword') WHERE User='liwenqiang';
+FLUSH PRIVILEGES;
+
+3.5  新建数据库 albert 编码 utf-mb8 并且执行项目的脚本文件  albert.sql （项目中doc包下能找到，不详细写了）
+
+
+3.6 对于已经系统默认安装了mysql 5.7但是没有初始化的来说：
+创建datadir文件夹
+cd /home/liwenqiang
+mkdir mysql
+cd mysql
+mkdir data
+mkdir mysql-log
+mkdir tmp
+cd mysql-log
+vim mysql.err
+:wq
+cd /home/liwenqiang/mysql
+mkdir share
+cd share 
+vim errmsg.sys
+:wq
+可以是使用下面命令查看my.conf默认是指定在哪里，如果没有就创建，默认读取结果集的最前面的那个配置
+ps aux|grep mysql|grep 'my.cnf'
+创建或者修改my.conf文件在home/liwenqiang/mysql/.my.conf,内容如下
+[client]
+socket=/home/liwenqiang/mysql/mysql.sock
+[mysqld]
+socket=/home/liwenqiang/mysql/mysql.sock
+user=view
+basedir=/home/liwenqiang/mysql
+datadir=/home/liwenqiang/mysql/data
+log-error=/home/liwenqiang/mysql/mysql-log/mysql.err
+tmpdir=/home/liwenqiang/mysql/tmp
+pid-file=/home/liwenqiang/mysql/mysql.pid
+[mysqld_safe]
+pid-file=/home/liwenqiang/mysql/mysql.pid
+socket=/home/liwenqiang/mysql/mysql.sock
+user=view
+basedir=/home/liwenqiang/mysql
+datadir=/home/liwenqiang/mysql/data
+log-error=/home/liwenqiang/mysql/mysql-log/mysql.err
+tmpdir=/home/liwenqiang/mysql/tmp
+初始化
+./mysqld --initialize --datadir=/home/liwenqiang/mysql/data --user=view
+注意看mysql.err日志有显示临时的密码
+启动
+../bin/mysqld --defaults-file=/home/liwenqiang/mysql/my.cnf --port=3306
+打开另一个终端窗口登陆数据库
+./mysql -uroot -p -S /home/liwenqiang/mysql/mysql.sock
+输入临时密码后修改密码：
+alter user 'root'@'localhost' identified by 'newPassword';
+
+4.部署基础项目应用
+
+5.安装启动svn
+安装
+sudo apt-get install subversion subversion-tools
+mkdir /home/liwenqiang/svn
+mkdir /home/liwenqiang/svn/repository
+chmod -R 777 /home/liwenqiang/svn/repository/
+创建SVN版本库
+svnadmin create /home/liwenqiang/svn/repository/
+chmod -R 777 /home/liwenqiang/svn/repository/db
+
+修改配置文件conf/svnserve.conf
+去掉以下内容的“#”(所有的行都必须顶格，否则报错)：
+anon-access = read
+auth-access = write
+password-db = passwd
+
+添加访问用户：
+vi passwd
+
+添加:
+lwq=123456
+
+设置用户权限:
+vi authz
+在“[goups]”添加内容:
+#用户lwq属于admin权限组
+admin = lwq
+#admin权限组的权限是读和写
+@admin = rw
+#所有的组都具有读权限
+* = r
+
+
+启动
+svnserve -d -r /home/liwenqiang/svn/
+
+停止：
+killall svnserve
+
+访问地址：
+svn://albert6.com/repository
+
+
+6安装启动zookeeper
+上传使用提供的zookeper，解压
+6.1修改zoo.cfg文件
+修改dataDir和dataLogDir路径为/home/liwenqiang/ 后面。。。。省略
+6.2启动
+./zkServer.sh start
+
+7.安装启动activemq
+上传使用提供的activemq，解压
+然后直接就能启动了
+./activemq start
+
+8.安装启动elasticseach
+上传使用提供的elasticseach，解压，
+修改conf目录下的elasticsearch.yml文件，只要换行加上这个内容（注意前面有空格）：
+ cluster.name: albert-es
+启动
+./elasticsearch -d
+
+9.安装启动redis
+wget http://download.redis.io/releases/redis-3.2.6.tar.gz
+修改生成redis服务目录
+mkdir redis
+cd redis3.2.6/src
+vim Makefile
+修改prefox路径就可以了
+
+进入redis目录编译测试
+make test
+然后编译安装
+make install
+
+启动
+./redis-server &
+
+
+
+
+-------------------------------------------------
 1.安装部署启动 redis3.0.1  windows或者linux版本
 
 2.安装部署启动 zookeeper  windows或者linux
