@@ -1,0 +1,12 @@
+eclipse.preferences.version=1
+encoding//WebRoot/WEB-INF/jsp/game/kofWing.jsp=UTF-8
+encoding//WebRoot/WEB-INF/jsp/index/calendar.jsp=UTF-8
+encoding//WebRoot/WEB-INF/jsp/lab/draw.jsp=UTF-8
+encoding//src/com/zdcf/config/config.properties=UTF-8
+encoding//src/com/zdcf/test/AesTest.java=UTF-8
+encoding//src/com/zdcf/tool/Aes.java=UTF-8
+encoding//src/com/zdcf/tool/Md5.java=UTF-8
+encoding//src/i18n/message.properties=UTF-8
+encoding//src/i18n/message_zh_CN.properties=GBK
+encoding//src/log4j.properties=UTF-8
+encoding/<project>=UTF-8

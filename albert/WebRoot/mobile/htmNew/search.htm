@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="format-detection" content="telphone=no,email=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-title" content="标题">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="MobileOptimized" content="240"/>	
+<link rel="apple-touch-icon" href="images/logo.zd.jpg"> 
+<title>搜索_智典财富</title>
+<meta name="keywords" content="html5, css3, 关键字"/> 
+<meta name="description" content="不超过150个字符"/>   
+<meta name="author" content="魔法小栈"/>
+<link href="style/style.css" rel="stylesheet" type="text/css" media="all"/>
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+
+</head>
+
+<body style="background:#ffffff">
+
+ <div class="login search_t">
+	 <h2><a href="index.htm" title="返回" class="fl"><img src="images/poi_lt.jpg"/></a>搜索</h2>
+	</div>   
+	<div class="search_c tc"><form action="" method="post">
+
+		<img src="images/search_ban.jpg" style="margin:10px auto 0;width:59%"/>  
+			<dl>
+			 <dd><b><img src="images/poi_gt.jpg"/></b><span>项目金额</span><i>全部</i></dd>
+			 <dd><b><img src="images/poi_gt.jpg"/></b><span>项目状态</span><i>全部</i></dd>
+			 <dd><b><img src="images/poi_gt.jpg"/></b><span>投资期限</span><i>全部</i></dd>
+			 <dd style="border-bottom:none"><b><img src="images/poi_gt.jpg"/></b><span>预计效益</span><i>全部</i></dd>
+			</dl>
+			<a href="search_res.htm"><div class="login_f_btn">搜索项目</div></a>
+			</form>
+	</div> 
+
+    <div class="theme-popove">
+     <ul><li class="default">全部</li>
+	 <li>10万以下</li>
+	 <li>10-20万</li>
+	 <li>20-50万</li><li>50万以上</li></ul>
+	 
+	 <ul><li class="default">全部</li>
+	 <li>未开始</li>
+	 <li>投标中</li>
+	 <li>满标</li>
+	 <li>还款中</li></ul>
+	 
+	 <ul><li class="default">全部</li>
+	 <li>1一个月以下</li>
+	 <li>1-6个月</li>
+	 <li>6-12个月</li>
+	 <li>12-18个月</li></ul>
+	 
+	 <ul><li class="default">全部</li>
+	 <li>10%以下</li>
+	 <li>10%-12%</li>
+	 <li>12%-15%</li>
+	 <li>15-18%%</li></ul>
+
+	</div>
+
+	<div class="theme-popover"><div class="theme-poptit"><a href="javascript:;" title="关闭" class="close">×</a>提示</div><p>请选择投资金额</p></div>
+	
+	<div class="theme-popove-c"><p>取消</p></div>
+
+	<div class="theme-popover-mask"></div>
+
+<script>
+	jQuery(document).ready(function($) {
+		$('.search_c dl > dd').click(function(){
+			$('.theme-popover-mask').fadeIn(100);$('.theme-popove-c').fadeIn(100);
+			var index = $('.search_c dl dd').index(this);
+			$('.theme-popove > ul').eq(index).slideDown(200).siblings().hide();
+		});
+		
+		$('.theme-popove > ul li').click(function(){
+			$('.theme-popover-mask').fadeOut(100);$('.theme-popove-c').fadeOut(100);
+			$('.theme-popove > ul').slideUp(200);
+			$('.search_c dl dd i').eq($('.theme-popove ul').index($(this).parent())).html($(this).text());
+			if ($('.theme-popove > ul li').index(this) % 5 > 0) $('.search_c dl dd i').eq($('.theme-popove ul').index($(this).parent())).attr('style','color:red')
+			else $('.search_c dl dd i').eq($('.theme-popove ul').index($(this).parent())).attr('style','color:#656565');
+		});
+		
+		$('.theme-popove-c p').click(function(){
+			$('.theme-popove-c').fadeOut(100);$('.theme-popove > ul').slideUp(200);
+			$('.theme-popover-mask').fadeOut(100);
+			$('.theme-popover').slideUp(200);
+		});
+
+		$('.theme-poptit .close').click(function(){
+			$('.theme-popover-mask').fadeOut(100);
+			$('.theme-popover').slideUp(200);
+	})
+
+})
+</script>
+    
+</body></html>

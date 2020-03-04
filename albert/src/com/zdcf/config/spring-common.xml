@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+                
+	<!-- 1. 数据源 : DriverManagerDataSource 
+	
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:config/jdbc.properties" />
+	</bean>
+	
+	-->
+	
+	<context:property-placeholder location="classpath:com/zdcf/config/config.properties" />
+	
+	<bean id="redisCacheService" class="com.zdcf.service.Impl.RedisCacheService"></bean>
+	
+	<dubbo:application name="albert" owner="yinhe" organization="yinhe"/>
+	
+	 <!-- 使用multicast广播注册中心暴露服务地址   
+    <dubbo:registry address="multicast://224.5.6.7:1234,224.5.6.8:1234" />-->  
+    
+    <!-- 使用zookeeper注册中心暴露服务地址 --> 
+    <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
+	
+	<dubbo:protocol name="dubbo" serialization="kryo" port="20880"/>
+    
+    <dubbo:protocol name="rest" port="20881" threads="500" contextpath="services" server="tomcat" accepts="500" extension="com.alibaba.dubbo.rpc.protocol.rest.support.LoggingFilter"/>
+    
+    
+	<bean  
+    	class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">  
+    <property name="messageConverters">  
+        <list>  
+            <bean  
+                class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />  
+        </list>  
+    </property>  
+	</bean> 
+	
+	
+	<!-- 1.数据源配置  使用c3p0-->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close"> 
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/albert?useUnicode=yes&amp;characterEncoding=utf-8" />
+		<property name="user" value="root" />
+		<property name="password" value="123456" />
+		<property name="minPoolSize" value="10" />
+		<property name="maxPoolSize" value="15" />
+		<property name="maxIdleTime" value="5" />
+		<property name="acquireIncrement" value="5" />
+		<property name="maxStatements" value="0" />
+		<property name="initialPoolSize" value="10" />
+		<property name="idleConnectionTestPeriod" value="1" />
+	</bean>
+	
+	
+	
+	
+	<!-- 2. mybatis的SqlSession的工厂: SqlSessionFactoryBean dataSource:引用数据源   使用xml形式-->
+<!-- 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> -->
+<!-- 		<property name="dataSource" ref="dataSource"></property> -->
+<!-- 		<property name="configLocation" value="classpath:com/zdcf/config/mybatis-config.xml" />  -->
+<!-- 	</bean> -->
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:com/zdcf/mapper/*.java</value>
+				<value>classpath:com/zdcf/dao/mapper/*.xml</value>
+				<value>classpath:com/zdcf/dao/customize/mapper/*.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 3. mybatis自动扫描加载接口,basePackage:指定sql接口所在的包（自动扫描） -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.zdcf.mapper,com.zdcf.dao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+
+	<!-- 4. 事务管理 : DataSourceTransactionManager dataSource:引用上面定义的数据源  -->
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<!-- 5. 使用声明式事务 transaction-manager：引用上面定义的事务管理器 -->
+	<tx:annotation-driven transaction-manager="txManager" />
+	
+	<!-- 6.启用文件上传功能 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+	
+	<bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper">
+	</bean>
+
+    <bean id="redisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxIdle" value="${redis.maxIdle}" />
+		<property name="maxTotal" value="${redis.maxActive}" />
+		<property name="maxWaitMillis" value="${redis.maxWait}" />
+		<property name="testOnBorrow" value="${redis.testOnBorrow}" />
+	</bean>
+
+	<bean id="redisConnectionFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		p:host-name="${redis.host}" p:port="${redis.port}" p:password="${redis.pass}"
+		p:pool-config-ref="redisPoolConfig" />
+
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+		<property name="connectionFactory" ref="redisConnectionFactory" />
+		<property name="keySerializer">
+			<bean class="org.springframework.data.redis.serializer.StringRedisSerializer"></bean>
+		</property>
+		<property name="valueSerializer">
+			<bean class="org.springframework.data.redis.serializer.StringRedisSerializer"></bean>
+		</property>
+	</bean>
+
+	<bean id="jmsTargetConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="tcp://localhost:61616" />
+	</bean>
+	<bean id="jmsPooledConnectionFactory" class="org.apache.activemq.jms.pool.PooledConnectionFactory">
+		<property name="connectionFactory" ref="jmsTargetConnectionFactory" />
+		<property name="maxConnections" value="50" />
+	</bean>
+	<bean id="jmsConnectionFactory"
+		class="org.springframework.jms.connection.CachingConnectionFactory">
+		<property name="targetConnectionFactory" ref="jmsPooledConnectionFactory" />
+	</bean>
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="jmsConnectionFactory" />
+	</bean>
+ 
+	<!--ES以及redis缓存队列目标 -->
+	
+	<bean id="infoChangeQueue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg>
+			<value>InfoChangeQueue</value>
+		</constructor-arg>
+	</bean>
+	
+	<!-- 如果要使用es、消息队列和redis，请放开下面2个配置 start-->
+	<!-- ES以及redis缓存消息监听器 -->
+	<bean id="infoChangeListener" class="com.zdcf.jms.InfoChangeListener" /> 
+
+	<!-- 消息监听容器 -->
+	 <bean id="jmsContainer"
+		class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="jmsConnectionFactory" />
+		<property name="destination" ref="infoChangeQueue" />
+		<property name="messageListener" ref="infoChangeListener" />
+	</bean>
+	<!--  end-->
+	
+<!-- 	<bean id="messageSource" -->
+<!-- 		class="org.springframework.context.support.ResourceBundleMessageSource"> -->
+<!-- 		<property name="basenames"> -->
+<!-- 			<list> -->
+<!-- 				<value>messages</value> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+
+	<!-- 消息和国际化 -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>messages</value>
+				<value>classpath:i18n/message</value>
+				<value>classpath:i18n/validationErrors</value>
+			</list>
+		</property>
+		<property name="useCodeAsDefaultMessage" value="false"/>  
+        <property name="defaultEncoding" value="UTF-8"/>  
+        <property name="cacheSeconds" value="60"/> 
+	</bean>
+	
+	<!-- 	解析用户区域 -->
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+	</bean>
+                    
+<!--      <dubbo:protocol name="rest" port="8888" threads="500" contextpath="services" server="tomcat" accepts="500" -->
+<!--      extension="com.alibaba.dubbo.rpc.protocol.rest.support.LoggingFilter"/> -->
+	
+<!--     <dubbo:reference id="idService" interface="com.barlolo.rpc.id.IdService" timeout="5000"/>  -->
+
+	<context:component-scan base-package="com.zdcf"/> 
+	
+
+</beans>

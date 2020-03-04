@@ -1,0 +1,129 @@
+@charset "utf-8";
+/* CSS reset */
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td {
+    margin: 0;
+    padding: 0;
+}
+
+fieldset, img {
+    border: 0;
+}
+
+/* remember to define focus styles! */
+:focus {
+    outline: 0;
+}
+
+address, caption, cite, code, dfn, em, var, optgroup {
+    font-style: normal;
+    font-weight: normal;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+    font-weight: normal;
+}
+
+abbr, acronym {
+    border: 0;
+    font-variant: normal;
+}
+
+input, button, textarea, select, optgroup, option {
+    font-family: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+}
+
+code, kbd, samp, tt {
+    font-size: 100%;
+}
+
+/*@purpose To enable resizing for IE */
+/*@branch For IE6-Win
+ * n, IE7-Win */
+input, button, textarea, select { *font-size:
+    100%;
+}
+
+ol, ul, li {
+    list-style: none;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+    text-align: left;
+}
+/* remember to highlight anchors and inserts somehow! */
+a {
+    color: #555555;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+:link,:visited,ins {
+    text-decoration: none;
+}
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+    content: '';
+    content: none;
+}
+blockquote{
+	border-left: 4px solid #F2F2F2;
+    padding-left: 15px;
+}
+img, input, select {
+    vertical-align: middle
+}
+
+/* clear float
+ --------------------------------------*/
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.clearfix {
+    display: inline-block;
+}
+
+/* Hides from IE-mac \*/ * html .clearfix {
+    height: 1%;
+}
+
+.clearfix {
+    display: block;
+}
+
+/* End hide from IE-mac */
+.clear {
+	clear: both;
+}
+.clear-all{
+    clear: both;
+ 	height: 0;
+ 	width: 0;
+ 	overflow: hidden; 
+ 	padding: 0;
+ 	margin: 0;  	
+}
+button[type=submit],button[type=reset],button[type=button],input[type=submit],input[type=reset],input[type=button]{*filter:chroma(color=#000000);}
+/*base float*/
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+/* Reset end*/

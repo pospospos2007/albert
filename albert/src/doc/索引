@@ -1,0 +1,3 @@
+create index idx_twittermedia_postid on twitter_media(post_id);
+
+create index idx_twitterpost_userid on twitter_post(user_id);
